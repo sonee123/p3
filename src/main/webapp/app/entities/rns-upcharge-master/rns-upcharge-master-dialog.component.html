@@ -1,0 +1,70 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsUpchargeMasterLabel">Create or edit a Upcharge Master</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsUpchargeMaster.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsUpchargeMaster.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_description">Description</label>
+            <input type="text" class="form-control form-control-sm" name="description" maxlength="255" id="field_description"
+                [(ngModel)]="rnsUpchargeMaster.description" required maxlength="255"/>
+            <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_flag">Flag</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" name="flag" id="field_flag"
+                [(ngModel)]="rnsUpchargeMaster.flag" required maxlength="1">
+                <option value="Y">Active</option>
+                <option value="N">Inactive</option>
+            </select>
+            <div [hidden]="!(editForm.controls.flag?.dirty && editForm.controls.flag?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.flag?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.flag?.errors?.maxlength">
+                   This field cannot be longer than 1 characters.
+                </small>
+            </div>
+        </div>
+        <!--div class="form-group">
+            <label class="form-control-label" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control form-control-sm" name="createdBy" id="field_createdBy"
+                [(ngModel)]="rnsUpchargeMaster.createdBy" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createdDate">Created Date</label>
+            <div class="d-flex">
+                <input id="field_createdDate" type="datetime-local" class="form-control form-control-sm" name="createdDate" [(ngModel)]="rnsUpchargeMaster.createdDate"
+                />
+            </div>
+        </div-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

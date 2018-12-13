@@ -1,0 +1,71 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsQuotationDealTermsLabel">Create or edit a Rns Quotation Deal Terms</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsQuotationDealTerms.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsQuotationDealTerms.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_completionBy">Completion By</label>
+            <div class="input-group">
+                <input id="field_completionBy" type="text" class="form-control form-control-sm" name="completionBy" ngbDatepicker  #completionByDp="ngbDatepicker" [(ngModel)]="rnsQuotationDealTerms.completionBy"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="completionByDp.toggle()"><fa-icon [icon]="'calendar'"></fa-icon></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_validUntil">Valid Until</label>
+            <input type="number" class="form-control form-control-sm" name="validUntil" id="field_validUntil"
+                [(ngModel)]="rnsQuotationDealTerms.validUntil" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_deliverAt">Deliver At</label>
+            <input type="text" class="form-control form-control-sm" name="deliverAt" id="field_deliverAt"
+                [(ngModel)]="rnsQuotationDealTerms.deliverAt" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_text2">Text 2</label>
+            <input type="text" class="form-control form-control-sm" name="text2" id="field_text2"
+                [(ngModel)]="rnsQuotationDealTerms.text2" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_quotationDealTerms">Quotation Deal Terms</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_quotationDealTerms" name="quotationDealTerms" [(ngModel)]="rnsQuotationDealTerms.quotationDealTerms" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="rnsQuotationOption.id === rnsQuotationDealTerms.quotationDealTerms?.id ? rnsQuotationDealTerms.quotationDealTerms : rnsQuotationOption" *ngFor="let rnsQuotationOption of rnsquotations; trackBy: trackRnsQuotationById">{{rnsQuotationOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_paymentTerms">Payment Terms</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_paymentTerms" name="paymentTerms" [(ngModel)]="rnsQuotationDealTerms.paymentTerms" >
+              <!--   <option [ngValue]="null"></option> -->
+                <option [ngValue]="rnsPayTermsMasterOption.id === rnsQuotationDealTerms.paymentTerms?.id ? rnsQuotationDealTerms.paymentTerms : rnsPayTermsMasterOption" *ngFor="let rnsPayTermsMasterOption of rnspaytermsmasters; trackBy: trackRnsPayTermsMasterById">{{rnsPayTermsMasterOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_deliveryTerms">Delivery Terms</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_deliveryTerms" name="deliveryTerms" [(ngModel)]="rnsQuotationDealTerms.deliveryTerms" >
+               <!--  <option [ngValue]="null"></option> -->
+                <option [ngValue]="rnsDelPlaceMasterOption.id === rnsQuotationDealTerms.deliveryTerms?.id ? rnsQuotationDealTerms.deliveryTerms : rnsDelPlaceMasterOption" *ngFor="let rnsDelPlaceMasterOption of rnsdelplacemasters; trackBy: trackRnsDelPlaceMasterById">{{rnsDelPlaceMasterOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,103 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsQuotationVendorsLabel">Create or edit a Rns Quotation Vendors</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsQuotationVendors.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsQuotationVendors.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_paymentTerms">Payment Terms</label>
+            <input type="text" class="form-control form-control-sm" name="paymentTerms" id="field_paymentTerms"
+                [(ngModel)]="rnsQuotationVendors.paymentTerms" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_deliveryTerms">Delivery Terms</label>
+            <input type="text" class="form-control form-control-sm" name="deliveryTerms" id="field_deliveryTerms"
+                [(ngModel)]="rnsQuotationVendors.deliveryTerms" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_expDelDate">Exp Del Date</label>
+            <input type="text" class="form-control form-control-sm" name="expDelDate" id="field_expDelDate"
+                [(ngModel)]="rnsQuotationVendors.expDelDate" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_confDelDate">Conf Del Date</label>
+            <input type="text" class="form-control form-control-sm" name="confDelDate" id="field_confDelDate"
+                [(ngModel)]="rnsQuotationVendors.confDelDate" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_currency">Currency</label>
+            <input type="text" class="form-control form-control-sm" name="currency" id="field_currency"
+                [(ngModel)]="rnsQuotationVendors.currency" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_regularRate">Regular Rate</label>
+            <input type="number" class="form-control form-control-sm" name="regularRate" id="field_regularRate"
+                [(ngModel)]="rnsQuotationVendors.regularRate" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_disRate">Dis Rate</label>
+            <input type="number" class="form-control form-control-sm" name="disRate" id="field_disRate"
+                [(ngModel)]="rnsQuotationVendors.disRate" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_expiryQty">Expiry Qty</label>
+            <input type="text" class="form-control form-control-sm" name="expiryQty" id="field_expiryQty"
+                [(ngModel)]="rnsQuotationVendors.expiryQty" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_quoteQty">Quote Qty</label>
+            <input type="text" class="form-control form-control-sm" name="quoteQty" id="field_quoteQty"
+                [(ngModel)]="rnsQuotationVendors.quoteQty" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_awardQty">Award Qty</label>
+            <input type="text" class="form-control form-control-sm" name="awardQty" id="field_awardQty"
+                [(ngModel)]="rnsQuotationVendors.awardQty" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_userId">User Id</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_userId" name="userId" [(ngModel)]="rnsQuotationVendors.userId" >
+                <!-- <option [ngValue]="null"></option> -->
+                <option [ngValue]="userOption.id === rnsQuotationVendors.userId?.id ? rnsQuotationVendors.userId : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_variant">Variant</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_variant" name="variant" [(ngModel)]="rnsQuotationVendors.variant" >
+                <!-- <option [ngValue]="null"></option> -->
+                <option [ngValue]="rnsQuotationVariantOption.id === rnsQuotationVendors.variant?.id ? rnsQuotationVendors.variant : rnsQuotationVariantOption" *ngFor="let rnsQuotationVariantOption of rnsquotationvariants; trackBy: trackRnsQuotationVariantById">{{rnsQuotationVariantOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_vendor">Vendor</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_vendor" name="vendor" [(ngModel)]="rnsQuotationVendors.vendor" >
+               <!--  <option [ngValue]="null"></option> -->
+                <option [ngValue]="rnsVendorMasterOption.id === rnsQuotationVendors.vendor?.id ? rnsQuotationVendors.vendor : rnsVendorMasterOption" *ngFor="let rnsVendorMasterOption of rnsvendormasters; trackBy: trackRnsVendorMasterById">{{rnsVendorMasterOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_vendorQuotation">Vendor Quotation</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_vendorQuotation" name="vendorQuotation" [(ngModel)]="rnsQuotationVendors.vendorQuotation" >
+               <!--  <option [ngValue]="null"></option> -->
+                <option [ngValue]="rnsQuotationOption.id === rnsQuotationVendors.vendorQuotation?.id ? rnsQuotationVendors.vendorQuotation : rnsQuotationOption" *ngFor="let rnsQuotationOption of rnsquotations; trackBy: trackRnsQuotationById">{{rnsQuotationOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,376 @@
+<!-- Modal section -->
+<div class="card">
+    <div class="card-header card-header-sm bg-primary text-white">
+        <ul class="nav">
+            <li class="nav-item active">
+                <a data-toggle="tab" class="nav-link pull-left" role="tab">Bid Review</a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" class="nav-link pull-left" role="tab"><span style="font-weight:900;">#{{rnsQuotation.id}}</span>&nbsp;<span style="font-weight:500;">{{rnsQuotation.projectTitle}}</span></a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body" style="padding: 0.25rem 1.25rem !important;">
+        <div class="tab-content">
+            <div class="tab-pane tab-pane-sm active" role="tabpanel">
+                <form #rnsQuotationForm="ngForm" (ngSubmit)="noSubmit()">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="form-control-label"><span style="font-weight:900;padding-bottom: 10px;">Article: </span>{{rnsQuotation.articleCode}} <ng-container *ngIf="rnsQuotation.articleDesc"> ({{rnsQuotation.articleDesc}})</ng-container></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 card" *ngIf="rnsQuotation.auctionDetails">
+                            <table class="table" style="padding: 0.1rem !important;">
+                                <tr>
+                                    <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;padding: 0.1rem;">
+                                        <span class="form-control-label">Publish Date:</span>
+                                    </td>
+                                    <td style="width:25%;border-width:0!important;padding: 0.1rem;">
+                                        <span class="form-control-label" style="font-weight:400;padding-left: 10px;">{{rnsQuotation.auctionDetails.publishTime | date: 'dd-MMM-yy h:mm a'}}</span>
+                                    </td>
+                                    <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;padding: 0.1rem;"><span class="form-control-label">Start :</span></td>
+                                    <td style="width:35%;border-width:0!important;padding: 0.1rem;"><span class="form-control-label" style="font-weight:400;padding-left: 10px;">{{variantStartTime | date:'dd-MMM-yy h:mm a'}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;padding: 0.1rem;"><span class="form-control-label">Event Type:</span></td>
+                                    <td style="width:25%;border-width:0!important;padding: 0.1rem;">
+                                        <span class="form-control-label" style="font-weight:400;padding-left: 10px;">
+                                            <ng-container *ngIf="rnsQuotation.eventType=='AUCTION'">Bid for Sale</ng-container>
+                                            <ng-container *ngIf="rnsQuotation.eventType=='REVERSE_AUCTION'">Bid for Purchase</ng-container>
+                                        </span>
+                                    </td>
+                                    <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;padding: 0.1rem;"><span class="form-control-label">End:</span></td>
+                                    <td style="width:35%;border-width:0!important;padding: 0.1rem;"><span class="form-control-label" style="font-weight:400;padding-left: 10px;">{{variantEndTime | date:'dd-MMM-yy h:mm a'}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;padding: 0.1rem;"><span class="form-control-label">Lot Time:</span></td>
+                                    <td style="width:25%;border-width:0!important;padding: 0.1rem;"><span class="form-control-label" style="font-weight:400;padding-left: 10px;">{{rnsQuotation.auctionDetails.lotRunningTime}} minutes</span></td>
+                                    <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;padding: 0.1rem;"><span class="form-control-label">Over Time:</span></td>
+                                    <td style="width:35%;border-width:0!important;padding: 0.1rem;"><span class="form-control-label" style="font-weight:400;padding-left: 10px;">{{ variantOverTime}} minutes</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important; padding: 0.1rem;"><span class="form-control-label">Time b/w Lots:</span></td>
+                                    <td style="width:25%;border-width:0!important; padding: 0.1rem;"><span class="form-control-label" style="font-weight:400;padding-left: 10px;">{{  rnsQuotation.auctionDetails.timeBetweenLots }}  minutes</span></td>
+                                    <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important; padding: 0.1rem;"><span class="form-control-label">Current Status:</span></td>
+                                    <td style="width:35%;border-width:0!important; padding: 0.1rem;"><span class="form-control-label"><ng-container *ngIf="paused"><span style="padding-left: 10px;color:red;font-weight: bold;">Bidding paused</span></ng-container><span style="font-weight:400;padding-left: 10px;"><ng-container *ngIf="!paused">{{ variantMsg }}</ng-container></span></span></td>
+                                </tr>
+                                <tr *ngIf="variantTimeMsg && !paused">
+                                    <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important; padding: 0.1rem;"></td>
+                                    <td style="width:25%;border-width:0!important; padding: 0.1rem;"></td>
+                                    <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important; padding: 0.1rem;"><span class="form-control-label">{{variantTimeMsg}}</span></td>
+                                    <td style="width:35%;border-width:0!important; padding: 0.1rem;">
+                                        <span class="form-control-label" style="font-weight:400;padding-left: 10px;">
+                                            <span style="font-weight:400;background:  grey;padding:  2px 5px;border-radius: 5px;color:  white;">{{variantTimeLeft}}</span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-2" [hidden]="rnsQuotation.auctionClose==true">
+                            {{timer | date: 'dd-MMM-yy h:mm:ss a'}}<br/>
+                            <span style="font-weight: bold;">Indian Standard Time</span><br/>&nbsp;<br/>
+                            <span *ngIf="isAuctionClosed==false && !paused">
+                                <div class="btn-group-vertical" role="group">
+                                    <button class="btn btn-sm btn-success" (click)="pausedAuction(variantDisplay);"><fa-icon [icon]="'play'"></fa-icon> Running&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                    <button class="btn btn-sm btn-primary" [routerLink]="['/', { outlets: { popup: 'auction-var-details/'+ runningVariantId + '/E/edit'} }]"><fa-icon [icon]="'clock'"></fa-icon> Extend Time&nbsp;</button>
+                                    <button class="btn btn-sm btn-warning" [routerLink]="['/', { outlets: { popup: 'auction-var-details/'+ runningVariantId + '/R/edit'} }]"><fa-icon [icon]="'clock'"></fa-icon> Reduce Time</button>
+                                </div>
+                            </span>
+                            <span *ngIf="paused==true">
+                                <div class="btn-group-vertical" role="group">
+                                    <button class="btn btn-sm btn-danger" (click)="resumeAuction(auctionPauseDetails);"><fa-icon [icon]="'pause'"></fa-icon> Paused&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                    <button class="btn btn-sm btn-secondary" disabled><fa-icon [icon]="'clock'"></fa-icon> Extend Time&nbsp;</button>
+                                    <button class="btn btn-sm btn-secondary" disabled><fa-icon [icon]="'clock'"></fa-icon> Reduce Time</button>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row card" *ngIf="rnsQuotation">
+                        <div class="card">
+                            <div class="card-header card-header-sm bg-primary text-white">
+                                <ul  class="nav">
+                                    <li class="nav-item" *ngFor="let variant of variants | orderBy: 'id'" [ngClass]="variant.title==variantDisplay ? 'active': ''">
+                                        <a data-toggle="tab" class="nav-link pull-left" (click)="displayVariant(variant.title)" role="tab">
+                                            <fa-icon [icon]="!variant.isCollapse || variant.isCollapse==false ? 'plus':'minus'" [class]="!variant.isCollapse || variant.isCollapse==false ? 'text-success':'text-danger'" (click)="changeCollapse(variant)"></fa-icon>
+                                            {{lotNames[variant.title]}}
+                                            <span *ngIf="variant.isAuctionPending==true && !paused" style="color:green;font-size: 14px;"> * </span> <span *ngIf="variant.isAuctionPending==false && !paused" style="color:red;font-size: 14px;"> * </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body" style="padding: 0.25rem 1.25rem !important;">
+                                <div class="tab-content">
+                                    <div class="tab-pane tab-pane-sm"  [ngClass]="variant.title==variantDisplay? 'active': ''" *ngFor="let variant of variants ;let index = index"  role="tabpanel">
+                                        <div class="row" [hidden]="variant.isCollapse==true">
+                                            <div class="col-md-6" style="padding-right: 25px !important;">
+                                                <div class="row">
+                                                    <label class="col-md-12 bg-primary text-white text-center" ><h6>Lot Description</h6></label>
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="card bg-light">
+                                                                <tr>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec1">{{variant.varDescSpec1}}&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.varDescSpec1Value}}</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding-left:10px!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec6">{{variant.varDescSpec6}}&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.varDescSpec6Value}}</label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec2">{{variant.varDescSpec2}}&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.varDescSpec2Value}}</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding-left:10px!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec7">{{variant.varDescSpec7}}&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.varDescSpec7Value}}</label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec3">{{variant.varDescSpec3}}&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.varDescSpec3Value}}</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding-left:10px!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec8">{{variant.varDescSpec8}}&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.varDescSpec8Value}}</label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec4">{{variant.varDescSpec4}}&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.varDescSpec4Value}}</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding-left:10px!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec9">{{variant.varDescSpec9}}&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.varDescSpec9Value}}</label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec5">{{variant.varDescSpec5}}&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.varDescSpec5Value}}</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding-left:10px!important;" *ngIf="variant.varDescSpec10">
+                                                                        <label class="form-control-label" style="font-weight:700;">{{variant.varDescSpec10}}&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.varDescSpec10Value}}</label>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3" style="padding-right: 25px !important;">
+                                                <div class="row">
+                                                    <label class="col-md-12 bg-primary text-white text-center"><h6>Commercial Terms</h6></label>
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="card bg-light">
+                                                                <tr>
+                                                                    <td style="width:35%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;">Tax Terms&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:65%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.dealtermsTaxTermsDesc}}</label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:35%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;">Payment&nbsp;Terms&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:65%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.dealtermPaymentTermsDesc}}</label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:35%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;">Delivery&nbsp;Terms&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:65%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.dealtermDeliveryTermsDesc}}</label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:35%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;">Delivery&nbsp;Place&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:65%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">{{variant.dealtermsDelPlaceDesc}}</label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:35%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label" style="font-weight:700;">Potential&nbsp;Qty&nbsp;:&nbsp;</label>
+                                                                    </td>
+                                                                    <td style="width:65%;border: 0!important;padding:0!important;">
+                                                                        <label class="form-control-label">
+                                                                            {{variant.orderQuantity}}
+                                                                            {{variant.orderUom}}
+                                                                        </label>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="row">
+                                                    <label class="col-md-12 bg-primary text-white text-center"><h6>Remarks</h6></label>
+                                                    <div class="col-md-12 card bg-light">
+                                                        <div class="row">
+                                                            <div class="col-md-12" style="height:80px; overflow: auto;">
+                                                                <label class="form-control-label">{{variant.remarks}}</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label class="form-control-label" style="font-weight:700">Exp.&nbsp;Delivery&nbsp;Date&nbsp;:&nbsp;</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-control-label"><ng-container *ngIf="variant.vendors[0]">{{variant.vendors[0].expDelDate| date: 'dd-MMM-yy'}}</ng-container></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label class="form-control-label" style="font-weight:700">Last&nbsp;Price&nbsp;:&nbsp;</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-control-label">{{variant.historicalPrice}} {{variant.currency}}</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-primary">
+                                                <h5>Bid Summary</h5>
+                                                <hr class="hr-summary bg-primary text-white"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 table-responsive">
+                                                <table class="table table-sm">
+                                                    <thead>
+                                                    <tr class="bg-primary text-white">
+                                                        <th>
+                                                            <input type="checkbox" name="selectAll_{{index}}" [checked]="variant.vendorActive" (change)="onCheckBoxSelectAll(variant);" style="background-color: green;"/>
+                                                        </th>
+                                                        <th>&nbsp;</th>
+                                                        <th style="width:40%;">Party</th>
+                                                        <th>Current Rank</th>
+                                                        <th>Submit Time</th>
+                                                        <th>Revision#</th>
+                                                        <th>Currency</th>
+                                                        <th>Rate</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <ng-container *ngFor="let vendor of vendors;let vendorindex = index">
+                                                        <tr *ngIf="vendor.variant?.title==variant.title">
+                                                            <td><input type="checkbox" ngModel="vendor.vendorActive" name="vendorActive_{{index}}_{{vendorindex}}" [checked]="vendor.vendorActive" (change)="onCheckBoxClick(vendor)" style="margin-top:5px;margin-bottom:0;"/></td>
+                                                            <td>
+                                                                <div class="btn-group flex-btn-group-container">
+                                                                    <button title="Surrogate entry for {{vendor.vendor.vendorName+'('+vendor.vendor.firstName+' '+vendor.vendor.lastName+')'}}" [ngClass]="(isAuctionClosed || paused==true) ? 'btn btn-sm btn-danger' : 'btn btn-sm btn-success'" [disabled]="isAuctionClosed || paused==true" style="cursor: hand;" (click)="displayVariantSurrogate(variant.title)" [routerLink]="['/', { outlets: { popup: 'vndr-price/'+ vendor.id + '/surrogate'} }]"><fa-icon [icon]="'bezier-curve'"></fa-icon></button>
+                                                                    <button title="Delete last bid for {{vendor.vendor.vendorName+'('+vendor.vendor.firstName+' '+vendor.vendor.lastName+')'}}" [ngClass]="(isAuctionClosed || paused==true) ? 'btn btn-sm btn-danger' : 'btn btn-sm btn-warning'" [disabled]="isAuctionClosed || paused==true" style="cursor: hand;" (click)="deleteLastBidVariant(variant, vendor);"><fa-icon [icon]="'trash-alt'"></fa-icon></button>
+                                                                </div>
+                                                            </td>
+                                                            <td><span *ngIf="vendor.vendor"><input type="text" class="form-control form-control-sm" [disabled]="true" [value]="vendor.vendor.vendorName+'('+vendor.vendor.firstName+' '+vendor.vendor.lastName+')'" style="margin-top: 0;margin-bottom: 0;" [style.color]="vendor.rank==1?'RED':''"/></span></td>
+                                                            <td><span *ngIf="vendor.vendor"><input  type="text" name="currentRank_{{index}}_{{vendorindex}}" class="form-control form-control-sm" [value]="vendor.rank" readonly="readonly" style="background-color: #F5F5DC;margin-top: 0;margin-bottom: 0;" [style.color]="vendor.rank==1?'RED':''"/></span></td>
+                                                            <td><span *ngIf="vendor.vendor"><input  type="text" name="submitTime_{{index}}_{{vendorindex}}" class="form-control form-control-sm" [value]="vendor.createdOn | date: 'dd-MMM-yy h:mm:ss a'" readonly="readonly" style="background-color: #F5F5DC;margin-top: 0;margin-bottom: 0;" [style.color]="vendor.rank==1?'RED':''"/></span></td>
+                                                            <td><span *ngIf="vendor.vendor"><input  type="text" name="noOfRank_{{index}}_{{vendorindex}}" class="form-control form-control-sm" [value]="vendor.noRevision" readonly="readonly" style="background-color: #F5F5DC;margin-top: 0;margin-bottom: 0;" [style.color]="vendor.rank==1?'RED':''"/></span></td>
+                                                            <td>
+                                                                    <span *ngIf="vendor.vendor">
+                                                                        <input class="form-control form-control-sm" id="currency" name="currenc_y_{{index}}_{{vendorindex}}" [(ngModel)]="vendor.currency" [disabled]="true" style="margin-top: 0;margin-bottom: 0;" [style.color]="vendor.rank==1?'RED':''"/>
+                                                                        <!--select class="custom-select custom-select-sm form-control form-control-sm" id="currency" name="currenc_y_{{index}}_{{vendorindex}}" [(ngModel)]="vendor.currency" [disabled]="true" style="margin-top: 0;margin-bottom: 0;">
+                                                                            <option [ngValue]="null">Select Currency</option>
+                                                                            <option *ngFor="let currency of currencies;"  [ngValue]="currency?.symbol">{{currency?.symbol}}</option>
+                                                                        </select-->
+                                                                    </span>
+                                                            </td>
+                                                            <td><input  type="text" name="regularRate_{{index}}_{{vendorindex}}" class="form-control form-control-sm" [disabled]="true"  [value]="vendor.regularRate" style="background-color: #F5F5DC;margin-top: 0;margin-bottom: 0;" [style.color]="vendor.rank==1?'RED':''"></td>
+                                                        </tr>
+                                                    </ng-container>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-right">
+                                                <button class="btn btn-secondary btn-sm" style="font-size: 14px;" [routerLink]="['/', { outlets: { popup: 'bidding/'+ variant.id + '/compare'} }]"><fa-icon [icon]="'retweet'"></fa-icon> Bid View/Compare</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 text-primary">
+                                                <h5>Bid History</h5>
+                                                <hr class="hr-summary bg-primary text-white"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" style="border-width: 2px; border-style:solid;border-color: #0085c4;">
+                                                <svg style="width:550px;height:350px;" id="area{{variant.title | varianttrim}}">
+                                                </svg>
+                                            </div>
+                                            <div class="col-md-6 table-responsive">
+                                                <table class="table table-sm">
+                                                    <thead>
+                                                    <tr class="bg-primary text-white">
+                                                        <th>Party</th>
+                                                        <th>Submit Time</th>
+                                                        <th>Rate</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <ng-container *ngFor="let revvendor of revisionListCall;">
+                                                            <ng-container *ngIf="revvendor?.title==variant.title">
+                                                                <tr>
+                                                                    <td>{{revvendor.vendorName}}</td>
+                                                                    <td>{{revvendor.date | date: 'dd-MMM-yy h:mm:ss a'}}</td>
+                                                                    <td>{{revvendor.value}}</td>
+                                                                    <td><ng-container *ngIf="revvendor && revvendor.surrogate"><fa-icon [icon]="'bezier-curve'"></fa-icon></ng-container></td>
+                                                                </tr>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

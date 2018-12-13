@@ -1,0 +1,49 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+    <div class="">
+        <div class="modal-header">
+            <h5 class="modal-title" id="myRnsCrmRequestMasterLabel">Search CRM Requests</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                    (click)="clear()">&times;
+            </button>
+        </div>
+        <div class="modal-body">
+            <jhi-alert-error></jhi-alert-error>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="display table table-sm responsive no-wrap" id="exampleFixed" *ngIf="rnsCrmRequestMasters">
+                            <thead>
+                            <tr>
+                                <th>CRM&nbsp;Code</th>
+                                <th>Requested&nbsp;By</th>
+                                <th>PCH</th>
+                                <th>Article&nbsp;Code</th>
+                                <th>End&nbsp;User&nbsp;Name</th>
+                                <th>Target&nbsp;PCD</th>
+                                <th>End&nbsp;User&nbsp;Code</th>
+                                <th class="no-sort">&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let rnsCrmRequestMaster of rnsCrmRequestMasters">
+                                <td>{{rnsCrmRequestMaster.crmCode}}</td>
+                                <td>{{rnsCrmRequestMaster.requestedBy}}</td>
+                                <td>{{rnsCrmRequestMaster.rnsPchMaster?.pchName}}</td>
+                                <td>{{rnsCrmRequestMaster.rnsArticleMaster?.articleCode}}</td>
+                                <td>{{rnsCrmRequestMaster.buyerCode?.buyerName}}</td>
+                                <td>{{rnsCrmRequestMaster.targetPcd| date: 'dd/MMM/yyyy'}}</td>
+                                <td>{{rnsCrmRequestMaster.buyerCode?.buyerCode}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-secondary btn-sm" (click)="selectCrmRequest(rnsCrmRequestMaster)">
+                                        <fa-icon [icon]="'plus'"></fa-icon> Add
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

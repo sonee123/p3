@@ -1,0 +1,64 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "priceOne",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceTwo",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceThree",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceFour",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceFive",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceSix",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceSeven",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceEight",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceNine",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceTen",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "vendorId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20180709090706",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "rns_rfq_price",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

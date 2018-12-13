@@ -1,0 +1,103 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm" enctype="multipart/form-data">
+
+    <!-- <div class="modal-header">
+        <h5 class="modal-title" id="myFeedbackLabel">Create or edit a Feedback</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div> -->
+    
+    <div style="padding: 15px 0 0 15px;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;&nbsp;</button>
+        <h5 class="modal-title" id="myFeedbackLabel">Please leave a Feedback / Query below -</h5>
+        <p style="font-style: italic">A suitable response will be sent on your email id by the support team</p>
+    </div>
+    <hr/>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="row" *ngIf="feedback.id">
+            <div class="col-md-2">
+                <label for="id">ID</label>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group" [hidden]="!feedback.id">
+                    <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="feedback.id" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="feedback.id">
+            <div class="col-md-2">
+                <label class="form-control-label" for="field_createdDate" >Created Date</label>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group" *ngIf="feedback.id">
+                    <input type="text" class="form-control form-control-sm" name="createdDate" id="field_createdDate" value="{{feedback.createdDate |date:'dd-MMM-yy h:mm a'}}" required readonly/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label class="form-control-label" for="field_yourEmailId">Your Email Id</label>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <input type="text" [disabled]="feedback.id" class="form-control form-control-sm" name="yourEmailId" id="field_yourEmailId" [(ngModel)]="feedback.yourEmailId" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label class="form-control-label" for="field_remarks">Remarks</label>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <textarea type="text" [disabled]="feedback.id" class="form-control form-control-sm" name="remarks" id="field_remarks" [(ngModel)]="feedback.remarks" maxlength="2000" required style="height:100px;"></textarea>
+                    <div [hidden]="!(editForm.controls.remarks?.dirty && editForm.controls.remarks?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.remarks?.errors?.maxlength">
+                            This field cannot be longer than 2000 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!feedback.id">
+            <div class="col-md-2">
+                <label class="form-control-label" for="field_attachFile">Attach File</label>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <input type="file" style="line-height: 1!important" class="form-control form-control-sm" name="attachFile" id="field_attachFile" [(ngModel)]="feedback.attachFile" (change)="selectFile($event)"/>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="feedback.id">
+            <div class="col-md-2">
+                <label class="form-control-label" for="field_ccdResponse">CCD Response</label>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <textarea type="text" [readonly]="feedback.id && feedback.ccdResponseDate" class="form-control form-control-sm" name="ccdResponse" id="field_ccdResponse" [(ngModel)]="feedback.ccdResponse" maxlength="2000"  style="height:100px;" ></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="feedback.id && feedback.ccdResponseDate">
+            <div class="col-md-2">
+                <label class="form-control-label" for="field_ccdResponseDate">CCD Response Date</label>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <input type="text" [disabled]="feedback.id && feedback.ccdResponseDate" class="form-control form-control-sm" name="ccdResponseDate" id="field_ccdResponseDate" value="{{feedback.ccdResponseDate |date:'dd-MMM-yy h:mm a'}}"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

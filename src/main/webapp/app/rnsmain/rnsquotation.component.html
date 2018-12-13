@@ -1,0 +1,721 @@
+<div align="center" class="centered" id="prepage" *ngIf="isWait">
+    <img src="../../content/images/waiting.gif"/>
+</div>
+<div class="" *ngIf="rnsQuotation && rnsQuotation.user">
+    <form #rnsQuotationForm="ngForm" (ngSubmit)="noSubmit()">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="form-control-label" style="font-weight:900;margin-bottom: 10px;">Project# {{rnsQuotation.id }}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-control-label" style="font-weight:900;margin-bottom: 10px;">
+                            Created on: {{rnsQuotation.createdOn | date: 'dd-MMM-yy h:mm:ss a'}}
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row" *ngIf="rnsQuotation.closedDate !== null">
+                            <div class="col-md-12">
+                                <label class="form-control-label" style="font-weight:900;margin-bottom: 10px;">
+                                    Current status: <span style="color: red; ">Project suspend/stopped</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="rnsQuotation.auction==true && !rnsQuotation.auctionClose">
+                            <div class="col-md-12">
+                                <label class="form-control-label" style="font-weight:900;margin-bottom: 10px;">
+                                    Current status: <span style="color: red; ">Bidding in progress</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="rfqMessage">
+                            <div class="col-md-6">
+                                <label class="form-control-label" style="font-weight:900;margin-bottom: 10px;">
+                                    Status: <span style="color: red; ">{{rfqMessage}}</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-control-label" style="font-weight:900;margin-bottom: 10px;">
+                                    Validity: {{rfqDate | date: 'dd-MMM-yy h:mm:ss a'}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 5px;">
+                    <div class="col-md-1"><label class="form-control-label" for="field_eventType">Event&nbsp;Type</label></div>
+                    <div class="col-md-2">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" name="field_eventType" [(ngModel)]="rnsQuotation.eventType"  id="field_eventType" required [disabled]="allowEntry()">
+                            <option  [ngValue]="undefined" hidden selected>Select Event Type</option>
+                            <option value="AUCTION">Sale</option>
+                            <option value="REVERSE_AUCTION">Purchase</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-control-label">Process&nbsp;Flow&nbsp;Approval&nbsp;&nbsp;
+                            <input type="checkbox" name="isRfq" id="isRfq" [checked]="rnsQuotation.rfqApplicable" [disabled]="true"/> RFQ
+                            <input type="checkbox" name="isRfb" id="isRfb" [checked]="rnsQuotation.auctionApplicable" [disabled]="true"/> Bidding
+                    </label>
+                    </div>
+                    <div class="col-md-3"><label class="form-control-label">CRM Number</label></div>
+                    <div class="col-md-3">
+                        <div class="row" style="margin-left:-5px !important;margin-right:-5px !important;margin-bottom:-8px;">
+                            <div class="col-md-6">
+                                <label class="form-control-label">PCH</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-control-label">Target PCD</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 5px;">
+                    <div class="col-md-1"><label class="form-control-label" for="field_projectTitle">Project&nbsp;Title</label></div>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control form-control-sm" id="field_projectTitle" name="projectTitle" [(ngModel)]="rnsQuotation.projectTitle" required placeholder="Enter Project Title" [disabled]="allowEntry()">
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" name="crm_request_no_disabled" aria-label="Recipient's username" aria-describedby="basic-addon2" [(ngModel)]="rnsQuotation.crmRequestNumber" disabled="disabled">
+                            <div class="input-group-append" *ngIf="rnsQuotation?.rnsCatgCode?.showCrm && hiddenEntry()">
+                                <button class="btn btn-secondary btn-sm" id="basic-addon1" [routerLink]="['/', { outlets: { popup: 'rns-crm-request-master/search' } }]"><fa-icon [icon]="'search'"></fa-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row" style="margin-left:-5px !important;margin-right:-5px !important;margin-bottom:-8px;">
+                            <div class="col-md-6">
+                                <select class="custom-select custom-select-sm form-control form-control-sm" name="field_rnsPchMaster"  id="field_rnsPchMaster"  [(ngModel)]="rnsQuotation.pchCode" required [disabled]="allowEntry()">
+                                    <option  [ngValue]="undefined" hidden selected>Select PCH Code</option>
+                                    <option [value]="rnsPchMaster.pchCode" *ngFor="let rnsPchMaster of rnsPchMasters;">{{rnsPchMaster.pchCode}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-control-sm" name="target_PCD_disabled" value="{{targetPcd | date: 'dd-MMM-yy h:mm:ss a'}}" disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 5px;">
+                    <div class="col-md-3">
+                        <div class="form-group form-group-sm">
+                            <label class="form-control-label">Category</label>
+                            <input type="text" class="form-control form-control-sm" name="catgCode" disabled="disabled" value="{{ rnsQuotation?.rnsCatgCode?.catgCode }} - {{rnsQuotation?.rnsCatgCode?.catgCodeDesc}}">
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="form-control-label">Project Region</label>
+                            <select class="custom-select custom-select-sm form-control form-control-sm" id="quote_type" name="quote_type" [(ngModel)]="rnsQuotation.quoteType" required="true" #quote_type="ngModel" [disabled]="allowEntry()">
+                                <option [ngValue]="undefined" hidden selected>Select Project Region</option>
+                                <option *ngFor="let rnsTypeMaster of rnsTypeMasters ;"  [value]="rnsTypeMaster.typeCode">{{rnsTypeMaster.typeCode}} - {{rnsTypeMaster.typeCodeDesc}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="form-control-label">Template</label>
+                            <select class="custom-select custom-select-sm form-control form-control-sm" id="template" name="template"  [(ngModel)]="rnsQuotation.template" (ngModelChange)="changeTemplate($event)"  required="true" #catgtemplate="ngModel" disabled="disabled">
+                                <option [ngValue]="undefined" hidden selected>Select Template</option>
+                                <option *ngFor="let predefinedItem of templates;" [value]="predefinedItem.id">{{predefinedItem.templateName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group form-group-sm">
+                            <label class="form-control-label">Sourcing&nbsp;Team</label>
+                            <select class="custom-select custom-select-sm form-control form-control-sm" name="field_sourceTeam"  id="field_sourceTeam" required [(ngModel)]="rnsQuotation.sourceTeam" [disabled]="allowEntry()">
+                                <option  [ngValue]="undefined" hidden selected>Select Sourcing Team</option>
+                                <option [value]="rnsSourceTeamMaster.id" *ngFor="let rnsSourceTeamMaster of rnsSourceTeamMasters;">{{rnsSourceTeamMaster.description}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="form-control-label">Internal Remarks<span class="font-italic" style="font-size:10px; color: red;"> (Max length 500 characters)</span></label>
+                            <textarea  name="internalRemarks" class="form-control form-control-sm" rows="1" [(ngModel)]="rnsQuotation.internalRemarks" style="height: 98px" maxlength="500" placeholder="Enter Internal Remarks" [disabled]="allowEntry()"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group form-group-sm">
+                            <div class="row" style="margin-left:-5px !important;margin-right:-5px !important;margin-bottom:-8px;">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-sm">
+                                        <label class="form-control-label">Requested by</label>
+                                        <input type="text" class="form-control form-control-sm" name="requested_by_disabled" [(ngModel)]="rnsQuotation.requestedBy" [disabled]="allowEntry()     || rnsQuotation?.rnsCatgCode?.showCrm">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-sm">
+                                        <label class="form-control-label">End User</label>
+                                        <input type="text" class="form-control form-control-sm" name="buyers_disabled" disabled="disabled" value="{{rnsQuotation.buyerName}}" *ngIf="rnsQuotation?.rnsCatgCode?.showCrm" [disabled]="allowEntry()">
+                                        <select class="custom-select custom-select-sm form-control form-control-sm" name="buyers_disabled" *ngIf="!rnsQuotation?.rnsCatgCode?.showCrm" [(ngModel)]="rnsQuotation.buyerName"  #buyer="ngModel" [disabled]="allowEntry()">
+                                            <option [ngValue]="undefined" selected>Select Buyer</option>
+                                            <option [ngValue]="buyer.buyerCode" *ngFor="let buyer of rnsBuyerMasters;" >{{buyer.buyerCode}}-{{buyer.buyerName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="form-control-label">Requester's Remarks<span class="font-italic" style="font-size:10px; color: red;"> (Max length 500 characters)</span></label>
+                            <textarea rows="1" name="internal_remarks" class="form-control form-control-sm" [(ngModel)]="rnsQuotation.merchantRemarks" style="height: 98px;" maxlength="500" placeholder="Enter Requesters Remarks" [disabled]="allowEntry()"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group form-group-sm">
+                            <label class="form-control-label">Article Code</label>
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" name="article_code" value="YCK4G" >
+                                <input type="text" class="form-control form-control-sm" name="article_code_disabled" [(ngModel)]="rnsQuotation.articleCode" readonly="readonly" #articleCode="ngModel">
+                                <div class="input-group-append" *ngIf="hiddenEntry()">
+                                    <button class="btn btn-secondary btn-sm" [routerLink]="['/', { outlets: { popup: 'rns-article-master/'+rnsQuotation?.rnsCatgCode?.id+'/search' } }]"><fa-icon [icon]="'search'"></fa-icon></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="form-control-label">Description</label>
+                            <input type="hidden" name="description" value="XXXXX-XXX" >
+                            <textarea  rows="1" name="description_disabled" class="form-control form-control-sm" [(ngModel)]="rnsQuotation.articleDesc"  disabled="disabled" style="height: 100px"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="rnsQuotation" ngNativeValidate>
+                    <div class="card">
+                        <div class="card-header card-header-sm bg-primary text-white">
+                            <ul  class="nav">
+                                <li class="nav-item" *ngFor="let variant of variants ;" [ngClass]="variant.title==variantDisplay ? 'active': ''">
+                                    <a data-toggle="tab" class="nav-link pull-left" (click)="displayVariant(variant.title)" role="tab">{{lotNames[variant.title]}}
+                                        <span *ngIf="variant.title==variantDisplay"></span>
+                                        <fa-icon [icon]="'copy'" style="margin-top:5px;padding-left: 5px;padding-right: 5px" (click)="copyVariant(variant)" *ngIf="hiddenEntry()"></fa-icon>
+                                        <fa-icon [icon]="['fab', 'elementor']" style="margin-top:5px;padding-right: 5px" [routerLink]="['/', { outlets: { popup: 'auction-vrnt/get-by-variant/'+variant.id } }]" *ngIf="variant.id && !rnsQuotation.closedDate"></fa-icon>
+                                        <sup><fa-icon [icon]="'times'" style="margin-top:5px;padding-right: 5px" (click)="removeVariant(variant.title)" *ngIf="hiddenEntry()"></fa-icon></sup>
+                                    </a>
+                                </li>
+                                <li class="nav-item" *ngIf="hiddenEntry()">
+                                    <a data-toggle="tab" class="nav-link" role="tab" (click)="createNewVariant()">
+                                        <fa-icon [icon]="'plus'"></fa-icon> Add new Lot
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body" style="padding: 0.25rem 1.25rem !important;">
+                            <div class="tab-content">
+                                <div class="tab-pane tab-pane-sm"  [ngClass]="variant.title==variantDisplay? 'active': ''" *ngFor="let variant of variants ;let index = index"  role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-6" style="padding-right: 25px !important;">
+                                            <div class="row">
+                                                <label class="col-md-12 bg-primary text-white text-center" ><h6>Lot Description</h6></label>
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table class="card bg-light">
+                                                            <tr>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">{{selectedTemplates.specificationOne}}</label>
+                                                                    <input type="hidden" name="spec1text_{{index}}" value="{{selectedTemplates.specificationOne}}"  [(ngModel)]="variant.varDescSpec1">
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <input type="text" name="speconetext_{{index}}" maxlength="255" class="form-control form-control-sm" [(ngModel)]="variant.varDescSpec1Value" [hidden]="selectedTemplates.specificationOneShowAs!='TEXTFIELD'" [required]="selectedTemplates.specificationOneRequired==true" #speconeText="ngModel"  [disabled]="allowEntry()">
+
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="spec1dropdown__{{index}}" name="spec1dropdown__{{index}}" [(ngModel)]="variant.varDescSpec1Value" [hidden]="selectedTemplates.specificationOneShowAs!='DROPDOWN'" required="true" #specone="ngModel" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select {{selectedTemplates.specificationOne}}</option>
+                                                                        <option  *ngFor="let predefinedItem of selectedTemplates.specificationOneValue;" [value]="predefinedItem | trim">{{predefinedItem | trim}}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding-left:10px!important;">
+                                                                    <label class="form-control-label">{{selectedTemplates.specificationSix}}</label>
+                                                                    <input type="hidden" name="spec6text_{{index}}" value="{{selectedTemplates.specificationSix}}"  [(ngModel)]="variant.varDescSpec6">
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <input type="text" name="specsixtext_{{index}}" maxlength="255" class="form-control form-control-sm" [(ngModel)]="variant.varDescSpec6Value" [hidden]="selectedTemplates.specificationSixShowAs!='TEXTFIELD'"  [required]="selectedTemplates.specificationSixRequired==true" #spec6text="ngModel" [disabled]="allowEntry()">
+
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="spec6dropdown__{{index}}" name="spec6dropdown__{{index}}" [(ngModel)]="variant.varDescSpec6Value" [hidden]="selectedTemplates.specificationSixShowAs!='DROPDOWN'"  [required]="selectedTemplates.specificationSixRequired==true" #spec6Drop="ngModel" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select {{selectedTemplates.specificationSix}}</option>
+                                                                        <option  *ngFor="let predefinedItem of selectedTemplates.specificationSixValue;" [value]="predefinedItem | trim">{{predefinedItem | trim}}</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">{{selectedTemplates.specificationTwo}}</label>
+                                                                    <input type="hidden" name="spec2text_{{index}}" value="{{selectedTemplates.specificationTwo}}"  [(ngModel)]="variant.varDescSpec2">
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <input type="text" name="spectwotext_{{index}}" maxlength="255" class="form-control form-control-sm" [(ngModel)]="variant.varDescSpec2Value" [hidden]="selectedTemplates.specificationTwoShowAs!='TEXTFIELD'" [required]="selectedTemplates.specificationTwoRequired==true"  #spec2Text="ngModel" [disabled]="allowEntry()">
+
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="spec2dropdown__{{index}}" name="spec2dropdown__{{index}}" [(ngModel)]="variant.varDescSpec2Value" [hidden]="selectedTemplates.specificationTwoShowAs!='DROPDOWN'"  [required]="selectedTemplates.specificationTwoRequired==true" #spec2Drop="ngModel" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select {{selectedTemplates.specificationTwo}}</option>
+                                                                        <option  *ngFor="let predefinedItem of selectedTemplates.specificationTwoValue;" [value]="predefinedItem | trim">{{predefinedItem | trim}}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding-left:10px!important;">
+                                                                    <label class="form-control-label">{{selectedTemplates.specificationSeven}}</label>
+                                                                    <input type="hidden" name="spec7text_{{index}}" value="{{selectedTemplates.specificationSeven}}"  [(ngModel)]="variant.varDescSpec7">
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <input type="text" name="specseventext_{{index}}" maxlength="255" class="form-control form-control-sm" [(ngModel)]="variant.varDescSpec7Value" [hidden]="selectedTemplates.specificationSevenShowAs!='TEXTFIELD'"  [required]="selectedTemplates.specificationSevenRequired==true" #spec7text="ngModel" [disabled]="allowEntry()">
+
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="spec7dropdown__{{index}}" name="spec7dropdown__{{index}}"[(ngModel)]="variant.varDescSpec7Value" [hidden]="selectedTemplates.specificationSevenShowAs!='DROPDOWN'" [required]="selectedTemplates.specificationSevenRequired==true"  #spec7Drop="ngModel" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select {{selectedTemplates.specificationSeven}}</option>
+                                                                        <option  *ngFor="let predefinedItem of selectedTemplates.specificationSevenValue;" [value]="predefinedItem | trim">{{predefinedItem | trim}}</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">{{selectedTemplates.specificationThree}}</label>
+                                                                    <input type="hidden" name="spec3text_{{index}}" value="{{selectedTemplates.specificationThree}}"  [(ngModel)]="variant.varDescSpec3">
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <input type="text" name="specthreetext_{{index}}" maxlength="255" class="form-control form-control-sm" [(ngModel)]="variant.varDescSpec3Value" [hidden]="selectedTemplates.specificationThreeShowAs!='TEXTFIELD'"  [required]="selectedTemplates.specificationThreeRequired==true"  #spec3text="ngModel" [disabled]="allowEntry()">
+
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="spec3dropdown__{{index}}" name="spec3dropdown__{{index}}" [(ngModel)]="variant.varDescSpec3Value" [hidden]="selectedTemplates.specificationThreeShowAs!='DROPDOWN'"  [required]="selectedTemplates.specificationThreeRequired==true"   #spec3Drop="ngModel" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select {{selectedTemplates.specificationThree}}</option>
+                                                                        <option  *ngFor="let predefinedItem of selectedTemplates.specificationThreeValue;" [value]="predefinedItem | trim">{{predefinedItem | trim}}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding-left:10px!important;">
+                                                                    <label class="form-control-label">{{selectedTemplates.specificationEight}}</label>
+                                                                    <input type="hidden" name="spec8text_{{index}}" value="{{selectedTemplates.specificationEight}}"  [(ngModel)]="variant.varDescSpec8">
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <input type="text" name="speceighttext_{{index}}" maxlength="255" class="form-control form-control-sm" [(ngModel)]="variant.varDescSpec8Value" [hidden]="selectedTemplates.specificationEightShowAs!='TEXTFIELD'" [required]="selectedTemplates.specificationEightRequired==true"  #spec8text="ngModel" [disabled]="allowEntry()">
+
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="spec8dropdown__{{index}}" name="spec8dropdown__{{index}}" [(ngModel)]="variant.varDescSpec8Value" [hidden]="selectedTemplates.specificationEightShowAs!='DROPDOWN'" [required]="selectedTemplates.specificationEightRequired==true"  #spec8Drop="ngModel" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select {{selectedTemplates.specificationEight}}</option>
+                                                                        <option  *ngFor="let predefinedItem of selectedTemplates.specificationEightValue;" [value]="predefinedItem | trim">{{predefinedItem | trim}}</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">{{selectedTemplates.specificationFour}}</label>
+                                                                    <input type="hidden" name="spec4text_{{index}}" value="{{selectedTemplates.specificationFour}}"  [(ngModel)]="variant.varDescSpec4">
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <input type="text" name="specfourtext_{{index}}" maxlength="255" class="form-control form-control-sm" [(ngModel)]="variant.varDescSpec4Value" [hidden]="selectedTemplates.specificationFourShowAs!='TEXTFIELD'"  [required]="selectedTemplates.specificationFourRequired==true"  #spec4text="ngModel" [disabled]="allowEntry()">
+
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="spec4dropdown__{{index}}" name="spec4dropdown__{{index}}" [(ngModel)]="variant.varDescSpec4Value" [hidden]="selectedTemplates.specificationFourShowAs!='DROPDOWN'"  [required]="selectedTemplates.specificationFourRequired==true"   #spec4Drop="ngModel" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select {{selectedTemplates.specificationFour}}</option>
+                                                                        <option  *ngFor="let predefinedItem of selectedTemplates.specificationFourValue;" [value]="predefinedItem | trim">{{predefinedItem | trim}}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding-left:10px!important;">
+                                                                    <label class="form-control-label">{{selectedTemplates.specificationNine}}</label>
+                                                                    <input type="hidden" name="spec9text_{{index}}" value="{{selectedTemplates.specificationNine}}"  [(ngModel)]="variant.varDescSpec9">
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <input type="text" name="specninetext_{{index}}" maxlength="255" class="form-control form-control-sm" [(ngModel)]="variant.varDescSpec9Value" [hidden]="selectedTemplates.specificationNineShowAs!='TEXTFIELD'"  [required]="selectedTemplates.specificationNineRequired==true" #spec9text="ngModel" [disabled]="allowEntry()">
+
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="spec9dropdown__{{index}}" name="spec9dropdown__{{index}}" [(ngModel)]="variant.varDescSpec9Value" [hidden]="selectedTemplates.specificationNineShowAs!='DROPDOWN'"  [required]="selectedTemplates.specificationNineRequired==true" #spec9Drop="ngModel" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select {{selectedTemplates.specificationNine}}</option>
+                                                                        <option  *ngFor="let predefinedItem of selectedTemplates.specificationNineValue;" [value]="predefinedItem | trim">{{predefinedItem | trim}}</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">{{selectedTemplates.specificationFive}}</label>
+                                                                    <input type="hidden" name="spec5text_{{index}}" value="{{selectedTemplates.specificationFive}}"  [(ngModel)]="variant.varDescSpec5">
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <input type="text" name="specfivetext_{{index}}" maxlength="255" class="form-control form-control-sm" [(ngModel)]="variant.varDescSpec5Value" [hidden]="selectedTemplates.specificationFiveShowAs!='TEXTFIELD'" [required]="selectedTemplates.specificationFiveRequired==true" #spec5text="ngModel" [disabled]="allowEntry()">
+
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="spec5dropdown__{{index}}" name="spec5dropdown__{{index}}" [(ngModel)]="variant.varDescSpec5Value" [hidden]="selectedTemplates.specificationFiveShowAs!='DROPDOWN'" [required]="selectedTemplates.specificationFiveRequired==true"  #spec5Drop="ngModel" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select {{selectedTemplates.specificationFive}}</option>
+                                                                        <option  *ngFor="let predefinedItem of selectedTemplates.specificationFiveValue;" [value]="predefinedItem | trim">{{predefinedItem | trim}}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding-left:10px!important;">
+                                                                    <label class="form-control-label">{{selectedTemplates.specificationTen}}</label>
+                                                                    <input type="hidden" name="spec10text_{{index}}" value="{{selectedTemplates.specificationTen}}"  [(ngModel)]="variant.varDescSpec10">
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <input type="text" name="spectentext_{{index}}" maxlength="255" class="form-control form-control-sm" [(ngModel)]="variant.varDescSpec10Value" [hidden]="selectedTemplates.specificationTenShowAs!='TEXTFIELD'"  [required]="selectedTemplates.specificationTenRequired==true"  #spec10text="ngModel" [disabled]="allowEntry()">
+
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="spec10dropdown__{{index}}" name="spec10dropdown__{{index}}" [(ngModel)]="variant.varDescSpec10Value" [hidden]="selectedTemplates.specificationTenShowAs!='DROPDOWN'" [required]="selectedTemplates.specificationTenRequired==true"  #spec10Drop="ngModel" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select {{selectedTemplates.specificationTen}}</option>
+                                                                        <option  *ngFor="let predefinedItem of selectedTemplates.specificationTenValue;" [value]="predefinedItem | trim">{{predefinedItem | trim}}</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" style="padding-right: 25px !important;">
+                                            <div class="row">
+                                                <label class="col-md-12 bg-primary text-white text-center"><h6>Commercial Terms</h6></label>
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table class="card bg-light">
+                                                            <tr>
+                                                                <td style="width:35%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">Tax Terms</label>
+                                                                </td>
+                                                                <td style="width:65%;border: 0!important;padding:0!important;" colspan="2">
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="tax_terms{{index}}" name="tax_terms_{{index}}" [(ngModel)]="variant.taxTerms" required="true" #tax_Terms="ngModel" style="padding-top: 0 !important;" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select Tax Terms</option>
+                                                                        <option *ngFor="let rnsTaxTermsMaster of rnsTaxTermsMasters;" [ngValue]="rnsTaxTermsMaster.taxTermsCode">{{rnsTaxTermsMaster.taxTermsCode }}-{{rnsTaxTermsMaster.taxTermsDesc}}</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:35%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">Payment Terms</label>
+                                                                </td>
+                                                                <td style="width:65%;border: 0!important;padding:0!important;" colspan="2">
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="payment_terms{{index}}" name="payment_terms__{{index}}" [(ngModel)]="variant.dealtermPaymentTerms" required="true" #payment_terms="ngModel" (ngModelChange)="setpayTermsCodeCopy($event)" style="padding-top: 0 !important;" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select Payment Terms</option>
+                                                                        <option *ngFor="let rnsPayTermsMaster of rnsPayTermsMasters;" [ngValue]="rnsPayTermsMaster.payTermsCode">{{rnsPayTermsMaster.payTermsCode}}-{{rnsPayTermsMaster.payTermsCodeDesc}}</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:35%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">Delivery Terms</label>
+                                                                </td>
+                                                                <td style="width:65%;border: 0!important;padding:0!important;" colspan="2">
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="delivery_terms" name="delivery_terms_{{index}}" [(ngModel)]="variant.dealtermDeliveryTerms" required="true" #dealtermDeliveryTerms="ngModel" (ngModelChange)="setdelTermsCodeCopy($event)" style="padding-top: 0 !important;" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select Delivery Terms</option>
+                                                                        <option *ngFor="let rnsDelTermsMaster of rnsDelTermsMasters;" [ngValue]="rnsDelTermsMaster.delTermsCode">{{rnsDelTermsMaster.delTermsCode}}-{{rnsDelTermsMaster.delTermsCodeDesc}}</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:35%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">Delivery Place</label>
+                                                                </td>
+                                                                <td style="width:65%;border: 0!important;padding:0!important;" colspan="2">
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="delivery_place" name="delivery_place_{{index}}" [disabled]="allowEntry()" [(ngModel)]="variant.dealtermDeliverAt" required="true" #dealtermDeliverAt="ngModel" style="padding-top: 0 !important;" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select Delivery Place</option>
+                                                                        <option [ngValue]="rnsDelPlaceMaster.code" *ngFor="let rnsDelPlaceMaster of rnsDelPlaceMasters;" [ngValue]="rnsDelPlaceMaster.code">{{rnsDelPlaceMaster.code}}-{{rnsDelPlaceMaster.codeDesc}}</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:35%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">Potential Qty</label>
+                                                                </td>
+                                                                <td style="width:40%;border: 0!important;padding:0!important;">
+                                                                    <div class="input-group input-group-sm">
+                                                                        <input type="Number" name="quantity_{{index}}" [value]="variant.orderQuantity" class="form-control form-control-sm" min="1" [(ngModel)]="variant.orderQuantity" required="true" #quantity="ngModel" [disabled]="allowEntry()">
+                                                                        <div class="input-group-append" *ngIf="hiddenEntry()">
+                                                                            <button class="btn btn-secondary btn-sm"(click)="copyEnqQtyAll(variant)"><fa-icon [icon]="'copy'" style="cursor: pointer;"></fa-icon></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td style="width:25%;border: 0!important;padding:0!important;">
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="uom" name="uom_{{index}}" [(ngModel)]="variant.orderUom" required #orderUOM="ngModel" style="padding-top: 0 !important;" [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select UOM</option>
+                                                                        <option *ngFor="let rnsUomMaster of rnsUomMasters ;" [value]="rnsUomMaster.uomCode">{{rnsUomMaster.uomCode }}-{{rnsUomMaster.uomName}}</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" style="padding-right: 25px !important;">
+                                            <div class="row">
+                                                <label class="col-md-12 bg-primary text-white text-center"><h6>Remarks</h6></label>
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table class="card bg-light">
+                                                            <tr>
+                                                                <td style="border: 0!important;padding:0!important;" colspan="3">
+                                                                    <label class="form-control-label">Remarks for Party<span class="fontitalic" style="font-size:10px; color: red;"> (Max length 500 characters)</span></label>
+                                                                    <a href="#" [routerLink]="['/', { outlets: { popup: 'rns-file-upload/'+ variant.id + '/L'} }]" replaceUrl="true">
+                                                                        <fa-icon  [style.color]="variant.uploadFlag=='Y'?'RED':'BLACK'" style="font-size:15px;cursor: pointer;" title="Attachment" [icon]="'paperclip'"></fa-icon>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border: 0!important;padding:0!important;" colspan="3">
+                                                                    <textarea name="remarks_{{index}}" rows="3" class="form-control form-control-sm" [(ngModel)]="variant.remarks" style="height: 61px;margin-bottom: 3px;" maxlength="500" placeholder="Enter Remarks for Party" [disabled]="allowEntry()"></textarea>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:20%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">Bid&nbsp;Capping&nbsp;Rate</label>
+                                                                </td>
+                                                                <td style="width:40%;border: 0!important;padding:0!important;" colspan="2">
+                                                                    <input type="Number" class="form-control form-control-sm" name="bidPrice_{{index}}" id="bid_price_{{index}}" [(ngModel)]="variant.bidStartPrice" placeholder="Enter Bid Capping Rate" [disabled]="allowEntry()">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:20%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">Last Price</label>
+                                                                </td>
+                                                                <td style="width:40%;border: 0!important;padding:0!important;">
+                                                                    <input type="Number" class="form-control form-control-sm" name="historicalPrice_{{index}}" id="historical_price_{{index}}" [(ngModel)]="variant.historicalPrice" placeholder="Enter Last Price" required [disabled]="allowEntry()">
+                                                                </td>
+                                                                <td style="width:40%;border: 0!important;padding:0!important;">
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm" id="historical_currency_{{index}}" name="currency_{{index}}"   style="padding-top: 0 !important;" [(ngModel)]="variant.currency"  [disabled]="allowEntry()">
+                                                                        <option [ngValue]="undefined" hidden selected>Select Currency</option>
+                                                                        <option *ngFor="let currency of currencies;" [value]="currency.symbol">{{currency.symbol+'-'+currency.currency}}</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:35%;border: 0!important;padding:0!important;">
+                                                                    <label class="form-control-label">Open Costing</label>
+                                                                </td>
+                                                                <td style="width:65%;border: 0!important;padding:0!important;" colspan="2">
+                                                                    <select class="custom-select custom-select-sm form-control form-control-sm"  name="openCosting_{{index}}" id="open_costing_{{index}}" style="padding-top: 0 !important;" [(ngModel)]="variant.openCosting" required [disabled]="allowEntry()">
+                                                                        <option  [ngValue]="undefined" hidden selected>Not Required</option>
+                                                                        <option value="Not Required">Not Required</option>
+                                                                        <option value="Required">Required</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 text-primary">
+                                            <h5>Summary</h5>
+                                            <hr class="hr-summary bg-primary text-white"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 table-responsive">
+                                            <table class="table table-sm table-resp">
+                                                <thead>
+                                                <tr>
+                                                    <th style="padding:0 4px!important;">&nbsp;</th>
+                                                    <th style="width:3%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:7%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:7%;padding:0 4px!important;color:#000;text-align: center;">RFQ</th>
+                                                    <th style="width:4%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:7%;padding:0 4px!important;color:#000;text-align: center;">Best Bid</th>
+                                                    <th style="width:4%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:7%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:4%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:7%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:4%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:10%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:7%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:8%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:7%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                </tr>
+                                                <tr class="bg-primary text-white">
+                                                    <th style="padding:0 4px!important;">Party</th>
+                                                    <th style="width:3%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:7%;padding:0 4px!important;text-align: center;">Currency</th>
+                                                    <th style="width:7%;padding:0 4px!important;text-align: center;">Rate</th>
+                                                    <th style="width:4%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:7%;padding:0 4px!important;text-align: center;">Rate</th>
+                                                    <th style="width:4%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:7%;padding:0 4px!important;text-align: center;">Upcharge</th>
+                                                    <th style="width:4%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:7%;padding:0 4px!important;text-align: center;">CTC</th>
+                                                    <th style="width:4%;padding:0 4px!important;text-align: center;">&nbsp;</th>
+                                                    <th style="width:10%;padding:0 4px!important;text-align: center; white-space: nowrap;">
+                                                        <fa-icon [icon]="'copy'" style="cursor: pointer;" (click)="copyExpDelDate(variant.title)" *ngIf="hiddenEntry()"></fa-icon>&nbsp;Exp&nbsp;Del&nbsp;Date
+                                                    </th>
+                                                    <th style="width:7%;padding:0 4px!important;text-align: center;">Conf&nbsp;Del&nbsp;Date</th>
+                                                    <th style="width:8%;padding:0 4px!important;text-align: center;">
+                                                        <fa-icon [icon]="'copy'" style="cursor: pointer;" (click)="copyEnqQty(variant.title)" *ngIf="hiddenEntry()"></fa-icon>
+                                                        Enq&nbsp;Qty.
+                                                    </th>
+                                                    <th style="width:7%;padding:0 4px!important;">
+                                                        Awarded&nbsp;Qty
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let vendor of vendors;let vendorindex = index">
+                                                    <ng-container *ngIf="vendor.variant?.title==variant.title && vendor.vendor">
+                                                        <td style="padding:0 4px!important;color: #000;">
+                                                            <sup><fa-icon title="Delete vendor" [icon]="'times'" style="cursor: pointer" (click)="removeVendor(vendor.vendor.login, vendor.variant)" *ngIf="hiddenEntry()"></fa-icon></sup>
+                                                            <sup><fa-icon title="Copy vendor to all Lots" style="cursor: pointer" [icon]="'copy'" (click)="copyVendor(vendor)" *ngIf="hiddenEntry()"></fa-icon></sup>
+                                                            <span>{{vendor.vendor.vendorName}} ({{vendor.vendor.firstName}} {{vendor.vendor.lastName}})</span>
+                                                            <span *ngIf="highlightChat">
+                                                                    <fa-icon [icon]="'star'" style="color:orange" (click)="chatboxDisable(vendor.vendor.email, rnsQuotation.id)" *ngIf="highlightChat[vendor.vendor.email]"></fa-icon>
+                                                                </span>
+                                                        </td>
+                                                        <td style="width:3%;padding:0 4px!important;text-align: center;color:black;">
+                                                            <fa-icon style="color:#000;font-size:15px;cursor: pointer;" title="Chat" [style.color]="vendor.remarkExist==true ? 'gold' : 'black'" [icon]="'envelope'" (click)="chatboxDisable(vendor.vendor.email, rnsQuotation.id)" [ngClass]="vendor.remarkExist==true ? 'blink': ''"></fa-icon>
+                                                            <!--a href="#" [routerLink]="['/', { outlets: { popup: 'rns-file-upload/'+ vendor.id + '/V'} }]" replaceUrl="true">
+                                                                <fa-icon style="color:#000;font-size:15px;cursor: pointer;" title="Attachment" [icon]="'paperclip'"></fa-icon>
+                                                            </a-->
+                                                        </td>
+                                                        <td style="width:7%;padding:0 4px!important;text-align: center;color:black;">
+                                                            <select class="custom-select custom-select-sm form-control form-control-sm" id="currency_{{index}}_{{vendorindex}}" name="currency_{{index}}_{{vendorindex}}"  [(ngModel)]="vendor.currency" disabled="true" [style.background-color]="vendor.rfqUserType=='S'?'#95C8D8':''" style="padding-top: 0 !important;">
+                                                                <option *ngFor="let currency of currencies;"  [ngValue]="currency?.symbol">{{currency?.symbol}}</option>
+                                                            </select>
+                                                        </td>
+                                                        <td style="width:7%;padding:0 4px!important;text-align: center;">
+                                                            <input  type="text" name="regularRate_{{index}}_{{vendorindex}}" id="regularRate_{{index}}_{{vendorindex}}" class="form-control form-control-sm" [disabled]="true" [style.background-color]="vendor.rfqUserType=='S'?'#95C8D8':''" [(ngModel)]="vendor.regularRate">
+                                                        </td>
+                                                        <td style="width:4%;padding:0 0!important;text-align: left;">
+                                                            <fa-icon title="Surrogate RFQ Rate" [icon]="'bezier-curve'" [routerLink]="['/', { outlets: { popup: 'rns-rfq-price/'+vendor.id+'/rfq'}}]"></fa-icon>
+                                                            <fa-icon style="color:#000;font-size:15px;" [icon]="'arrow-right'"></fa-icon>
+                                                        </td>
+                                                        <td style="width:7%;padding:0 4px!important;text-align: center;">
+                                                            <input  type="text" name="bidRate_{{index}}_{{vendorindex}}" id="bidrate_{{index}}_{{vendorindex}}" class="form-control form-control-sm" readonly="readonly" [(ngModel)]="vendor.bidRate" *ngIf="rnsQuotation.auction">
+                                                            <input  type="text" id="bidRateTemp{{index}}_{{vendorindex}}" name="bidRateTemp{{index}}_{{vendorindex}}" class="form-control form-control-sm" readonly="readonly" *ngIf="!rnsQuotation.auction">
+                                                        </td>
+                                                        <td style="width:4%;padding:0 0!important;text-align: left;">
+                                                            <fa-icon *ngIf="rnsQuotation.auction" style="color:#000;font-size:15px;cursor: pointer;" [icon]="'eye'" title="Bid Console" [routerLink]="['../auctionlisting']" replaceUrl="true"></fa-icon>
+                                                            <fa-icon *ngIf="!rnsQuotation.auction" style="color:#000;font-size:15px;cursor: pointer;" [icon]="'eye'" title="Bid Console-Auction is not activated" replaceUrl="true"></fa-icon>
+                                                            <fa-icon style="font-size:15px;" [icon]="'plus'"></fa-icon>
+                                                        </td>
+                                                        <td style="width:7%;padding:0 4px!important;text-align: center;">
+                                                            <input  type="text" name="upCharge_{{index}}_{{vendorindex}}" id="upCharge_{{index}}_{{vendorindex}}" class="form-control form-control-sm" readonly="readonly" [(ngModel)]="vendor.upCharge">
+                                                        </td>
+                                                        <td style="width:4%;padding:0 0!important;text-align: left;">
+                                                            <fa-icon style="color:#000;font-size:15px;cursor: pointer;" title="Upcharge" [icon]="'edit'" [routerLink]="['/', { outlets: { popup: 'rns-upcharge-dtl-select/'+vendor.id+'/upcharge'}}]"></fa-icon>
+                                                            <fa-icon style="color:#000;font-size:15px;" [icon]="'exchange-alt'"></fa-icon>
+                                                        </td>
+                                                        <td style="width:7%;padding:0 4px!important;text-align: center;">
+                                                            <input  type="text" name="ctc_{{index}}_{{vendorindex}}" id="ctc_{{index}}_{{vendorindex}}" class="form-control form-control-sm" readonly="readonly" [(ngModel)]="vendor.ctc" [class.text-danger]="bestPrice(vendor.variant.title, vendor.ctc)">
+                                                        </td>
+                                                        <td style="width:4%;padding:0 4px!important;text-align: center;">
+                                                            <fa-icon style="color:#000;font-size:15px;" [icon]="'rupee-sign'"></fa-icon>
+                                                        </td>
+                                                        <td style="width:10%;padding:0 4px!important;text-align: center;">
+                                                            <div class="input-group input-group-sm">
+                                                                <input type="localdate" name="expDelDate_{{index}}_{{vendorindex}}" id="expDelDate_{{index}}_{{vendorindex}}" class="form-control form-control-sm" [(ngModel)]="vendor.expDelDatedate" [disabled]="allowEntry()"  [minDate]="vendor.minExpDelDate" #expDelDate="ngModel" ngbDatepicker  #expDelDatedate="ngbDatepicker">
+                                                                <div class="input-group-append">
+                                                                    <button class="btn btn-secondary btn-sm" (click)="expDelDatedate.toggle()" type="button" [disabled]="allowEntry()">
+                                                                        <fa-icon [icon]="'calendar'"></fa-icon>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width:7%;padding:0 4px!important;text-align: center;">
+                                                            <div class="input-group input-group-sm">
+                                                                <input  type="localdate" name="confDelDate_{{index}}_{{vendorindex}}" id="confDelDate_{{index}}_{{vendorindex}}" class="form-control form-control-sm" [(ngModel)]="vendor.confDelDatedate" [minDate]="vendor.minConfDelDate" [disabled]="true" [style.background-color]="vendor.rfqUserType=='S'?'#95C8D8':''" ngbDatepicker #confDelDatedate="ngbDatepicker">
+                                                                <div class="input-group-append">
+                                                                    <button class="btn btn-secondary btn-sm" (click)="confDelDatedate.toggle()" type="button" [disabled]="true">
+                                                                        <fa-icon [icon]="'calendar'"></fa-icon>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width:8%;padding:0 4px!important;text-align: center;">
+                                                            <input  type="Number" name="expiryQty_{{index}}_{{vendorindex}}" class="form-control form-control-sm" required="true" [(ngModel)]="vendor.expiryQty" [disabled]="allowEntry()" #enqQty="ngModel">
+                                                        </td>
+                                                        <td style="width:7%;padding:0 4px!important;">
+                                                            <input  type="text" name="awardQty_{{index}}_{{vendorindex}}" class="form-control form-control-sm" [disabled]="isAwardQty()" [(ngModel)]="vendor.awardQty">
+                                                        </td>
+                                                    </ng-container>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9"></div>
+                                        <div class="col-md-3" style="text-align: right;">
+                                            <button type="button" class="btn btn-primary btn-sm " [routerLink]="['/', { outlets: { popup: 'rns-vendor-master/search-select' }}]" [disabled]="allowEntry()">
+                                                <fa-icon [icon]="'plus'"></fa-icon> Add Party
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row card">
+                    <div class="row" style="margin-top: 10px; margin-bottom: 10px; margin-right: 10px;">
+                        <div class="col-md-12" style="text-align: right;">
+                            <span *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER']">
+                                <button *ngIf="allowEntry()==false" type="button" class="btn btn-success btn-sm " (click)="suspendProject();" [disabled]="isSaving">
+                                    <fa-icon [icon]="'trash-alt'"></fa-icon> Suspend/Stop
+                                </button>
+                            </span>
+                            <button type="submit" (click)="previousState()" class="btn btn-info btn-sm">
+                                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                            </button>
+                            <ng-container *ngIf="!this.rnsQuotation.closedDate">
+                                <button class="btn btn-warning btn-sm" [routerLink]="['/', { outlets: { popup: 'rns-quotation-remark-details-call-quote/'+rnsQuotation.id+'/A'}}]">
+                                    <fa-icon [icon]="'won-sign'"></fa-icon> Approval Flow
+                                </button>
+                            </ng-container>
+                            <!-- save quotation button start -->
+                            <span *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER']">
+                                <ng-container *ngIf="!this.rnsQuotation.closedDate">
+                                    <button *ngIf="validityExpired || !rnsQuotation.rfq" type="button" class="btn btn-success btn-sm " (click)="saveQuotation(rnsQuotationForm)" [disabled]="isSaving">
+                                        <fa-icon [icon]="'save'"></fa-icon> {{saveQuotationText}}
+                                    </button>
+                                </ng-container>
+                            </span>
+                            <button type="button" class="btn btn-dark btn-sm " (click)="exportFile();" [disabled]="allowEntry()">
+                                <fa-icon [icon]="'file-download'"></fa-icon> Export
+                            </button>
+                            <button type="button" class="btn btn-dark btn-sm " [routerLink]="['/', { outlets: { popup: 'rns-file-import/'+rnsQuotation.id}}]" [disabled]="allowEntry()">
+                                <fa-icon [icon]="'file-upload'"></fa-icon> Import
+                            </button>
+                        </div>
+                        <!-- save quotation button end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container chatDiv" [hidden]="!displaychatBody" style="position: fixed; width: 30%; right:10px; bottom:0; background: white; z-index: 2000; border: 1px solid #ccc; padding: 0">
+    <div class="card bg-default">
+        <div style="height: 30px; padding-top: 5px; padding-left: 15px;" class="card-heading bg-primary text-white" id="accordion">
+            <div class="row">
+                <div class="col-md-10"><fa-icon [icon]="'comment-alt'"></fa-icon> Conversation with Party</div>
+                <div class="col-md-2 text-right"><span style="margin-right: 15px;"><fa-icon [icon]="'times'" (click)="displaychatBody=false"></fa-icon></span></div>
+            </div>
+        </div>
+    </div>
+    <div id="collapseOne"  style="display:flex; flex-direction:column;height: 300px;">
+        <div class="card-body"  style="flex: 1; height:100%; overflow: auto; display: flex; flex-direction: column-reverse;">
+            <ul class="chat">
+                <li class="left clearfix" *ngFor="let rnsVendorRemark of rnsVendorRemarks">
+                    <div class="row" *ngIf="this.account.email===rnsVendorRemark.toEmail">
+                        <div class="col-md-2">
+                            <span class="chat-img">
+                                <img alt="User Avatar" class="img-circle" src="http://placehold.it/50/353d47/fff&amp;text=V" style="border-radius: 50%;">
+                            </span>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong style="color: #756d6d">{{rnsVendorRemark.fromEmail}}</strong>
+                                </div>
+                                <p>{{rnsVendorRemark.remarkText}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <div class="row" *ngIf="this.account.email===rnsVendorRemark.fromEmail">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong style="color: #756d6d;padding-left:5px;">{{rnsVendorRemark.fromEmail}}</strong>
+                                </div>
+                                <p>
+                                    {{rnsVendorRemark.remarkText}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="chat-img">
+                                  <img src="http://placehold.it/50/572dad/fff&text=A" alt="User Avatar" class="img-circle" style=" border-radius: 50%;"/>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer">
+            <div class="input-group input-group-sm" *ngIf="rnsVendorRemarkPost">
+                <input id="btn-input" type="text" class="form-control form-control-sm" name="remarkText" placeholder="Type your message here..." onfocus="if (this.value == 'Type your message here...') {this.value = ''}" onblur="if (this.value == '') {this.value = 'Type your message here...';}" [(ngModel)]="rnsVendorRemarkPost.remarkText" />
+                <div class="input-group-append">
+                    <button class="btn btn-warning btn-sm" id="btn-chat" (click)="postChatMsg(rnsVendorRemarkPost.remarkText);">{{chatBtnText}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

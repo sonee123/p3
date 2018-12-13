@@ -1,0 +1,76 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsSourceTeamDtlLabel">Create or edit a Sourcing Team Detail</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsSourceTeamDtl.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id" maxlength="38"
+                     [(ngModel)]="rnsSourceTeamDtl.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label">User Id</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control form-control-sm" name="empCode" id="field_empCode" *ngIf="empCode" [value]="empCode.firstName+' '+empCode.lastName+'('+empCode.login+')'" required readonly="true"/>
+                <input type="text" class="form-control form-control-sm" *ngIf="!empCode" readonly="true">
+                <div class="input-group-append">
+                    <a class="btn btn-secondary btn-sm" [routerLink]="['/', { outlets: { popup: ['employee-search', 'empCode'] } }]" replaceUrl="true"><fa-icon [icon]="'search'"></fa-icon></a>
+                </div>
+            </div>
+            <!--input type="text" class="form-control form-control-sm" name="userId" id="field_userId"
+                [(ngModel)]="rnsSourceTeamDtl.userId" required maxlength="255" [disabled]="rnsSourceTeamDtl.id?'true':'false'"/-->
+            <div [hidden]="!(editForm.controls.userId?.dirty && editForm.controls.userId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.userId?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.userId?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_masterId">Sourcing Team</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" name="masterId" id="field_masterId"
+                [(ngModel)]="rnsSourceTeamDtl.masterId" required>
+                <option [ngValue]="rnsSourceTeamMaster.id" *ngFor="let rnsSourceTeamMaster of rnsSourceTeamMasters;">{{rnsSourceTeamMaster.description}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.masterId?.dirty && editForm.controls.masterId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.masterId?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.masterId?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <!--div class="form-group">
+            <label class="form-control-label" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control form-control-sm" name="createdBy" id="field_createdBy"
+                [(ngModel)]="rnsSourceTeamDtl.createdBy" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createdDate">Created Date</label>
+            <div class="d-flex">
+                <input id="field_createdDate" type="datetime-local" class="form-control form-control-sm" name="createdDate" [(ngModel)]="rnsSourceTeamDtl.createdDate"
+                />
+            </div>
+        </div-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,42 @@
+<div class="auth">
+    <div class="header">
+    </div>
+    <div class="w-80 ">
+        <div class="auth-text">
+            <!-- log in text div -->
+            <div class="auth-signup-text">
+                <h2>Welcome to p3 portal</h2>
+                <p>Login with your username and password.</p>
+            </div>
+        </div>
+        <!-- forms -->
+        <div class="card shadow auth-forms">
+            <div class="alert alert-danger" *ngIf="authenticationError">
+                <strong>Failed to sign in!</strong> Please check your credentials and try again.
+            </div>
+            <!-- login form -->
+            <div class="auth-login">
+                <div class="wrapper">
+                    <h2 class="mb-4 text-primary">Login</h2>
+                    <form class="form" role="form" (ngSubmit)="login()">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Your username"
+                                   [(ngModel)]="username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Your password"
+                                   [(ngModel)]="password">
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" [(ngModel)]="rememberMe" checked>
+                            <span>Remember me</span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn px-4 btn-primary">Log In</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

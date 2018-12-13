@@ -1,0 +1,14 @@
+<div class="wrapper" [class.sidebar-mini]="commonService.sidebarMiniToggleValue">
+    <div class="sidebar-panel" [class.sidebar-panel-unauthorized]="!isAuthenticated()">
+        <jhi-sidebar></jhi-sidebar>
+    </div>
+    <div class="main-panel" [class.main-panel-unauthorized]="!isAuthenticated()">
+        <router-outlet name="navbar"></router-outlet>
+        <div class="panel-content">
+            <router-outlet></router-outlet>
+            <router-outlet name="popup"></router-outlet>
+        </div>
+        <jhi-footer></jhi-footer>
+    </div>
+</div>
+<notifier-container></notifier-container>

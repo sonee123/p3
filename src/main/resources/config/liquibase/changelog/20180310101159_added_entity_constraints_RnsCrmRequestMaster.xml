@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity RnsCrmRequestMaster.
+    -->
+    <changeSet id="20180310101159-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="rns_pch_master_id"
+                                 baseTableName="y"
+                                 constraintName="rns_crm_reques_rns_pch_maste_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rns_pch_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="buyer_code_id"
+                                 baseTableName="y"
+                                 constraintName="rns_crm_reques_buyer_code_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rns_buyer_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="article_code_id"
+                                 baseTableName="y"
+                                 constraintName="rns_crm_reques_article_code_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rns_article_master"/>
+
+    </changeSet>
+</databaseChangeLog>

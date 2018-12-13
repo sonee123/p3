@@ -1,0 +1,47 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsQuotationEventDefinationLabel">Create or edit a Rns Quotation Event Defination</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsQuotationEventDefination.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsQuotationEventDefination.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_technology">Technology</label>
+            <input type="text" class="form-control form-control-sm" name="technology" id="field_technology"
+                [(ngModel)]="rnsQuotationEventDefination.technology" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_defectCode">Defect Code</label>
+            <input type="text" class="form-control form-control-sm" name="defectCode" id="field_defectCode"
+                [(ngModel)]="rnsQuotationEventDefination.defectCode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_text1">Text 1</label>
+            <input type="text" class="form-control form-control-sm" name="text1" id="field_text1"
+                [(ngModel)]="rnsQuotationEventDefination.text1" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_rnsType">Type</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_rnsType" name="rnsType" [(ngModel)]="rnsQuotationEventDefination.rnsType" >
+                <!-- <option [ngValue]="null"></option> -->
+                <option [ngValue]="rnsTypeMasterOption.id === rnsQuotationEventDefination.rnsType?.id ? rnsQuotationEventDefination.rnsType : rnsTypeMasterOption" *ngFor="let rnsTypeMasterOption of rnstypemasters; trackBy: trackRnsTypeMasterById">{{rnsTypeMasterOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

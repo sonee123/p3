@@ -1,0 +1,52 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myMessageLabel">Message Log</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <span style="font-weight:900;padding-bottom: 10px;">#{{rnsQuotation.id }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{rnsQuotation.projectTitle}}</span>
+        <div class="table-responsive"  style="height:350px;overflow-x: auto;" *ngIf="messages">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>From Mail</span></th>
+                    <th><span>To Mail</span></th>
+                    <th><span>Subject</span></th>
+                    <!--th><span>Message Body</span></th-->
+                    <th><span>Created Date</span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let message of messages ;">
+                    <td>{{message.id}}</td>
+                    <td><div *ngIf="message.fromUser"><div *ngIf="message.fromUser.vendorName">{{message.fromUser.vendorName}}</div><div *ngIf="!message.fromUser.vendorName">{{message.company}}</div>({{message.fromUser.firstName}} {{message.fromUser.lastName}})</div></td>
+                    <td><div *ngIf="message.toUser"><div *ngIf="message.toUser.vendorName">{{message.toUser.vendorName}}</div><div *ngIf="!message.toUser.vendorName">{{message.company}}</div>({{message.toUser.firstName}} {{message.toUser.lastName}})</div></td>
+                    <td>{{message.subject}}</td>
+                    <!--td><div [innerHTML]="message.messageBody"></div></td-->
+                    <td>{{message.createdDate | date:'dd-MMM-yy h:mm a'}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/', { outlets: { popup: 'message/'+ message.id + '/edit'} }]"
+                                    replaceUrl="true"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+    </div>
+</form>

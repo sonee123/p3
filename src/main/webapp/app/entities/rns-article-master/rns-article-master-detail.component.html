@@ -1,0 +1,59 @@
+<div *ngIf="rnsArticleMaster">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Article Master</span> {{rnsArticleMaster.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Article Code</span></dt>
+                        <dd>
+                            <span>{{rnsArticleMaster.articleCode}}</span>
+                        </dd>
+                        <dt><span>Article Description</span></dt>
+                        <dd>
+                            <span>{{rnsArticleMaster.articleDesc}}</span>
+                        </dd>
+                        <dt><span>Category Code</span></dt>
+                        <dd>
+                            <div *ngIf="rnsArticleMaster.catgCode">
+                                <!--a [routerLink]="['/rns-catg-master', rnsArticleMaster.catgCode?.id]"></a-->
+                                {{rnsArticleMaster.catgCode?.catgCode}} - {{rnsArticleMaster.catgCode?.catgCodeDesc}}
+                            </div>
+                        </dd>
+                        <dt><span>Created By</span></dt>
+                        <dd>
+                            <span *ngIf="rnsArticleMaster.user">{{rnsArticleMaster.user?.firstName}} {{rnsArticleMaster.user?.lastName}}</span>
+                        </dd>
+                        <dt><span>Created Date</span></dt>
+                        <dd>
+                            <span *ngIf="rnsArticleMaster.createdDate">{{rnsArticleMaster.createdDate |date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Modified By</span></dt>
+                        <dd>
+                            <span *ngIf="rnsArticleMaster.updatedUser">{{rnsArticleMaster.updatedUser?.firstName}} {{rnsArticleMaster.updatedUser?.lastName}}</span>
+                        </dd>
+                        <dt><span>Modified Date</span></dt>
+                        <dd>
+                            <span *ngIf="rnsArticleMaster.lastUpdatedDate">{{rnsArticleMaster.lastUpdatedDate |date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']" type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-article-master/'+ rnsArticleMaster.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

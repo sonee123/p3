@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity RnsCatgMaster.
+    -->
+    <changeSet id="20171205085825-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="rns_catg_masters_id"
+                                 baseTableName="rns_catg_master_user"
+                                 constraintName="fk_rcmuraa_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rns_catg_master"/>
+        <addForeignKeyConstraint baseColumnNames="users_id"
+                                 baseTableName="rns_catg_master_user"
+                                 constraintName="fk_rcuuuu_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rns_relation"/>
+
+
+        <!--loadData encoding="UTF-8"
+                  file="config/liquibase/rns_catg_master.csv"
+                  separator=";"
+                  tableName="rns_catg_master">
+        </loadData-->
+
+        <!--loadData encoding="UTF-8"
+                  file="config/liquibase/rns_catg_master_user.csv"
+                  separator=";"
+                  tableName="rns_catg_master_user">
+        </loadData-->
+
+        <!--loadData encoding="UTF-8"
+                  file="config/liquibase/rns_article_master.csv"
+                  separator=";"
+                  tableName="rns_article_master">
+        </loadData-->
+
+        <!--loadData encoding="UTF-8"
+                  file="config/liquibase/rns_type_master.csv"
+                  separator=";"
+                  tableName="rns_type_master">
+        </loadData-->
+
+        <!--loadData encoding="UTF-8"
+                  file="config/liquibase/rns_sector_master.csv"
+                  separator=";"
+                  tableName="rns_sector_master">
+        </loadData-->
+
+
+        <!--loadData encoding="UTF-8"
+                  file="config/liquibase/rns_pay_terms_master.csv"
+                  separator=";"
+                  tableName="rns_pay_terms_master">
+        </loadData-->
+
+        <!--loadData encoding="UTF-8"
+                  file="config/liquibase/rns_del_terms_master.csv"
+                  separator=";"
+                  tableName="rns_del_terms_master">
+        </loadData-->
+
+        <!--loadData encoding="UTF-8"
+                  file="config/liquibase/template.csv"
+                  separator=";"
+                  tableName="template">
+        </loadData-->
+
+    </changeSet>
+</databaseChangeLog>

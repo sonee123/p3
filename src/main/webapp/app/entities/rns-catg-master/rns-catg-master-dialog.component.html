@@ -1,0 +1,35 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsCatgMasterLabel">Create or edit a Category Master</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsCatgMaster.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="rnsCatgMaster.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_catgCode">Category Code</label>
+            <input type="text" class="form-control form-control-sm" name="catgCode"maxlength="255"  id="field_catgCode" [(ngModel)]="rnsCatgMaster.catgCode" required [disabled]="rnsCatgMaster.id?'true':'false'"/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_catgCodeDesc">Category Code Description</label>
+            <input type="text" class="form-control form-control-sm" name="catgCodeDesc" maxlength="255" id="field_catgCodeDesc" [(ngModel)]="rnsCatgMaster.catgCodeDesc" required/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_showCrm">Show CRM</label>
+            <input type="checkbox" class="form-control form-control-sm" name="showCrm" id="field_showCrm" [(ngModel)]="rnsCatgMaster.showCrm" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

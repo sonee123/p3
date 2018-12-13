@@ -1,0 +1,124 @@
+<div class="card">
+    <div class="card-heading">
+        <div class="row" style="padding-left: 15px !important; padding-right: 15px !important; padding-top: 15px !important;">
+            <div class="col-md-6">
+                <h5><label class="form-control-label">Dashboard</label></h5>
+            </div>
+            <div class="col-md-2" *jhiHasAnyAuthority="['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_AUDITOR']">
+                <form [formGroup]="myForm" novalidate><jhi-month-date-picker name="fecha" formControlName="fecha"></jhi-month-date-picker></form>
+            </div>
+            <div class="col-md-3" *jhiHasAnyAuthority="['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_AUDITOR']">
+                <select *ngIf="rnsCatgMasters" class="custom-select custom-select-sm form-control form-control-sm" id="searchCatgCode" name="searchCatgCode" style="height:30px;" [(ngModel)]="searchCatgCode">
+                    <option [value]="rnsCatgMaster.id" *ngFor="let rnsCatgMaster of rnsCatgMasters;">{{rnsCatgMaster.catgCode}} &nbsp;&nbsp;-&nbsp;{{rnsCatgMaster.catgCodeDesc}}</option>
+                </select>
+            </div>
+            <div class="col-md-1" *jhiHasAnyAuthority="['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_AUDITOR']">
+                <button class="btn btn-primary btn-sm" (click)="load();"><fa-icon [icon]="'sync'"></fa-icon></button>
+            </div>
+        </div>
+        <hr style="margin: 0;"/>
+    </div>
+    <div class="card-body bg-light">
+        <div class="row" style="margin-left:3px;margin-right:3px;">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-heading card-header-tabs  card-header-primary text-white">
+                        <div style="padding: 5px; font-weight: bold;"><fa-icon [icon]="'quote-right'"></fa-icon> RFQ</div>
+                    </div>
+                    <div class="card-body">
+                        <div id="rfqChart" class="ct-chart" style="height:200px; text-align: center;"></div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fa-icon [icon]="'circle'" class="text-success"></fa-icon> Open
+                                <fa-icon [icon]="'circle'" class="text-danger"></fa-icon> Closed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-heading card-header-tabs card-header-primary text-white">
+                        <div style="padding: 5px; font-weight: bold;"><fa-icon [icon]="'gavel'"></fa-icon> Bidding</div>
+                    </div>
+                    <div class="card-body">
+                        <div id="rfbChart" class="ct-chart" style="height:200px; text-align: center;"></div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fa-icon [icon]="'circle'" class="text-success"></fa-icon> Open
+                                <fa-icon [icon]="'circle'" class="text-danger"></fa-icon> Closed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-heading card-header-tabs card-header-warning text-white">
+                    <div style="padding: 5px; font-weight: bold;"><fa-icon [icon]="'chart-line'"></fa-icon> Last Bidding</div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6" style="border: 1px solid #f2f2f2;">
+                            <div style="height:350px; text-align: center;">
+                                <svg style="width:550px;height:350px;" id="biddingChart">
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="col-md-6" *ngIf="dashBoard" style="height:350px; overflow: auto;">
+                            <table class="table table-sm" style="border: 1px solid #f2f2f2;">
+                                <thead>
+                                <tr class="bg-primary text-white">
+                                    <th>Party</th>
+                                    <th>Submit Time</th>
+                                    <th>Rate</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <ng-container *ngFor="let revvendor of dashBoard.pricesList">
+                                    <tr>
+                                        <td>{{revvendor.vendorName}}</td>
+                                        <td>{{revvendor.date | date: 'dd-MMM-yy h:mm:ss a'}}</td>
+                                        <td>{{revvendor.value}}</td>
+                                        <td><ng-container *ngIf="revvendor && revvendor.surrogate"><fa-icon [icon]="'bezier-curve'"></fa-icon></ng-container></td>
+                                    </tr>
+                                </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row" style="width: 100%;">
+                        <div class="col-md-2" *ngIf="dashBoard">
+                            Project#
+                        </div>
+                        <div class="col-md-3" *ngIf="dashBoard">
+                            <select class="custom-select custom-select-sm form-control form-control-sm" id="searchProjectCode" name="searchProjectCode" style="height:30px;" [(ngModel)]="dashBoard.selectedBid" (change)="reloadLot();">
+                                <option [value]="quotationId" *ngFor="let quotationId of dashBoard.biddingList;">{{quotationId}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2" *ngIf="dashBoard">
+                            Lot#
+                        </div>
+                        <div class="col-md-3" *ngIf="dashBoard">
+                            <select class="custom-select custom-select-sm form-control form-control-sm" id="searchLot" name="searchLot" style="height:30px;" [(ngModel)]="dashBoard.selectedLot">
+                                <option [value]="lotId.id" *ngFor="let lotId of dashBoard.lotList;">{{lotId.variantName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2" *ngIf="dashBoard">
+                            <button class="btn btn-warning btn-sm" (click)="reloadChart();"><fa-icon [icon]="'sync'"></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

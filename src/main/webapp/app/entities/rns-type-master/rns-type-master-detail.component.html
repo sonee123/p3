@@ -1,0 +1,64 @@
+
+<div *ngIf="rnsTypeMaster">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Project Region Master</span> {{rnsTypeMaster.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Project Region Code</span></dt>
+                        <dd>
+                            <span>{{rnsTypeMaster.typeCode}}</span>
+                        </dd>
+                        <dt><span>Project Region Description</span></dt>
+                        <dd>
+                            <span>{{rnsTypeMaster.typeCodeDesc}}</span>
+                        </dd>
+                        <dt><span>Category Code</span></dt>
+                        <dd>
+                            <div *ngIf="rnsTypeMaster.rnsCatgCode">
+                                <!--a style="font-weight: 100!important;"[routerLink]="['/rns-catg-master', rnsTypeMaster.rnsCatgCode?.id]"></a-->
+                                {{rnsTypeMaster.rnsCatgCode?.catgCode}}&nbsp;&nbsp;-&nbsp; {{rnsTypeMaster.rnsCatgCode?.catgCodeDesc}}
+                            </div>
+                        </dd>
+                        <dt><span>Created By</span></dt>
+                        <dd>
+                            <span *ngIf="rnsTypeMaster.user">{{rnsTypeMaster.user?.firstName}} {{rnsTypeMaster.user?.lastName}}</span>
+                        </dd>
+                        <dt><span>Created Date</span></dt>
+                        <dd>
+                            <span *ngIf="rnsTypeMaster.createdDate">{{rnsTypeMaster.createdDate |date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Modified&nbsp;By</span></dt>
+                        <dd>
+                            <div *ngIf="rnsTypeMaster.updatedUser">
+                                {{rnsTypeMaster.updatedUser?.firstName}}
+                                {{rnsTypeMaster.updatedUser?.lastName}}
+                            </div>
+                        </dd>
+                        <dt><span>Modified&nbsp;Date</span></dt>
+                        <dd>
+                            <div *ngIf="rnsTypeMaster.lastUpdatedDate">{{rnsTypeMaster.lastUpdatedDate | date:'dd-MMM-yy h:mm a'}}
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-type-master/'+ rnsTypeMaster.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property dbms="mysql,h2,postgresql" value="true" name="autoIncrement"/>
+    <property dbms="oracle" value="false" name="autoIncrement"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity VndrPrice.
+    -->
+    <changeSet id="20180406113521-1" author="jhipster">
+        <createTable tableName="vndr_price">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="price_one" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="price_two" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="price_three" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="price_four" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="price_five" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="price_six" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="price_seven" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="price_eight" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="price_nine" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="price_ten" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="vendor_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="variant_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="vndr_quotation_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="currency_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_on" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            <column name="surrogate" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="vndr_price_seq" ordered="true" incrementBy="1" cycle="false"/>
+        <createProcedure dbms="oracle" relativeToChangelogFile="true" procedureName="vndr_price_procedure" encoding="utf8" catalogName="vndr_price_catalog"> CREATE TRIGGER vndr_price_trigger BEFORE INSERT ON vndr_price FOR EACH ROW BEGIN IF( :NEW.id IS NULL ) THEN :NEW.id:=vndr_price_seq.NEXTVAL; END IF; END; </createProcedure>
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

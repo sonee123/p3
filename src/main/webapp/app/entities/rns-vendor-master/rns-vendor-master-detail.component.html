@@ -1,0 +1,61 @@
+
+<div *ngIf="rnsVendorMaster">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Vendor Master</span> {{rnsVendorMaster.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Vendor Code</span></dt>
+                        <dd>
+                            <span>{{rnsVendorMaster.vendorCode}}</span>
+                        </dd>
+                        <dt><span>Vendor Name</span></dt>
+                        <dd>
+                            <span>{{rnsVendorMaster.vendorName}}</span>
+                        </dd>
+                        <dt><span>Email</span></dt>
+                        <dd>
+                            <span>{{rnsVendorMaster.email}}</span>
+                        </dd>
+                        <dt><span>Mobile Number</span></dt>
+                        <dd>
+                            <span>{{rnsVendorMaster.mobileNumber}}</span>
+                        </dd>
+                        <!--dt><span>Vendor Master Code</span></dt>
+                        <dd>
+                            <span>{{rnsVendorMaster.vendorMasterCode}}</span>
+                        </dd>
+                        <dt><span>Vendor User Id</span></dt>
+                        <dd>
+                            <span>{{rnsVendorMaster.vendorUserId}}</span>
+                        </dd>
+                        <dt><span>User Name</span></dt>
+                        <dd>
+                            <span>{{rnsVendorMaster.userName}}</span>
+                        </dd>
+                        <dt><span>User</span></dt>
+                        <dd>
+                            {{rnsVendorMaster.user?.id}}
+                        </dd-->
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <!--button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-vendor-master/'+ rnsVendorMaster.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

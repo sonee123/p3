@@ -1,0 +1,52 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "yourEmailId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "remarks",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "2000"
+        },
+        {
+            "fieldName": "attachFile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "displayAttachFile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        
+        {
+            "fieldName": "ccdResponseDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "ccdResponse",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180718094303",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "feedback",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

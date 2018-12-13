@@ -1,0 +1,51 @@
+<nav class="navbar navigation-bar"  [class.hidden]="commonService.navbarToggleValue" [class.sidebar-hidden]="commonService.sidebarToggleValue">
+    <div class="nav-toggle-btn" [class.open]="!commonService.sidebarToggleValue" (click)="commonService.sidebarToggle()">
+        <span *ngFor="let number of [0,1,2]"></span>
+    </div>
+    <div class="navbar-brand">
+        <a>
+            <img src="../../../content/images/p3.png" style="width:55px;"/>
+        </a>
+    </div>
+
+    <ul class="left-ul navigation-bar-flex">
+        <li *ngIf="!isAuthenticated()" class="nav-item navigation-bar-flex"><img src="../../../content/images/p3.png" style="width: 55px;height: 49px;"/></li>
+        <li *ngIf="isAuthenticated()" class="nav-bar navigation-bar-flex">
+            <a id="minimizeSidebar" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="commonService.sidebarMiniToggle()">
+                <fa-icon *ngIf="!commonService.sidebarMiniToggleValue" [icon]="'bars'"></fa-icon>
+                <fa-icon *ngIf="commonService.sidebarMiniToggleValue" [icon]="'bars'"></fa-icon>
+            </a>
+        </li>
+        <li class="nav-item navigation-bar-flex">Plan <fa-icon [icon]="'arrow-right'"></fa-icon> Publish <fa-icon [icon]="'arrow-right'"></fa-icon> Probe</li>
+    </ul>
+    <ul class="right-ul navigation-bar-flex" [ngSwitch]="isAuthenticated()">
+        <li ngbDropdown class="nav-item navigation-bar-flex dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" style="color: #0085C4 !important;"><fa-icon [icon]="'cog'"></fa-icon></a>
+            <ul class="dropdown-menu" ngbDropdownMenu>
+                <!--li *ngSwitchCase="true">
+                    <a class="dropdown-item" routerLink="settings" routerLinkActive="active" (click)="collapseNavbar()">
+                        <fa-icon [icon]="'wrench'" [fixedWidth]="true"></fa-icon>
+                        <span>Settings</span>
+                    </a>
+                </li-->
+                <li *ngSwitchCase="true">
+                    <a class="dropdown-item" routerLink="password" routerLinkActive="active" (click)="collapseNavbar()">
+                        <fa-icon [icon]="'clock'" [fixedWidth]="true"></fa-icon>
+                        <span>Password</span>
+                    </a>
+                </li>
+                <li *ngSwitchCase="true">
+                    <a class="dropdown-item" (click)="logout()" id="logout">
+                        <fa-icon [icon]="'sign-out-alt'" [fixedWidth]="true"></fa-icon>
+                        <span>Sign out</span>
+                    </a>
+                </li>
+                <li *ngSwitchCase="false">
+                    <a class="dropdown-item" (click)="login()" id="login">
+                        <fa-icon [icon]="'sign-in-alt'" [fixedWidth]="true"></fa-icon>
+                        <span>Sign in</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

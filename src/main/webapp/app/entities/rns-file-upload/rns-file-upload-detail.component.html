@@ -1,0 +1,45 @@
+
+<div *ngIf="rnsFileUpload">
+    <h2><span>File Upload</span> {{rnsFileUpload.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Variant Id</span></dt>
+        <dd>
+            <span>{{rnsFileUpload.variantId}}</span>
+        </dd>
+        <dt><span>File Name</span></dt>
+        <dd>
+            <span>{{rnsFileUpload.fileName}}</span>
+        </dd>
+        <dt><span>Display Name</span></dt>
+        <dd>
+            <span>{{rnsFileUpload.displayName}}</span>
+        </dd>
+        <dt><span>Upload Type</span></dt>
+        <dd>
+            <span>{{rnsFileUpload.uploadType}}</span>
+        </dd>
+        <dt><span>Created By</span></dt>
+        <dd>
+            <span>{{rnsFileUpload.createdBy}}</span>
+        </dd>
+        <dt><span>Created Date</span></dt>
+        <dd>
+            <span>{{rnsFileUpload.createdDate | date:'dd-MMM-yy h:mm a'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'rns-file-upload/'+ rnsFileUpload.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

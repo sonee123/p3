@@ -1,0 +1,194 @@
+<div>
+    <h5>
+        <span>Auction Variants</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-auction-vrnt"
+                [routerLink]="['/', { outlets: { popup: ['auction-vrnt-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="auctionVrnts">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Title</span></th>
+                                    <th><span>Applicable</span></th>
+                                    <th><span>Text One</span></th>
+                                    <th><span>UOM One</span></th>
+                                    <th><span>Conv Factor One</span></th>
+                                    <th><span>Qty One</span></th>
+                                    <th><span>Price One</span></th>
+                                    <th><span>Amount One</span></th>
+                                    <th><span>Text Two</span></th>
+                                    <th><span>UOM Two</span></th>
+                                    <th><span>Conv Factor Two</span></th>
+                                    <th><span>Qty Two</span></th>
+                                    <th><span>Price Two</span></th>
+                                    <th><span>Amount Two</span></th>
+                                    <th><span>Text Three</span></th>
+                                    <th><span>UOM Three</span></th>
+                                    <th><span>Conv Factor Three</span></th>
+                                    <th><span>Qty Three</span></th>
+                                    <th><span>Price Three</span></th>
+                                    <th><span>Amount Three</span></th>
+                                    <th><span>Text Four</span></th>
+                                    <th><span>UOM Four</span></th>
+                                    <th><span>Conv Factor Four</span></th>
+                                    <th><span>Qty Four</span></th>
+                                    <th><span>Price Four</span></th>
+                                    <th><span>Amount Four</span></th>
+                                    <th><span>Text Five</span></th>
+                                    <th><span>UOM Five</span></th>
+                                    <th><span>Conv Factor Five</span></th>
+                                    <th><span>Qty Five</span></th>
+                                    <th><span>Price Five</span></th>
+                                    <th><span>Amount Five</span></th>
+                                    <th><span>Text Six</span></th>
+                                    <th><span>UOM Six</span></th>
+                                    <th><span>Conv Factor Six</span></th>
+                                    <th><span>Qty Six</span></th>
+                                    <th><span>Price Six</span></th>
+                                    <th><span>Amount Six</span></th>
+                                    <th><span>Text Seven</span></th>
+                                    <th><span>UOM Seven</span></th>
+                                    <th><span>Conv Factor Seven</span></th>
+                                    <th><span>Qty Seven</span></th>
+                                    <th><span>Price Seven</span></th>
+                                    <th><span>Amount Seven</span></th>
+                                    <th><span>Text Eight</span></th>
+                                    <th><span>UOM Eight</span></th>
+                                    <th><span>Conv Factor Eight</span></th>
+                                    <th><span>Qty Eight</span></th>
+                                    <th><span>Price Eight</span></th>
+                                    <th><span>Amount Eight</span></th>
+                                    <th><span>Text Nine</span></th>
+                                    <th><span>UOM Nine</span></th>
+                                    <th><span>Conv Factor Nine</span></th>
+                                    <th><span>Qty Nine</span></th>
+                                    <th><span>Price Nine</span></th>
+                                    <th><span>Amount Nine</span></th>
+                                    <th><span>Text Ten</span></th>
+                                    <th><span>UOM Ten</span></th>
+                                    <th><span>Conv Factor Ten</span></th>
+                                    <th><span>Qty Ten</span></th>
+                                    <th><span>Price Ten</span></th>
+                                    <th><span>Amount Ten</span></th>
+                                    <th><span>Variant</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let auctionVrnt of auctionVrnts ;trackBy: trackId">
+                                    <td><a [routerLink]="['../auction-vrnt', auctionVrnt.id ]">{{auctionVrnt.id}}</a></td>
+                                    <td>{{auctionVrnt.title}}</td>
+                                    <td>{{auctionVrnt.applicable}}</td>
+                                    <td>{{auctionVrnt.textOne}}</td>
+                                    <td>{{auctionVrnt.uomOne}}</td>
+                                    <td>{{auctionVrnt.convFactOne}}</td>
+                                    <td>{{auctionVrnt.qtyOne}}</td>
+                                    <td>{{auctionVrnt.priceOne}}</td>
+                                    <td>{{auctionVrnt.amountOne}}</td>
+                                    <td>{{auctionVrnt.textTwo}}</td>
+                                    <td>{{auctionVrnt.uomTwo}}</td>
+                                    <td>{{auctionVrnt.convFactTwo}}</td>
+                                    <td>{{auctionVrnt.qtyTwo}}</td>
+                                    <td>{{auctionVrnt.priceTwo}}</td>
+                                    <td>{{auctionVrnt.amountTwo}}</td>
+                                    <td>{{auctionVrnt.textThree}}</td>
+                                    <td>{{auctionVrnt.uomThree}}</td>
+                                    <td>{{auctionVrnt.convFactThree}}</td>
+                                    <td>{{auctionVrnt.qtyThree}}</td>
+                                    <td>{{auctionVrnt.priceThree}}</td>
+                                    <td>{{auctionVrnt.amountThree}}</td>
+                                    <td>{{auctionVrnt.textFour}}</td>
+                                    <td>{{auctionVrnt.uomFour}}</td>
+                                    <td>{{auctionVrnt.convFactFour}}</td>
+                                    <td>{{auctionVrnt.qtyFour}}</td>
+                                    <td>{{auctionVrnt.priceFour}}</td>
+                                    <td>{{auctionVrnt.amountFour}}</td>
+                                    <td>{{auctionVrnt.textFive}}</td>
+                                    <td>{{auctionVrnt.uomFive}}</td>
+                                    <td>{{auctionVrnt.convFactFive}}</td>
+                                    <td>{{auctionVrnt.qtyFive}}</td>
+                                    <td>{{auctionVrnt.priceFive}}</td>
+                                    <td>{{auctionVrnt.amountFive}}</td>
+                                    <td>{{auctionVrnt.textSix}}</td>
+                                    <td>{{auctionVrnt.uomSix}}</td>
+                                    <td>{{auctionVrnt.convFactSix}}</td>
+                                    <td>{{auctionVrnt.qtySix}}</td>
+                                    <td>{{auctionVrnt.priceSix}}</td>
+                                    <td>{{auctionVrnt.amountSix}}</td>
+                                    <td>{{auctionVrnt.textSeven}}</td>
+                                    <td>{{auctionVrnt.uomSeven}}</td>
+                                    <td>{{auctionVrnt.convFactSeven}}</td>
+                                    <td>{{auctionVrnt.qtySeven}}</td>
+                                    <td>{{auctionVrnt.priceSeven}}</td>
+                                    <td>{{auctionVrnt.amountSeven}}</td>
+                                    <td>{{auctionVrnt.textEight}}</td>
+                                    <td>{{auctionVrnt.uomEight}}</td>
+                                    <td>{{auctionVrnt.convFactEight}}</td>
+                                    <td>{{auctionVrnt.qtyEight}}</td>
+                                    <td>{{auctionVrnt.priceEight}}</td>
+                                    <td>{{auctionVrnt.amountEight}}</td>
+                                    <td>{{auctionVrnt.textNine}}</td>
+                                    <td>{{auctionVrnt.uomNine}}</td>
+                                    <td>{{auctionVrnt.convFactNine}}</td>
+                                    <td>{{auctionVrnt.qtyNine}}</td>
+                                    <td>{{auctionVrnt.priceNine}}</td>
+                                    <td>{{auctionVrnt.amountNine}}</td>
+                                    <td>{{auctionVrnt.textTen}}</td>
+                                    <td>{{auctionVrnt.uomTen}}</td>
+                                    <td>{{auctionVrnt.convFactTen}}</td>
+                                    <td>{{auctionVrnt.qtyTen}}</td>
+                                    <td>{{auctionVrnt.priceTen}}</td>
+                                    <td>{{auctionVrnt.amountTen}}</td>
+                                    <td>
+                                        <div *ngIf="auctionVrnt.variant">
+                                            <a style="font-weight: 100!important;"
+                                               [routerLink]="['../rns-quotation-variant', auctionVrnt.variant?.id ]">{{auctionVrnt.variant?.title}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../auction-vrnt', auctionVrnt.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'auction-vrnt/'+ auctionVrnt.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'auction-vrnt/'+ auctionVrnt.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

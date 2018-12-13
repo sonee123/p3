@@ -1,0 +1,82 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "quotation",
+            "otherEntityName": "rnsQuotation",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "auction"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "auctionTitle",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "auctionDescription",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "publishTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "biddingStartTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lotRunningTime",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "bidRankOverTime",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "bidTimeForOvertimeStart",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "overtimePeriod",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "showLeadBidToAll",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "event",
+            "fieldType": "AuctionEvent",
+            "fieldValues": "AUCTION,REVERSE_AUCTION"
+        },
+        {
+            "fieldName": "timeBetweenLots",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "minPriceChanges",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "currency",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "showRanks",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "allowTieBids",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20180316100344",
+    "entityTableName": "auction",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

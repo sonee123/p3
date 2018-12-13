@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive" *ngIf="rnsQuotations">
+                    <table class="display table responsive no-wrap" id="exampleFixed">
+                        <thead>
+                        <tr>
+                          <th>Bidding&nbsp;#</th>
+                          <th>Title</th>
+                          <th>Sourcing&nbsp;Responsible</th>
+                          <th>Publish&nbsp;Date</th>
+                          <th>Start&nbsp;Time</th>
+                          <th>No.&nbsp;of&nbsp;Lots</th>
+                          <th>Lot&nbsp;Running&nbsp;Time</th>
+                          <th>Status</th>
+                          <th class="no-sort"></th>
+                        </tr>
+                      </thead>
+                        <tbody>
+                          <tr *ngFor="let rnsQuotation of rnsQuotations;">
+                              <td>{{rnsQuotation.id}}<span class="span-small-text" *ngIf="rnsQuotation.published">published</span> </td>
+                              <td>{{rnsQuotation.projectTitle}}</td>
+                              <td><ng-container *ngIf="rnsQuotation.user">{{rnsQuotation.user.firstName + " "+rnsQuotation.user.lastName}}</ng-container></td>
+                              <td><ng-container  *ngIf="rnsQuotation && rnsQuotation.auctionDetails">{{rnsQuotation.auctionDetails.publishTime | date: 'dd-MMM-yy h:mm a'}}</ng-container></td>
+                              <td><ng-container  *ngIf="rnsQuotation && rnsQuotation.auctionDetails">{{rnsQuotation.auctionDetails.biddingStartTime | date: 'dd-MMM-yy h:mm a'}}</ng-container></td>
+                              <td>{{rnsQuotation.noOfLot}}</td>
+                              <td><ng-container  *ngIf="rnsQuotation && rnsQuotation.auctionDetails">{{rnsQuotation.auctionDetails.lotRunningTime}} minutes</ng-container></td>
+                              <td><ng-container *ngIf="rnsQuotation.auctionClose">Close</ng-container><ng-container *ngIf="!rnsQuotation.auctionClose">Open</ng-container></td>
+                              <td>
+                                <button type="submit" [routerLink]="['../vendor/quotation/'+rnsQuotation.id+'/auction' ]" replaceUrl="true"  class="btn btn-secondary btn-sm" style="margin-right: 10px;background-color:#3c4859;color:#fff;float: right;">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">view</span>
+                                </button>
+                              </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

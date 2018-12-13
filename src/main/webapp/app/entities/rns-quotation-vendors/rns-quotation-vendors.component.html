@@ -1,0 +1,106 @@
+<div>
+    <h5>
+        <span>Quotation Vendors</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-rns-quotation-vendors"
+                [routerLink]="['/', { outlets: { popup: ['rns-quotation-vendors-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsQuotationVendors">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Payment Terms</span></th>
+                                    <th><span>Delivery Terms</span></th>
+                                    <th><span>Exp Del Date</span></th>
+                                    <th><span>Conf Del Date</span></th>
+                                    <th><span>Currency</span></th>
+                                    <th><span>Regular Rate</span></th>
+                                    <th><span>Dis Rate</span></th>
+                                    <th><span>Expiry Qty</span></th>
+                                    <th><span>Quote Qty</span></th>
+                                    <th><span>Award Qty</span></th>
+                                    <th><span>User Id</span></th>
+                                    <th><span>Variant</span></th>
+                                    <th><span>Vendor</span></th>
+                                    <th><span>Vendor Quotation</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsQuotationVendors of rnsQuotationVendors ;trackBy: trackId">
+                                    <td><a [routerLink]="['../rns-quotation-vendors', rnsQuotationVendors.id ]">{{rnsQuotationVendors.id}}</a>
+                                    </td>
+                                    <td>{{rnsQuotationVendors.paymentTerms}}</td>
+                                    <td>{{rnsQuotationVendors.deliveryTerms}}</td>
+                                    <td>{{rnsQuotationVendors.expDelDate}}</td>
+                                    <td>{{rnsQuotationVendors.confDelDate}}</td>
+                                    <td>{{rnsQuotationVendors.currency}}</td>
+                                    <td>{{rnsQuotationVendors.regularRate}}</td>
+                                    <td>{{rnsQuotationVendors.disRate}}</td>
+                                    <td>{{rnsQuotationVendors.expiryQty}}</td>
+                                    <td>{{rnsQuotationVendors.quoteQty}}</td>
+                                    <td>{{rnsQuotationVendors.awardQty}}</td>
+                                    <td>
+                                        {{rnsQuotationVendors.userId?.id}}
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsQuotationVendors.variant">
+                                            <a [routerLink]="['../rns-quotation-variant', rnsQuotationVendors.variant?.id ]">{{rnsQuotationVendors.variant?.id}}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsQuotationVendors.vendor">
+                                            <a [routerLink]="['../rns-vendor-master', rnsQuotationVendors.vendor?.id ]">{{rnsQuotationVendors.vendor?.id}}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsQuotationVendors.vendorQuotation">
+                                            <a [routerLink]="['../rns-quotation', rnsQuotationVendors.vendorQuotation?.id ]">{{rnsQuotationVendors.vendorQuotation?.id}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-quotation-vendors', rnsQuotationVendors.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-vendors/'+ rnsQuotationVendors.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-vendors/'+ rnsQuotationVendors.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

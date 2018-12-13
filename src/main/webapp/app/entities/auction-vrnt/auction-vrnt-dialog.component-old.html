@@ -1,0 +1,348 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myAuctionVrntLabel">Create or edit a Auction Vrnt</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!auctionVrnt.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="auctionVrnt.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_title">Title</label>
+            <input type="text" class="form-control form-control-sm" name="title" id="field_title"
+                [(ngModel)]="auctionVrnt.title" required/>
+            <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.title?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_applicable">Applicable</label>
+            <input type="checkbox" class="form-control form-control-sm" name="applicable" id="field_applicable"
+                [(ngModel)]="auctionVrnt.applicable" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_textOne">Text One</label>
+            <input type="text" class="form-control form-control-sm" name="textOne" id="field_textOne"
+                [(ngModel)]="auctionVrnt.textOne" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_uomOne">Uom One</label>
+            <input type="text" class="form-control form-control-sm" name="uomOne" id="field_uomOne"
+                [(ngModel)]="auctionVrnt.uomOne" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_convFactOne">Conv Fact One</label>
+            <input type="number" class="form-control form-control-sm" name="convFactOne" id="field_convFactOne"
+                [(ngModel)]="auctionVrnt.convFactOne" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_qtyOne">Qty One</label>
+            <input type="number" class="form-control form-control-sm" name="qtyOne" id="field_qtyOne"
+                [(ngModel)]="auctionVrnt.qtyOne" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceOne">Price One</label>
+            <input type="number" class="form-control form-control-sm" name="priceOne" id="field_priceOne"
+                [(ngModel)]="auctionVrnt.priceOne" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_amountOne">Amount One</label>
+            <input type="number" class="form-control form-control-sm" name="amountOne" id="field_amountOne"
+                [(ngModel)]="auctionVrnt.amountOne" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_textTwo">Text Two</label>
+            <input type="text" class="form-control form-control-sm" name="textTwo" id="field_textTwo"
+                [(ngModel)]="auctionVrnt.textTwo" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_uomTwo">Uom Two</label>
+            <input type="text" class="form-control form-control-sm" name="uomTwo" id="field_uomTwo"
+                [(ngModel)]="auctionVrnt.uomTwo" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_convFactTwo">Conv Fact Two</label>
+            <input type="number" class="form-control form-control-sm" name="convFactTwo" id="field_convFactTwo"
+                [(ngModel)]="auctionVrnt.convFactTwo" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_qtyTwo">Qty Two</label>
+            <input type="number" class="form-control form-control-sm" name="qtyTwo" id="field_qtyTwo"
+                [(ngModel)]="auctionVrnt.qtyTwo" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceTwo">Price Two</label>
+            <input type="number" class="form-control form-control-sm" name="priceTwo" id="field_priceTwo"
+                [(ngModel)]="auctionVrnt.priceTwo" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_amountTwo">Amount Two</label>
+            <input type="number" class="form-control form-control-sm" name="amountTwo" id="field_amountTwo"
+                [(ngModel)]="auctionVrnt.amountTwo" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_textThree">Text Three</label>
+            <input type="text" class="form-control form-control-sm" name="textThree" id="field_textThree"
+                [(ngModel)]="auctionVrnt.textThree" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_uomThree">Uom Three</label>
+            <input type="text" class="form-control form-control-sm" name="uomThree" id="field_uomThree"
+                [(ngModel)]="auctionVrnt.uomThree" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_convFactThree">Conv Fact Three</label>
+            <input type="number" class="form-control form-control-sm" name="convFactThree" id="field_convFactThree"
+                [(ngModel)]="auctionVrnt.convFactThree" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_qtyThree">Qty Three</label>
+            <input type="number" class="form-control form-control-sm" name="qtyThree" id="field_qtyThree"
+                [(ngModel)]="auctionVrnt.qtyThree" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceThree">Price Three</label>
+            <input type="number" class="form-control form-control-sm" name="priceThree" id="field_priceThree"
+                [(ngModel)]="auctionVrnt.priceThree" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_amountThree">Amount Three</label>
+            <input type="number" class="form-control form-control-sm" name="amountThree" id="field_amountThree"
+                [(ngModel)]="auctionVrnt.amountThree" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_textFour">Text Four</label>
+            <input type="text" class="form-control form-control-sm" name="textFour" id="field_textFour"
+                [(ngModel)]="auctionVrnt.textFour" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_uomFour">Uom Four</label>
+            <input type="text" class="form-control form-control-sm" name="uomFour" id="field_uomFour"
+                [(ngModel)]="auctionVrnt.uomFour" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_convFactFour">Conv Fact Four</label>
+            <input type="number" class="form-control form-control-sm" name="convFactFour" id="field_convFactFour"
+                [(ngModel)]="auctionVrnt.convFactFour" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_qtyFour">Qty Four</label>
+            <input type="number" class="form-control form-control-sm" name="qtyFour" id="field_qtyFour"
+                [(ngModel)]="auctionVrnt.qtyFour" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceFour">Price Four</label>
+            <input type="number" class="form-control form-control-sm" name="priceFour" id="field_priceFour"
+                [(ngModel)]="auctionVrnt.priceFour" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_amountFour">Amount Four</label>
+            <input type="number" class="form-control form-control-sm" name="amountFour" id="field_amountFour"
+                [(ngModel)]="auctionVrnt.amountFour" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_textFive">Text Five</label>
+            <input type="text" class="form-control form-control-sm" name="textFive" id="field_textFive"
+                [(ngModel)]="auctionVrnt.textFive" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_uomFive">Uom Five</label>
+            <input type="text" class="form-control form-control-sm" name="uomFive" id="field_uomFive"
+                [(ngModel)]="auctionVrnt.uomFive" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_convFactFive">Conv Fact Five</label>
+            <input type="number" class="form-control form-control-sm" name="convFactFive" id="field_convFactFive"
+                [(ngModel)]="auctionVrnt.convFactFive" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_qtyFive">Qty Five</label>
+            <input type="number" class="form-control form-control-sm" name="qtyFive" id="field_qtyFive"
+                [(ngModel)]="auctionVrnt.qtyFive" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceFive">Price Five</label>
+            <input type="number" class="form-control form-control-sm" name="priceFive" id="field_priceFive"
+                [(ngModel)]="auctionVrnt.priceFive" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_amountFive">Amount Five</label>
+            <input type="number" class="form-control form-control-sm" name="amountFive" id="field_amountFive"
+                [(ngModel)]="auctionVrnt.amountFive" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_textSix">Text Six</label>
+            <input type="text" class="form-control form-control-sm" name="textSix" id="field_textSix"
+                [(ngModel)]="auctionVrnt.textSix" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_uomSix">Uom Six</label>
+            <input type="text" class="form-control form-control-sm" name="uomSix" id="field_uomSix"
+                [(ngModel)]="auctionVrnt.uomSix" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_convFactSix">Conv Fact Six</label>
+            <input type="number" class="form-control form-control-sm" name="convFactSix" id="field_convFactSix"
+                [(ngModel)]="auctionVrnt.convFactSix" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_qtySix">Qty Six</label>
+            <input type="number" class="form-control form-control-sm" name="qtySix" id="field_qtySix"
+                [(ngModel)]="auctionVrnt.qtySix" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceSix">Price Six</label>
+            <input type="number" class="form-control form-control-sm" name="priceSix" id="field_priceSix"
+                [(ngModel)]="auctionVrnt.priceSix" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_amountSix">Amount Six</label>
+            <input type="number" class="form-control form-control-sm" name="amountSix" id="field_amountSix"
+                [(ngModel)]="auctionVrnt.amountSix" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_textSeven">Text Seven</label>
+            <input type="text" class="form-control form-control-sm" name="textSeven" id="field_textSeven"
+                [(ngModel)]="auctionVrnt.textSeven" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_uomSeven">Uom Seven</label>
+            <input type="text" class="form-control form-control-sm" name="uomSeven" id="field_uomSeven"
+                [(ngModel)]="auctionVrnt.uomSeven" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_convFactSeven">Conv Fact Seven</label>
+            <input type="number" class="form-control form-control-sm" name="convFactSeven" id="field_convFactSeven"
+                [(ngModel)]="auctionVrnt.convFactSeven" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_qtySeven">Qty Seven</label>
+            <input type="number" class="form-control form-control-sm" name="qtySeven" id="field_qtySeven"
+                [(ngModel)]="auctionVrnt.qtySeven" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceSeven">Price Seven</label>
+            <input type="number" class="form-control form-control-sm" name="priceSeven" id="field_priceSeven"
+                [(ngModel)]="auctionVrnt.priceSeven" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_amountSeven">Amount Seven</label>
+            <input type="number" class="form-control form-control-sm" name="amountSeven" id="field_amountSeven"
+                [(ngModel)]="auctionVrnt.amountSeven" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_textEight">Text Eight</label>
+            <input type="text" class="form-control form-control-sm" name="textEight" id="field_textEight"
+                [(ngModel)]="auctionVrnt.textEight" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_uomEight">Uom Eight</label>
+            <input type="text" class="form-control form-control-sm" name="uomEight" id="field_uomEight"
+                [(ngModel)]="auctionVrnt.uomEight" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_convFactEight">Conv Fact Eight</label>
+            <input type="number" class="form-control form-control-sm" name="convFactEight" id="field_convFactEight"
+                [(ngModel)]="auctionVrnt.convFactEight" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_qtyEight">Qty Eight</label>
+            <input type="number" class="form-control form-control-sm" name="qtyEight" id="field_qtyEight"
+                [(ngModel)]="auctionVrnt.qtyEight" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceEight">Price Eight</label>
+            <input type="number" class="form-control form-control-sm" name="priceEight" id="field_priceEight"
+                [(ngModel)]="auctionVrnt.priceEight" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_amountEight">Amount Eight</label>
+            <input type="number" class="form-control form-control-sm" name="amountEight" id="field_amountEight"
+                [(ngModel)]="auctionVrnt.amountEight" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_textNine">Text Nine</label>
+            <input type="text" class="form-control form-control-sm" name="textNine" id="field_textNine"
+                [(ngModel)]="auctionVrnt.textNine" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_uomNine">Uom Nine</label>
+            <input type="text" class="form-control form-control-sm" name="uomNine" id="field_uomNine"
+                [(ngModel)]="auctionVrnt.uomNine" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_convFactNine">Conv Fact Nine</label>
+            <input type="number" class="form-control form-control-sm" name="convFactNine" id="field_convFactNine"
+                [(ngModel)]="auctionVrnt.convFactNine" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_qtyNine">Qty Nine</label>
+            <input type="number" class="form-control form-control-sm" name="qtyNine" id="field_qtyNine"
+                [(ngModel)]="auctionVrnt.qtyNine" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceNine">Price Nine</label>
+            <input type="number" class="form-control form-control-sm" name="priceNine" id="field_priceNine"
+                [(ngModel)]="auctionVrnt.priceNine" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_amountNine">Amount Nine</label>
+            <input type="number" class="form-control form-control-sm" name="amountNine" id="field_amountNine"
+                [(ngModel)]="auctionVrnt.amountNine" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_textTen">Text Ten</label>
+            <input type="text" class="form-control form-control-sm" name="textTen" id="field_textTen"
+                [(ngModel)]="auctionVrnt.textTen" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_uomTen">Uom Ten</label>
+            <input type="text" class="form-control form-control-sm" name="uomTen" id="field_uomTen"
+                [(ngModel)]="auctionVrnt.uomTen" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_convFactTen">Conv Fact Ten</label>
+            <input type="number" class="form-control form-control-sm" name="convFactTen" id="field_convFactTen"
+                [(ngModel)]="auctionVrnt.convFactTen" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_qtyTen">Qty Ten</label>
+            <input type="number" class="form-control form-control-sm" name="qtyTen" id="field_qtyTen"
+                [(ngModel)]="auctionVrnt.qtyTen" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceTen">Price Ten</label>
+            <input type="number" class="form-control form-control-sm" name="priceTen" id="field_priceTen"
+                [(ngModel)]="auctionVrnt.priceTen" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_amountTen">Amount Ten</label>
+            <input type="number" class="form-control form-control-sm" name="amountTen" id="field_amountTen"
+                [(ngModel)]="auctionVrnt.amountTen" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_variant">Variant</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_variant" name="variant" [(ngModel)]="auctionVrnt.variant" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="rnsQuotationVariantOption.id === auctionVrnt.variant?.id ? auctionVrnt.variant : rnsQuotationVariantOption" *ngFor="let rnsQuotationVariantOption of rnsquotationvariants; trackBy: trackRnsQuotationVariantById">{{rnsQuotationVariantOption.title}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

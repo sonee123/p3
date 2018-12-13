@@ -1,0 +1,72 @@
+<div>
+    <h5>
+        <span>Bidding Terms Body Masters</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-auction-terms-body-master"
+                [routerLink]="['/', { outlets: { popup: ['auction-terms-body-master-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create new Bidding Terms Body Master
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="auctionTermsBodyMasters">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Term Id</span></th>
+                                    <th><span>Terms Body</span></th>
+                                    <th><span>Created By</span></th>
+                                    <th><span>Created Date</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let auctionTermsBodyMaster of auctionTermsBodyMasters ;trackBy: trackId">
+                                    <td><a [routerLink]="['../auction-terms-body-master', auctionTermsBodyMaster.id ]">{{auctionTermsBodyMaster.id}}</a>
+                                    </td>
+                                    <td>{{auctionTermsBodyMaster.termId}}</td>
+                                    <td>{{auctionTermsBodyMaster.termsBody}}</td>
+                                    <td>{{auctionTermsBodyMaster.createdBy}}</td>
+                                    <td>{{auctionTermsBodyMaster.createdDate | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../auction-terms-body-master', auctionTermsBodyMaster.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'auction-terms-body-master/'+ auctionTermsBodyMaster.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'auction-terms-body-master/'+ auctionTermsBodyMaster.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

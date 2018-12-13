@@ -1,0 +1,18 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myAuctionTermsMasterLabel">Bidding Pre-requisite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <textarea type="text" class="form-control form-control-sm" readonly="readonly" name="termsBody" id="field_termsBody" [(ngModel)]="auctionTermsMaster.termsBody" style="height:400px; background-color: #fff;"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success btn-sm">
+            <span class="fa fa-check"></span>&nbsp;<span>I Agree</span>
+        </button>
+    </div>
+</form>

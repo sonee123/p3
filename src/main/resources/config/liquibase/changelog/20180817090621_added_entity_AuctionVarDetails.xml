@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity AuctionVarDetails.
+    -->
+    <changeSet id="20180817090621-1" author="jhipster">
+        <createTable tableName="auction_var_details">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="lot_start_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="lot_end_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="overtime_minutes" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="variant_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="quotation_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="updated_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="updated_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="auction_var_details_seq" ordered="true" incrementBy="1" cycle="false"/>
+        <createProcedure dbms="oracle" relativeToChangelogFile="true" procedureName="auction_var_details_procedure" encoding="utf8" catalogName="auction_var_details_catalog"> CREATE TRIGGER auction_var_details_trigger BEFORE INSERT ON auction_var_details FOR EACH ROW BEGIN IF( :NEW.id IS NULL ) THEN :NEW.id:=auction_var_details_seq.NEXTVAL; END IF; END; </createProcedure>
+        <!--dropDefaultValue tableName="auction_var_details" columnName="lot_start_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="auction_var_details" columnName="lot_end_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="auction_var_details" columnName="created_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="auction_var_details" columnName="updated_date" columnDataType="datetime"/-->
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

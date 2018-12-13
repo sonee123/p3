@@ -1,0 +1,49 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "rnsArticleMaster",
+            "otherEntityName": "rnsArticleMaster",
+            "otherEntityField": "articleCode"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "catgCode",
+            "otherEntityName": "rnsCatgMaster",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "articleCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "articleDesc",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "updatedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastUpdatedDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20180310101150",
+    "entityTableName": "rns_article_master",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

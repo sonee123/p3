@@ -1,0 +1,57 @@
+
+<div *ngIf="auctionPauseDetails">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Auction Pause Details</span> {{auctionPauseDetails.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Pause Start Date</span></dt>
+                        <dd>
+                            <span>{{auctionPauseDetails.pauseStartDate | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Pause End Date</span></dt>
+                        <dd>
+                            <span>{{auctionPauseDetails.pauseEndDate | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Variant Id</span></dt>
+                        <dd>
+                            <span>{{auctionPauseDetails.variantId}}</span>
+                        </dd>
+                        <dt><span>Created Date</span></dt>
+                        <dd>
+                            <span>{{auctionPauseDetails.createdDate | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Created By</span></dt>
+                        <dd>
+                            <span>{{auctionPauseDetails.createdBy}}</span>
+                        </dd>
+                        <dt><span>Updated Date</span></dt>
+                        <dd>
+                            <span>{{auctionPauseDetails.updatedDate | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Updated By</span></dt>
+                        <dd>
+                            <span>{{auctionPauseDetails.updatedBy}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'auction-pause-details/'+ auctionPauseDetails.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

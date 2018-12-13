@@ -1,0 +1,83 @@
+
+<div *ngIf="rnsCrmRequestMaster">
+    <h5 style="font-size:16px; font-weight:bold;"><span>CRM Request Master</span> {{rnsCrmRequestMaster.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>CRM Code</span></dt>
+                        <dd>
+                            <span>{{rnsCrmRequestMaster.crmCode}}</span>
+                        </dd>
+                        <dt><span>Requested By</span></dt>
+                        <dd>
+                            <span>{{rnsCrmRequestMaster.requestedBy}}</span>
+                        </dd>
+                        <dt><span>Target PCD</span></dt>
+                        <dd>
+                            <span>{{rnsCrmRequestMaster.targetPcd | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Merchant Remarks</span></dt>
+                        <dd>
+                            <span>{{rnsCrmRequestMaster.merchantRemarks}}</span>
+                        </dd>
+                        <dt><span>Date</span></dt>
+                        <dd>
+                            <span>{{rnsCrmRequestMaster.date | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>PCH Master</span></dt>
+                        <dd>
+                            <div *ngIf="rnsCrmRequestMaster.rnsPchMaster">
+                                {{rnsCrmRequestMaster.rnsPchMaster?.pchCode}}
+                            </div>
+                        </dd>
+                        <dt><span>Article Code</span></dt>
+                        <dd>
+                            <div *ngIf="rnsCrmRequestMaster.rnsArticleMaster">
+                                {{rnsCrmRequestMaster.rnsArticleMaster?.articleCode}}
+                            </div>
+                        </dd>
+                        <dt><span>End User Code</span></dt>
+                        <dd>
+                            <div *ngIf="rnsCrmRequestMaster.buyerCode">
+                                {{rnsCrmRequestMaster.buyerCode?.buyerCode}}&nbsp;&nbsp;-&nbsp;{{rnsCrmRequestMaster.buyerCode?.buyerName}}
+                            </div>
+                        </dd>
+                        <dt><span>Created By</span></dt>
+                        <dd>
+                            <span *ngIf="rnsCrmRequestMaster.user">{{rnsCrmRequestMaster.user?.firstName}} {{rnsCrmRequestMaster.user?.lastName}}</span>
+                        </dd>
+                        <dt><span>Created Date</span></dt>
+                        <dd>
+                            <span *ngIf="rnsCrmRequestMaster.createdDate">{{rnsCrmRequestMaster.createdDate |date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Modified By</span></dt>
+                        <dd>
+                            <span *ngIf="rnsCrmRequestMaster.updateUser">{{rnsCrmRequestMaster.updateUser?.firstName}} {{rnsCrmRequestMaster.updateUser?.lastName}}</span>
+                        </dd>
+                        <dt><span>Modified Date</span></dt>
+                        <dd>
+                            <span *ngIf="rnsCrmRequestMaster.lastUpdatedDate">{{rnsCrmRequestMaster.lastUpdatedDate |date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-crm-request-master/'+ rnsCrmRequestMaster.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

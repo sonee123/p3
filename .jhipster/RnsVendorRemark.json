@@ -1,0 +1,31 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "quotation",
+            "otherEntityName": "rnsQuotation",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "remarkText",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "vendorId",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "read",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20180310101203",
+    "entityTableName": "rns_vendor_remark",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

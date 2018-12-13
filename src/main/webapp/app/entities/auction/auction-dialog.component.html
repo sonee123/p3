@@ -1,0 +1,125 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myAuctionLabel">Bidding publish Rules</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <!-- <jhi-alert-error></jhi-alert-error> -->
+        <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_quotation">Project#</label>
+            <div class="form-group col-md-8">
+                <input type="hidden" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="auction.id"/>
+                <input type="text" class="form-control form-control-sm" id="field_quotation" name="quotationId" [(ngModel)]="auction.quotationId" [disabled]="auction.quotationId"/>
+            </div>
+        </div>
+        <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_projectTitle">Project Title</label>
+            <div class="form-group col-md-8" *ngIf="quotation">
+                <input type="text" class="form-control form-control-sm" name="projectTitle" id="field_projectTitle" value="{{quotation.projectTitle}}" [disabled]="quotation.projectTitle" />
+            </div>
+        </div>
+        <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_eventType">Event Type</label>
+            <div class="form-group col-md-8" *ngIf="quotation">
+                <select class="custom-select custom-select-sm form-control form-control-sm" name="field_eventType" value="{{quotation.eventType}}"  id="field_eventType"  style="height: 26px !important;" [disabled]="quotation.eventType">
+                    <option value="AUCTION">Sale</option>
+                    <option value="REVERSE_AUCTION">Purchase</option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_publishTime">Publish Time</label>
+            <div class="form-group col-md-8">
+                <div class="input-group input-group-sm">
+                    <input id="field_publishTime" type="text" [owlDateTime]="publishTime" placeholder="DD-MM-YYYY HH:MI PM" class="form-control form-control-sm" name="publishTime" [(ngModel)]="auction.publishTime" required/>
+                    <div class="input-group-append">
+                        <span class="btn btn-secondary btn-sm" [owlDateTimeTrigger]="publishTime"><fa-icon [icon]="'calendar'"></fa-icon></span>
+                        <owl-date-time #publishTime></owl-date-time>
+                    </div>
+                 </div>
+            </div>
+        </div>
+        <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_biddingStartTime">Bidding Start Time</label>
+            <div class="form-group col-md-8">
+                <div class="input-group input-group-sm">
+                    <input id="field_biddingStartTime" [owlDateTime]="biddingStartTime" placeholder="DD-MM-YYYY HH:MI PM" type="text" class="form-control form-control-sm" name="biddingStartTime" [(ngModel)]="auction.biddingStartTime" required hourFormat="24"/>
+                    <div class="input-group-append">
+                        <span class="btn btn-secondary btn-sm" [owlDateTimeTrigger]="biddingStartTime"><fa-icon [icon]="'calendar'"></fa-icon></span>
+                        <owl-date-time #biddingStartTime></owl-date-time>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_lotRunningTime">Lot Running Time(minutes)</label>
+            <div class="form-group col-md-8">
+                <input type="number" min="0" class="form-control form-control-sm" name="lotRunningTime" id="field_lotRunningTime" [(ngModel)]="auction.lotRunningTime" required min="0"/>
+            </div>
+        </div>
+        <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_bidRankOverTime">Bid Rank that will trigger overtime</label>
+            <div class="form-group col-md-8">
+                <input type="number" min="0" class="form-control form-control-sm" name="bidRankOverTime" id="field_bidRankOverTime" [(ngModel)]="auction.bidRankOverTime" required/>
+            </div>
+        </div>
+        <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_bidTimeForOvertimeStart">Overtime will trigger in last ? minutes</label>
+            <div class="form-group col-md-8">
+                <input type="number" min="0" class="form-control form-control-sm" name="bidTimeForOvertimeStart" id="field_bidTimeForOvertimeStart" [(ngModel)]="auction.bidTimeForOvertimeStart" required/>
+            </div>
+        </div>
+        <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_overtimePeriod">Overtime Period(minutes)</label>
+            <div class="form-group col-md-8">
+                <input type="number" min="0" class="form-control form-control-sm" name="overtimePeriod" id="field_overtimePeriod" [(ngModel)]="auction.overtimePeriod" required/>
+            </div>
+        </div>
+
+        <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_timeBetweenLots">Time Between Lots</label>
+            <div class="form-group col-md-8">
+                <input type="number" min="0" class="form-control form-control-sm" name="timeBetweenLots" id="field_timeBetweenLots" [(ngModel)]="auction.timeBetweenLots" required [disabled]="disableTimeLot"/>
+            </div>
+        </div>
+        <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_minPriceChanges">Minimum Price Change</label>
+            <div class="form-group col-md-8">
+                <input type="number" min="0" class="form-control form-control-sm" name="minPriceChanges" id="field_minPriceChanges" [(ngModel)]="auction.minPriceChanges" required/>
+            </div>
+        </div>
+
+         <div class="row row-marpad">
+            <label class="form-control-label col-md-4" for="field_currency">Currency</label>
+            <div class="form-group col-md-8">
+                <select class="custom-select custom-select-sm form-control form-control-sm" name="currency" [(ngModel)]="auction.currency" id="field_currency" required style="height: 26px !important;">
+                    <option [ngValue]="currency.symbol" *ngFor="let currency of currencies;" >{{currency.symbol}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row row-marpad">
+            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-6" style="">
+             <label class="col-md-4" for="field_allowTieBids" style="padding-left:0px !important;max-width: 38.333333% !important;">Allow Tie Bids</label>
+                <input type="checkbox" style="height: 15px;"  name="allowTieBids" id="field_allowTieBids" [(ngModel)]="auction.allowTieBids"/>
+            </div>
+            <div class="form-group col-md-2"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" *ngIf="auction.id" class="btn btn-warning btn-sm" data-dismiss="modal" [routerLink]="['/', { outlets: { popup: 'auction-var-details/'+ quotation?.id + '/edit'} }]">
+            <fa-icon [icon]="'list'"></fa-icon>&nbsp;<span>Lot Details</span>
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <span *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER']">
+            <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+            </button>
+        </span>
+    </div>
+</form>

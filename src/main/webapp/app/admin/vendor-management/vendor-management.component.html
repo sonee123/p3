@@ -1,0 +1,81 @@
+<div>
+    <h5>
+        <span id="user-management-page-heading">Party</span>
+        <button *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']" class="btn btn-primary btn-sm float-right jh-create-entity" [routerLink]="['./new']">
+            <fa-icon [icon]="'plus'"></fa-icon> <span>Create</span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="users">
+                        <table class="display table table-sm no-wrap" id="exampleFixed">
+                            <thead>
+                            <tr>
+                                <th><span>ID</span></th>
+                                <th><span>Login</span></th>
+                                <th><span>Email</span></th>
+                                <th class="no-sort" *jhiHasAnyAuthority="'ROLE_ADMIN'"></th>
+                                <th><span>Portal Registered</span></th>
+                                <th><span>Party Code</span></th>
+                                <th><span>Party Name</span></th>
+                                <th class="no-sort"></th>
+                            </tr>
+                            </thead>
+                            <tbody *ngIf ="users">
+                            <tr *ngFor="let user of users;">
+                                <td><a [routerLink]="['./', user.login, 'view']">{{user.id}}</a></td>
+                                <td>{{user.login}}</td>
+                                <td>{{user.email}}</td>
+                                <td *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']">
+                                    <button class="btn btn-danger btn-sm" (click)="setActive(user, true)" *ngIf="!user.activated"
+                                    >Deactivated</button>
+                                    <button class="btn btn-success btn-sm" (click)="setActive(user, false)" *ngIf="user.activated"
+                                            [disabled]="currentAccount.login === user.login">Activated</button>
+                                </td>
+                                <td>{{user.registeredUser}}</td>
+                                <td>{{user.vendorCode}}</td>
+                                <td>{{user.vendorName}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                [routerLink]="['./', user.login, 'view']"
+                                                class="btn btn-info btn-sm">
+                                            <fa-icon [icon]="'eye'"></fa-icon>
+                                            <span class="d-none d-md-inline">View</span>
+                                        </button>
+                                        <button *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']" type="submit"
+                                                [routerLink]="['./', user.login, 'edit']"
+                                                queryParamsHandling="merge"
+                                                class="btn btn-primary btn-sm">
+                                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                            <span class="d-none d-md-inline">Edit</span>
+                                        </button>
+                                        <button *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']" type="submit"
+                                                [routerLink]="['/', { outlets: { popup: 'password-management/'+ user.login + '/edit'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-info btn-sm">
+                                            <fa-icon [icon]="'clock'"></fa-icon>
+                                            <span class="d-none d-md-inline">Change Password</span>
+                                        </button>
+                                        <button *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']" type="button" (click)="deleteUser(user)"
+                                                class="btn btn-danger btn-sm" [disabled]="true">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                            <span class="d-none d-md-inline">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

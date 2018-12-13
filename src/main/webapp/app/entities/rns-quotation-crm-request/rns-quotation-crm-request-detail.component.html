@@ -1,0 +1,61 @@
+
+<div *ngIf="rnsQuotationCrmRequest">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Quotation CRM Request</span> {{rnsQuotationCrmRequest.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>CRM Request Number</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationCrmRequest.crmRequestNumber}}</span>
+                        </dd>
+                        <dt><span>Requested By</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationCrmRequest.requestedBy}}</span>
+                        </dd>
+                        <dt><span>Target PCD</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationCrmRequest.targetPcd | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt><span>Merchant Remarks</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationCrmRequest.merchantRemarks}}</span>
+                        </dd>
+                        <dt><span>Date</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationCrmRequest.date | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Buyer Code</span></dt>
+                        <dd>
+                            <div *ngIf="rnsQuotationCrmRequest.buyerCode">
+                                <a [routerLink]="['/rns-buyer-master', rnsQuotationCrmRequest.buyerCode?.id]">{{rnsQuotationCrmRequest.buyerCode?.buyerCode}} ({{rnsQuotationCrmRequest.buyerCode?.buyerName}})</a>
+                            </div>
+                        </dd>
+                        <dt><span>PCH Master</span></dt>
+                        <dd>
+                            <div *ngIf="rnsQuotationCrmRequest.rnsPchMaster">
+                                <a [routerLink]="['/rns-pch-master', rnsQuotationCrmRequest.rnsPchMaster?.id]">{{rnsQuotationCrmRequest.rnsPchMaster?.pchCode}}</a>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-quotation-crm-request/'+ rnsQuotationCrmRequest.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

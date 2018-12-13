@@ -1,0 +1,66 @@
+<div>
+    <h2>
+        <span>File Uploads</span>
+        <button class="btn btn-primary float-right jh-create-entity create-rns-file-upload" [routerLink]="['/', { outlets: { popup: ['rns-file-upload-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Rns File Upload
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Variant Id</span></th>
+            <th><span>File Name</span></th>
+            <th><span>Display Name</span></th>
+            <th><span>Upload Type</span></th>
+            <th><span>Created By</span></th>
+            <th><span>Created Date</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let rnsFileUpload of rnsFileUploads ;trackBy: trackId">
+                <td><a [routerLink]="['../rns-file-upload', rnsFileUpload.id ]">{{rnsFileUpload.id}}</a></td>
+                <td>{{rnsFileUpload.variantId}}</td>
+                <td>{{rnsFileUpload.fileName}}</td>
+                <td>{{rnsFileUpload.displayName}}</td>
+                <td>{{rnsFileUpload.uploadType}}</td>
+                <td>{{rnsFileUpload.createdBy}}</td>
+                <td>{{rnsFileUpload.createdDate | date:'dd-MMM-yy h:mm a'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../rns-file-upload', rnsFileUpload.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'rns-file-upload/'+ rnsFileUpload.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'rns-file-upload/'+ rnsFileUpload.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

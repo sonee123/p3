@@ -1,0 +1,43 @@
+
+<div *ngIf="rnsQuotationArticle">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Quotation Article</span> {{rnsQuotationArticle.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Article Code</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationArticle.articleCode}}</span>
+                        </dd>
+                        <dt><span>Article Name</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationArticle.articleName}}</span>
+                        </dd>
+                        <dt><span>Buyer Code</span></dt>
+                        <dd>
+                            <div *ngIf="rnsQuotationArticle.buyerCode">
+                                <a [routerLink]="['/rns-buyer-master', rnsQuotationArticle.buyerCode?.id]">{{rnsQuotationArticle.buyerCode?.buyerCode}}</a>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-quotation-article/'+ rnsQuotationArticle.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

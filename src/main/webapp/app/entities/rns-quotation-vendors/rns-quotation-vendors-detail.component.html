@@ -1,0 +1,91 @@
+
+<div *ngIf="rnsQuotationVendors">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Quotation Vendors</span> {{rnsQuotationVendors.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Payment Terms</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVendors.paymentTerms}}</span>
+                        </dd>
+                        <dt><span>Delivery Terms</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVendors.deliveryTerms}}</span>
+                        </dd>
+                        <dt><span>Exp Del Date</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVendors.expDelDate}}</span>
+                        </dd>
+                        <dt><span>Conf Del Date</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVendors.confDelDate}}</span>
+                        </dd>
+                        <dt><span>Currency</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVendors.currency}}</span>
+                        </dd>
+                        <dt><span>Regular Rate</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVendors.regularRate}}</span>
+                        </dd>
+                        <dt><span>Dis Rate</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVendors.disRate}}</span>
+                        </dd>
+                        <dt><span>Expiry Qty</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVendors.expiryQty}}</span>
+                        </dd>
+                        <dt><span>Quote Qty</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVendors.quoteQty}}</span>
+                        </dd>
+                        <dt><span>Award Qty</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVendors.awardQty}}</span>
+                        </dd>
+                        <dt><span>User Id</span></dt>
+                        <dd>
+                            {{rnsQuotationVendors.userId?.id}}
+                        </dd>
+                        <dt><span>Variant</span></dt>
+                        <dd>
+                            <div *ngIf="rnsQuotationVendors.variant">
+                                <a [routerLink]="['/rns-quotation-variant', rnsQuotationVendors.variant?.id]">{{rnsQuotationVendors.variant?.id}}</a>
+                            </div>
+                        </dd>
+                        <dt><span>Vendor</span></dt>
+                        <dd>
+                            <div *ngIf="rnsQuotationVendors.vendor">
+                                <a [routerLink]="['/rns-vendor-master', rnsQuotationVendors.vendor?.id]">{{rnsQuotationVendors.vendor?.id}}</a>
+                            </div>
+                        </dd>
+                        <dt><span>Vendor Quotation</span></dt>
+                        <dd>
+                            <div *ngIf="rnsQuotationVendors.vendorQuotation">
+                                <a [routerLink]="['/rns-quotation', rnsQuotationVendors.vendorQuotation?.id]">{{rnsQuotationVendors.vendorQuotation?.id}}</a>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-quotation-vendors/'+ rnsQuotationVendors.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

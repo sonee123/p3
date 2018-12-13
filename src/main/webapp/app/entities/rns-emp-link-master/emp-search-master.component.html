@@ -1,0 +1,58 @@
+<form name="editForm" role="form" novalidate  #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsVendorMasterLabel">Select Users <small>You can select Single User and close the Popup</small></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--div class="row">
+            <div class="col-md-4">Search By Code/Name</div>
+            <div class="col-md-4">
+                <input type="text" class="form-control form-control-sm" name="search" id="field_search" placeholder="Search" [(ngModel)]="searchModel"/>
+            </div>
+        </div-->
+        <div align="center" class="centered" [style.visibility]="isWait ? 'visible' : 'hidden'">
+            <img src="../../../content/images/waiting.gif"/>
+        </div>
+        <div class="row" style="margin-top: 0;">
+            <div class="col-md-8 form-group">
+                <input type="text" class="form-control form-control-sm" name="search" id="field_search" placeholder="Search By Code/Name" required [(ngModel)]="searchModel"/>
+            </div>
+            <div class="col-md-4">
+                <button  type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-secondary btn-sm" (click)="search()"><i class="fa fa-search"></i> Search</button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <div style="height:400px;overflow-x:auto; ">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="variant_heading" style="text-align: left;"><span>&nbsp;Code</span></th>
+                            <th class="variant_heading" style="text-align: left;"><span>&nbsp;Name</span></th>
+                            <th class="variant_heading" style="text-align: left;"><span>Email</span></th>
+                            <th class="variant_heading" style="text-align: left;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let user of users;">
+                        <td>{{user.login}}</td>
+                        <td>{{user.firstName}} {{user.lastName}}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            <button class="btn btn-success btn-sm" style="font-size: 11px;" (click)="selectVendor(user)"><i class="fa fa-plus"></i> Add</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Close</span>
+        </button>
+    </div>
+</form>

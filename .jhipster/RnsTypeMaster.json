@@ -1,0 +1,43 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "rnsCatgCode",
+            "otherEntityName": "rnsCatgMaster",
+            "otherEntityField": "catgCode"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "typeCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "typeCodeDesc",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "updatedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastUpdatedDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20180310101153",
+    "entityTableName": "rns_type_master",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

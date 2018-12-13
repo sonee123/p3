@@ -1,0 +1,260 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsRfqPriceLabel">Open Costing</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div align="center" class="centered" id="prepage" *ngIf="isWait">
+            <img src="../../../content/images/waiting.gif"/>
+        </div>
+        <jhi-alert-error></jhi-alert-error>
+        <div class="row" *ngIf="vendor">
+            <div class="col-md-3">
+                <div class="form-group form-group-sm">
+                    <label class="form-control-label">Revise Payment Terms:</label>
+                    <select class="custom-select custom-select-sm form-control form-control-sm" id="paymentTerms" name="paymentTerms"  [(ngModel)]="vendor.paymentTerms" required="true" [disabled]="validityExpired" #vendorpayment_terms="ngModel">
+                        <option [ngValue]="null">Select</option>
+                        <option  *ngFor="let rnsPayTermsMaster of rnsPayTermsMasters;"  [ngValue]="rnsPayTermsMaster.payTermsCode">{{rnsPayTermsMaster.payTermsCode}} - {{rnsPayTermsMaster.payTermsCodeDesc}}</option>
+                    </select>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="form-control-label">Confirm Delivery Date:</label>
+                    <div class="input-group input-group-sm">
+                        <input  type="localdate" name="confDelDate" class="form-control form-control-sm"   [(ngModel)]="vendor.confDelDatedate" [minDate]="vendor.minConfDelDate" [disabled]="validityExpired" ngbDatepicker  #confDelDatedate="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary btn-sm" *ngIf="!validityExpired" type="button" (click)="confDelDatedate.toggle()"><fa-icon [icon]="'calendar'"></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group form-group-sm">
+                    <label class="form-control-label">Revise Delivery Terms:</label>
+                    <select class="custom-select custom-select-sm form-control form-control-sm" id="deliveryTerms" name="deliveryTerms"  [(ngModel)]="vendor.deliveryTerms" required="true" [disabled]="validityExpired" #deliveryTerms="ngModel">
+                        <option [ngValue]="null">Select</option>
+                        <option  *ngFor="let rnsDelTermsMaster of rnsDelTermsMasters;" [ngValue]="rnsDelTermsMaster.delTermsCode">{{rnsDelTermsMaster.delTermsCode}} - {{rnsDelTermsMaster.delTermsCodeDesc}}</option>
+                    </select>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="form-control-label">Currency:</label>
+                    <select class="custom-select custom-select-sm form-control form-control-sm" id="currency" name="currenc_y"   [(ngModel)]="vendor.currency" [disabled]="validityExpired" required="true">
+                        <option [ngValue]="null">Select Currency</option>
+                        <option *ngFor="let currency of currencies;"  [ngValue]="currency?.symbol" >{{currency.symbol+'-'+currency.currency}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group form-group-sm">
+                    <label class="form-control-label">Expected Delivery Date</label>
+                    <input type="text" name="expDelDate" class="form-control form-control-sm" [disabled]="true"  value="{{vendor.expDelDate | date:'dd-MM-yyyy'}}" required="true">
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="form-control-label">Enquiry Quantity:</label>
+                    <input  type="number" name="expiryQty" class="form-control form-control-sm" [disabled]="true" required="true" value="vendor.expiryQty" [(ngModel)]="vendor.expiryQty">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table" style="width:100%;" *ngIf="variant && variant.auctionConfig">
+                    <thead>
+                    <tr class="text-center variant_heading">
+                        <th style="width: 40% !important;text-align:left;">Element</th>
+                        <th style="width: 20% !important;">Consumption per Unit</th>
+                        <th style="width: 20% !important;">Rate / 1 {{variant.orderUom}}</th>
+                        <th style="width: 20% !important;">Amount / {{variant.orderQuantity}}{{variant.orderUom}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  *ngIf="variant.auctionConfig">
+                        <td *ngIf="variant.auctionConfig.textOne!=null">
+                            <input type="text" class="form-control form-control-sm" name="textOne" id="field_textOne" [disabled]="true" [(ngModel)]="variant.auctionConfig.textOne" />
+                        </td>
+                        <td *ngIf="variant.auctionConfig.textOne==null">
+                            <input type="text" class="form-control form-control-sm" name="textOne" id="field_projectTitle" [disabled]="true" value="{{rnsQuotation.projectTitle}}" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="convFactOne" id="field_convFactOne" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactOne" [disabled]="true"/>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-sm" name="priceOne" id="field_priceOne" placeholder="Price" (keyup)="historyUpdate(variant, vendor)" [(ngModel)]="vendor.rfqPrice.priceOne"  [disabled]="validityExpired" required/>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="amountOne" id="field_amountOne" placeholder="Price" disabled="disabled" value="{{variant.auctionConfig.convFactOne * variant.orderQuantity * vendor.rfqPrice.priceOne}}" />
+                        </td>
+                    </tr>
+                    <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textTwo!=null">
+                        <td>
+                            <input type="text" class="form-control form-control-sm" name="textTwo" id="field_textTwo" [disabled]="true"  [(ngModel)]="variant.auctionConfig.textTwo" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="convFactTwo" id="field_convFactTwo" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactTwo" [disabled]="true"/>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-sm" name="priceTwo" id="field_priceTwo" placeholder="Price" (keyup)="historyUpdate(variant, vendor)" [(ngModel)]="vendor.rfqPrice.priceTwo"  [disabled]="validityExpired" required/>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="amountTwo" id="field_amountTwo" placeholder="Price" value="{{variant.auctionConfig.convFactTwo * variant.orderQuantity * vendor.rfqPrice.priceTwo}}" [disabled]="true"/>
+                        </td>
+                    </tr>
+                    <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textThree!=null">
+                        <td>
+                            <input type="text" class="form-control form-control-sm" name="textThree" id="field_textThree" [disabled]="true" [(ngModel)]="variant.auctionConfig.textThree" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="convFactThree" id="field_convFactThree" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactThree" [disabled]="true"/>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-sm" name="priceThree" id="field_priceThree" placeholder="Price" (keyup)="historyUpdate(variant, vendor)" [(ngModel)]="vendor.rfqPrice.priceThree"  [disabled]="validityExpired" required/>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="amountThree" id="field_amountThree" placeholder="Price"  value="{{variant.auctionConfig.convFactThree * variant.orderQuantity * vendor.rfqPrice.priceThree}}"  [disabled]="true"/>
+                        </td>
+                    </tr>
+                    <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textFour!=null">
+                        <td>
+                            <input type="text" class="form-control form-control-sm" name="textFour" id="field_textFour" [disabled]="true" [(ngModel)]="variant.auctionConfig.textFour" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="convFactFour" id="field_convFactFour" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactFour" [disabled]="true"/>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-sm" name="priceFour" id="field_priceFour" placeholder="Price" (keyup)="historyUpdate(variant, vendor)" [(ngModel)]="vendor.rfqPrice.priceFour"  [disabled]="validityExpired" required/>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="amountFour" id="field_amountFour" placeholder="Price" value="{{variant.auctionConfig.convFactFour * variant.orderQuantity * vendor.rfqPrice.priceFour}}" [disabled]="true"/>
+                        </td>
+                    </tr>
+                    <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textFive!=null">
+                        <td>
+                            <input type="text" class="form-control form-control-sm" name="textFive" id="field_textFive" [disabled]="true" [(ngModel)]="variant.auctionConfig.textFive" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="convFactFive" id="field_convFactFive" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactFive" [disabled]="true"/>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-sm" name="priceFive" id="field_priceFive" placeholder="Price" (keyup)="historyUpdate(variant, vendor)" [(ngModel)]="vendor.rfqPrice.priceFive"  [disabled]="validityExpired" required/>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="amountFive" id="field_amountFive" placeholder="Price" value="{{variant.auctionConfig.convFactFive * variant.orderQuantity * vendor.rfqPrice.priceFive}}" [disabled]="true"/>
+                        </td>
+                    </tr>
+                    <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textSix!=null">
+                        <td>
+                            <input type="text" class="form-control form-control-sm" name="textSix" id="field_textSix" [disabled]="true" [(ngModel)]="variant.auctionConfig.textSix" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="convFactSix" id="field_convFactSix" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactSix" [disabled]="true"/>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-sm" name="priceSix" id="field_priceSix" placeholder="Price" (keyup)="historyUpdate(variant, vendor)" [(ngModel)]="vendor.rfqPrice.priceSix"  [disabled]="validityExpired" required/>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="amountSix" id="field_amountSix" placeholder="Price" value="{{variant.auctionConfig.convFactSix * variant.orderQuantity * vendor.rfqPrice.priceSix}}" [disabled]="true"/>
+                        </td>
+                    </tr>
+                    <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textSeven!=null">
+                        <td>
+                            <input type="text" class="form-control form-control-sm" name="textSeven" id="field_textSeven" [disabled]="true" [(ngModel)]="variant.auctionConfig.textSeven" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="convFactSeven" id="field_convFactSeven" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactSeven" [disabled]="true"/>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-sm" name="priceSeven" id="field_priceSeven" placeholder="Price" (keyup)="historyUpdate(variant, vendor)" [(ngModel)]="vendor.rfqPrice.priceSeven"  [disabled]="validityExpired" required/>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="amountSeven" id="field_amountSeven" placeholder="Price" value="{{variant.auctionConfig.convFactSeven * variant.orderQuantity * vendor.rfqPrice.priceSeven}}" [disabled]="true"/>
+                        </td>
+                    </tr>
+                    <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textEight!=null">
+                        <td>
+                            <input type="text" class="form-control form-control-sm" name="textEight" id="field_textEight" [disabled]="true" [(ngModel)]="variant.auctionConfig.textEight" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="convFactEight" id="field_convFactEight"
+                                   placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactEight" [disabled]="true"/>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-sm" name="priceEight" id="field_priceEight" placeholder="Price" (keyup)="historyUpdate(variant, vendor)" [(ngModel)]="vendor.rfqPrice.priceEight"  [disabled]="validityExpired" required/>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="amountEight" id="field_amountEight" placeholder="Price" value="{{variant.auctionConfig.convFactEight * variant.orderQuantity * vendor.rfqPrice.priceEight}}" [disabled]="true"/>
+                        </td>
+                    </tr>
+                    <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textNine!=null">
+                        <td>
+                            <input type="text" class="form-control form-control-sm" name="textNine" id="field_textNine" [disabled]="true" [(ngModel)]="variant.auctionConfig.textNine" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="convFactNine" id="field_convFactNine" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactNine" [disabled]="true"/>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-sm" name="priceNine" id="field_priceNine" placeholder="Price" (keyup)="historyUpdate(variant, vendor)" [(ngModel)]="vendor.rfqPrice.priceNine"  [disabled]="validityExpired" required/>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="amountNine" id="field_amountNine" placeholder="Price" value="{{variant.auctionConfig.convFactNine * variant.orderQuantity * vendor.rfqPrice.priceNine}}" [disabled]="true"/>
+                        </td>
+                    </tr>
+                    <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textTen!=null">
+                        <td>
+                            <input type="text" class="form-control form-control-sm" name="textTen" id="field_textTen" [disabled]="true" [(ngModel)]="variant.auctionConfig.textTen" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="convFactTen" id="field_convFactTen" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactTen" [disabled]="true"/>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-sm" name="priceTen" id="field_priceTen" placeholder="Price" (keyup)="historyUpdate(variant, vendor)" [(ngModel)]="vendor.rfqPrice.priceTen"  [disabled]="validityExpired" required/>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" name="amountTen" id="field_amountTen" placeholder="Price"  value="{{variant.auctionConfig.convFactTen * variant.orderQuantity * vendor.rfqPrice.priceTen}}" [disabled]="true"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                        <td><input  type="text" name="regularRate" class="form-control form-control-sm" [disabled]="true" [(ngModel)]="vendor.regularRate"/></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <span *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER']">
+            <button type="submit" *ngIf="!validityExpired && rnsQuotation && rnsQuotation.rfq && rnsQuotation.approvedFlag=='C' && vendor.rfqUserType!='V'" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+            </button>
+        </span>
+        <button type="button" class="btn btn-dark btn-sm " (click)="exportFile();" *ngIf="!validityExpired && rnsQuotation && rnsQuotation.rfq && rnsQuotation.approvedFlag=='C'">
+            <fa-icon [icon]="'file-download'"></fa-icon> Export
+        </button>
+        <button type="button" class="btn btn-dark btn-sm " [routerLink]="['/', { outlets: { popup: 'rns-rfq-file-import/'+rnsQuotation.id}}]" *ngIf="!validityExpired && rnsQuotation && rnsQuotation.rfq && rnsQuotation.approvedFlag=='C'">
+            <fa-icon [icon]="'file-upload'"></fa-icon> Import
+        </button>
+    </div>
+</form>

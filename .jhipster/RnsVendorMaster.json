@@ -1,0 +1,47 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "vendorCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "vendorMasterCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "vendorName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "vendorUserId",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "userName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "mobileNumber",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180310101156",
+    "entityTableName": "rns_vendor_master",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

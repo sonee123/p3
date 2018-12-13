@@ -1,0 +1,249 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myAuctionVrntLabel">Configure open costing</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <!-- <jhi-alert-error></jhi-alert-error> -->
+       <div class="row">
+           <div class="col-md-2 form-group"><label class="form-control-label" for="field_applicable" >is Applicable</label></div>
+            <div class="col-md-4 form-group"> <input type="checkbox" disabled="disabled" class="" name="applicable" id="field_applicable" [(ngModel)]="auctionVrnt.applicable" style="margin-left: -58px;"/></div>
+    </div>
+        <table class="table table-responsive">
+            <thead>
+                <tr class="text-center" >
+                    <td style="width:45%;font-weight: 500;" *ngIf="auctionVrnt.applicable">Element Description</td>
+                    <td style="width:15%;font-weight: 500;"><b>UOM</b></td>
+                    <td style="width:10%;font-weight: 500;"><b>Consumption per Potential Unit</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="" >
+                    <td class="" style="width:45%" *ngIf="auctionVrnt.applicable">
+                        <input type="text" class="form-control form-control-sm" style=" float: left;" st name="textOne" id="field_textOne" [(ngModel)]="auctionVrnt.textOne" placeholder="Element Description" [disabled]="!auctionVrnt.applicable"/>
+                    </td>
+                    <td style="width:15%">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="field_uomOne" name="uomOne" [(ngModel)]="auctionVrnt.uomOne" (ngModelChange)="changeConvFact($event)" [hidden]="auctionVrnt.textOne" [disabled]="!auctionVrnt.applicable">
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode}}({{rnsUomMaster.uomName}})</option>
+                            </select>
+
+                            <select *ngIf="auctionVrnt.textOne" class="custom-select custom-select-sm form-control form-control-sm" id="field_uomOne" name="uomOne" [(ngModel)]="auctionVrnt.uomOne" (ngModelChange)="changeConvFact($event)" required [disabled]="!auctionVrnt.applicable">
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode}}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                    </td>
+
+                    <td style="width:10%">
+                         <input type="number"  min="0"  class="form-control form-control-sm" name="convFactOne" id="field_convFactOne"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactOne" [hidden]="auctionVrnt.textOne" [disabled]="!auctionVrnt.applicable"/>
+
+                        <input *ngIf="auctionVrnt.textOne" type="number"  min="0"  class="form-control form-control-sm" name="convFactOne" id="field_convFactOne"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactOne" required [disabled]="!auctionVrnt.applicable"/>
+                    </td>
+                </tr>
+                <tr *ngIf="auctionVrnt.applicable">
+                    <td class="" style="width:45%">
+                        <input type="text" class="form-control form-control-sm" name="textTwo" id="field_textTwo" [(ngModel)]="auctionVrnt.textTwo" placeholder="Element Description"/>
+                    </td>
+                    <td style="width:15%">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="field_uomTwo" name="uomTwo" [(ngModel)]="auctionVrnt.uomTwo" (ngModelChange)="changeConvFact($event)" [hidden]="auctionVrnt.textTwo">
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                            <select *ngIf="auctionVrnt.textTwo" class="custom-select custom-select-sm form-control form-control-sm" id="field_uomTwo" name="uomTwo" [(ngModel)]="auctionVrnt.uomTwo" (ngModelChange)="changeConvFact($event)" required>
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                    </td>
+                    <td style="width:10%">
+                         <input type="number" min="0"  class="form-control form-control-sm" name="convFactTwo" id="field_convFactTwo"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactTwo" [hidden]="auctionVrnt.textTwo"/>
+                        <input *ngIf="auctionVrnt.textTwo" type="number" min="0"  class="form-control form-control-sm" name="convFactTwo" id="field_convFactTwo"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactTwo" required/>
+                    </td>
+                </tr>
+                <tr *ngIf="auctionVrnt.applicable">
+                    <td class="" style="width:45%">
+                        <input type="text" class="form-control form-control-sm" name="textThree" id="field_textThree" [(ngModel)]="auctionVrnt.textThree" placeholder="Element Description"/>
+                    </td>
+                    <td style="width:15%">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="field_uomThree" name="uomThree" [(ngModel)]="auctionVrnt.uomThree" (ngModelChange)="changeConvFact($event)" [hidden]="auctionVrnt.textThree">
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                            <select *ngIf="auctionVrnt.textThree" class="custom-select custom-select-sm form-control form-control-sm" id="field_uomThree" name="uomThree" [(ngModel)]="auctionVrnt.uomThree" (ngModelChange)="changeConvFact($event)" required>
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                    </td>
+                    <td style="width:10%">
+                         <input type="number" min="0" class="form-control form-control-sm" name="convFactThree" id="field_convFactThree"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactThree" [hidden]="auctionVrnt.textThree" />
+                         <input *ngIf="auctionVrnt.textThree" type="number" min="0" class="form-control form-control-sm" name="convFactThree" id="field_convFactThree"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactThree" required/>
+                    </td>
+                </tr>
+                <tr *ngIf="auctionVrnt.applicable">
+                    <td class="" style="width:45%">
+                        <input type="text" class="form-control form-control-sm" name="textFour" id="field_textFour" [(ngModel)]="auctionVrnt.textFour" placeholder="Element Description"/>
+                    </td>
+                    <td style="width:15%">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="field_uomFour" name="uomFour" [(ngModel)]="auctionVrnt.uomFour" (ngModelChange)="changeConvFact($event)" [hidden]="auctionVrnt.textFour">
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                            <select *ngIf="auctionVrnt.textFour" class="custom-select custom-select-sm form-control form-control-sm" id="field_uomFour" name="uomFour" [(ngModel)]="auctionVrnt.uomFour" (ngModelChange)="changeConvFact($event)" required>
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                    </td>
+                    <td style="width:10%">
+                         <input type="number" min="0" class="form-control form-control-sm" name="convFactFour" id="field_convFactFour"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactFour" [hidden]="auctionVrnt.textFour"/>
+                        <input *ngIf="auctionVrnt.textFour" type="number" min="0" class="form-control form-control-sm" name="convFactFour" id="field_convFactFour"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactFour" required/>
+                    </td>
+                </tr>
+                <tr *ngIf="auctionVrnt.applicable">
+                    <td class="" style="width:45%">
+                        <input type="text" class="form-control form-control-sm" name="textFive" id="field_textFive" [(ngModel)]="auctionVrnt.textFive" placeholder="Element Description"/>
+                    </td>
+                    <td style="width:15%">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="field_uomFive" name="uomFive" [(ngModel)]="auctionVrnt.uomFive" (ngModelChange)="changeConvFact($event)" [hidden]="auctionVrnt.textFive">
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                             <select *ngIf="auctionVrnt.textFive" class="custom-select custom-select-sm form-control form-control-sm" id="field_uomFive" name="uomFive" [(ngModel)]="auctionVrnt.uomFive" (ngModelChange)="changeConvFact($event)" required>
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                    </td>
+                    <td style="width:10%">
+                         <input type="number" min="0" class="form-control form-control-sm" name="convFactFive" id="field_convFactFive"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactFive" [hidden]="auctionVrnt.textFive"/>
+                         <input *ngIf="auctionVrnt.textFive" type="number" min="0" class="form-control form-control-sm" name="convFactFive" id="field_convFactFive"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactFive" required/>
+                    </td>
+                </tr>
+                <tr *ngIf="auctionVrnt.applicable">
+                    <td class="" style="width:45%">
+                        <input type="text" class="form-control form-control-sm" name="textSix" id="field_textSix" [(ngModel)]="auctionVrnt.textSix" placeholder="Element Description"/>
+                    </td>
+                    <td style="width:15%">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="field_uomSix" name="uomSix" [(ngModel)]="auctionVrnt.uomSix" (ngModelChange)="changeConvFact($event)" [hidden]="auctionVrnt.textSix">
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                            <select *ngIf="auctionVrnt.textSix" class="custom-select custom-select-sm form-control form-control-sm" id="field_uomSix" name="uomSix" [(ngModel)]="auctionVrnt.uomSix" (ngModelChange)="changeConvFact($event)" required>
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                    </td>
+                    <td style="width:10%">
+                         <input type="number" min="0" class="form-control form-control-sm" name="convFactSix" id="field_convFactSix"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactSix" [hidden]="auctionVrnt.textSix"/>
+                        <input *ngIf="auctionVrnt.textSix" type="number" min="0" class="form-control form-control-sm" name="convFactSix" id="field_convFactSix"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactSix" required/>
+                    </td>
+                </tr>
+                <tr *ngIf="auctionVrnt.applicable">
+                    <td class="" style="width:45%">
+                        <input type="text" class="form-control form-control-sm" name="textSeven" id="field_textSeven" [(ngModel)]="auctionVrnt.textSeven" placeholder="Element Description"/>
+                    </td>
+                    <td style="width:15%">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="field_uomSeven" name="uomSeven" [(ngModel)]="auctionVrnt.uomSeven" (ngModelChange)="changeConvFact($event)" [hidden]="auctionVrnt.textSeven">
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                            <select *ngIf="auctionVrnt.textSeven" class="custom-select custom-select-sm form-control form-control-sm" id="field_uomSeven" name="uomSeven" [(ngModel)]="auctionVrnt.uomSeven" (ngModelChange)="changeConvFact($event)" required>
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                    </td>
+                    <td style="width:10%">
+                         <input type="number" min="0" class="form-control form-control-sm" name="convFactSeven" id="field_convFactSeven"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactSeven" [hidden]="auctionVrnt.textSeven"/>
+                        <input *ngIf="auctionVrnt.textSeven" type="number" min="0" class="form-control form-control-sm" name="convFactSeven" id="field_convFactSeven"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactSeven" required/>
+                    </td>
+                </tr>
+                <tr *ngIf="auctionVrnt.applicable">
+                    <td class="" style="width:45%">
+                        <input type="text" class="form-control form-control-sm" name="textEight" id="field_textEight" [(ngModel)]="auctionVrnt.textEight" placeholder="Element Description"/>
+                    </td>
+                    <td style="width:15%">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="field_uomEight" name="uomEight" [(ngModel)]="auctionVrnt.uomEight" (ngModelChange)="changeConvFact($event)" [hidden]="auctionVrnt.textEight">
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                            <select *ngIf="auctionVrnt.textEight" class="custom-select custom-select-sm form-control form-control-sm" id="field_uomEight" name="uomEight" [(ngModel)]="auctionVrnt.uomEight" (ngModelChange)="changeConvFact($event)" required>
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                    </td>
+                    <td style="width:10%">
+                         <input type="number" min="0" class="form-control form-control-sm" name="convFactEight" id="field_convFactEight"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactEight" [hidden]="auctionVrnt.textEight"/>
+                        <input *ngIf="auctionVrnt.textEight" type="number" min="0" class="form-control form-control-sm" name="convFactEight" id="field_convFactEight"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactEight" required/>
+                    </td>
+                </tr>
+                <tr *ngIf="auctionVrnt.applicable">
+                    <td class="" style="width:45%">
+                        <input type="text" class="form-control form-control-sm" name="textNine" id="field_textNine" [(ngModel)]="auctionVrnt.textNine" placeholder="Element Description"/>
+                    </td>
+                    <td style="width:15%">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="field_uomNine" name="uomNine" [(ngModel)]="auctionVrnt.uomNine" (ngModelChange)="changeConvFact($event)" [hidden]="auctionVrnt.textNine">
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                            <select *ngIf="auctionVrnt.textNine" class="custom-select custom-select-sm form-control form-control-sm" id="field_uomNine" name="uomNine" [(ngModel)]="auctionVrnt.uomNine" (ngModelChange)="changeConvFact($event)" required>
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                    </td>
+                    <td style="width:10%">
+                         <input type="number" min="0" class="form-control form-control-sm" name="convFactNine" id="field_convFactNine"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactNine" [hidden]="auctionVrnt.textNine"/>
+                        <input *ngIf="auctionVrnt.textNine"  type="number" min="0" class="form-control form-control-sm" name="convFactNine" id="field_convFactNine"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactNine" required/>
+                    </td>
+                </tr>
+                <tr *ngIf="auctionVrnt.applicable">
+                    <td class="" style="width:45%">
+                        <input type="text"  class="form-control form-control-sm" name="textTen" id="field_textTen" [(ngModel)]="auctionVrnt.textTen" placeholder="Element Description"/>
+                    </td>
+                    <td style="width:15%">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id="field_uomTen" name="uomTen" [(ngModel)]="auctionVrnt.uomTen" (ngModelChange)="changeConvFact($event)" [hidden]="auctionVrnt.textTen">
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                            <select *ngIf="auctionVrnt.textTen" class="custom-select custom-select-sm form-control form-control-sm" id="field_uomTen" name="uomTen" [(ngModel)]="auctionVrnt.uomTen" (ngModelChange)="changeConvFact($event)" required>
+                            <option [ngValue]="null">Select</option>
+                              <option [ngValue]="rnsUomMaster.uomCode" *ngFor="let rnsUomMaster of rnsUomMasters ;">{{rnsUomMaster.uomCode }}({{rnsUomMaster.uomName}})</option>
+                            </select>
+                    </td>
+                    <td style="width:10%">
+                         <input type="number" min="0" class="form-control form-control-sm" name="convFactTen" id="field_convFactTen"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactTen" [hidden]="auctionVrnt.textTen"/>
+                        <input *ngIf="auctionVrnt.textTen"  type="number" min="0" class="form-control form-control-sm" name="convFactTen" id="field_convFactTen"
+                        placeholder="convFact" [(ngModel)]="auctionVrnt.convFactTen" required/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer" *ngIf="rnsQuotation">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <span *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER']">
+            <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-sm  btn-primary" *ngIf="!rnsQuotation.approvedFlag && rnsQuotation.approvedFlag != 'C'">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+            </button>
+        </span>
+    </div>
+</form>

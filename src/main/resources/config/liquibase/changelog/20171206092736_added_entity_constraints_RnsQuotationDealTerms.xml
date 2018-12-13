@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity RnsQuotationDealTerms.
+    -->
+    <changeSet id="20171206092736-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="quotation_deal_terms_id"
+                                 baseTableName="rns_quotation_deal_terms"
+                                 constraintName="fk_rqdeas_terms_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rns_quotation"/>
+
+        <addForeignKeyConstraint baseColumnNames="payment_terms_id"
+                                 baseTableName="rns_quotation_deal_terms"
+                                 constraintName="fk_rrqptw_terms_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rns_pay_terms_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="delivery_terms_id"
+                                 baseTableName="rns_quotation_deal_terms"
+                                 constraintName="fk_rqtdst_terms_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rns_del_place_master"/>
+
+    </changeSet>
+</databaseChangeLog>

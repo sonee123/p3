@@ -1,0 +1,70 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsVendorMasterLabel">Select Vendors
+            <small>You can select Vendor and close the Popup</small>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;
+        </button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div align="center" class="centered" [style.visibility]="isWait ? 'visible' : 'hidden'">
+            <img src="../../../content/images/waiting.gif"/>
+        </div>
+        <div class="row" style="margin-top: 0;">
+            <div class="col-md-8 form-group">
+                <input type="text" class="form-control form-control-sm" name="search" id="field_search" placeholder="Search By Code/Name" required [(ngModel)]="searchModel"/>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-secondary btn-sm" (click)="search()"><i class="fa fa-search"></i> Search</button>
+                <button type="button" class="btn btn-success btn-sm" (click)="favourite();"><fa-icon [icon]="'star'"></fa-icon> Favourite</button>
+            </div>
+        </div>
+        <div class="col-md-12" *ngFor="let vendor of vendors; ">
+            <div class="pull-left bluetag" style="background-color: #abe6f5;padding: 2px 10px;border-radius: 5px;margin:2px 10px;">
+                {{vendor.vendorName}}
+                <span (click)="removeVendor(vendor.id)">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                </span>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="display table table-sm responsive no-wrap" id="exampleFixed">
+                <thead>
+                <tr>
+                    <th class="no-sort">&nbsp;</th>
+                    <th><span>Vendor&nbsp;Code</span></th>
+                    <th><span>Vendor&nbsp;Name</span></th>
+                    <th><span>User&nbsp;Name</span></th>
+                    <th><span>Email</span></th>
+                    <th><span>Mobile&nbsp;Number</span></th>
+                    <th class="no-sort">&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let rnsVendorMaster of searchArray ;">
+                    <td>
+                        <span style="font-size: 15px;cursor: pointer;" id="favSpanId{{rnsVendorMaster.login}}" [style.color]="rnsVendorMaster.favourite ? '#FFD700' : '#777777'">
+                            <fa-icon [icon]="'star'" (click)="addFavourite(rnsVendorMaster);"></fa-icon>
+                        </span>
+                    </td>
+                    <td>{{rnsVendorMaster.vendorCode}}</td>
+                    <td>{{rnsVendorMaster.vendorName}}</td>
+                    <td>{{rnsVendorMaster.firstName}} {{rnsVendorMaster.lastName}}</td>
+                    <td>{{rnsVendorMaster.email}}</td>
+                    <td>{{rnsVendorMaster.contactNumber1}}</td>
+                    <td>
+                        <button class="btn btn-success btn-sm" (click)="selectVendor(rnsVendorMaster)"><fa-icon [icon]="'plus'"></fa-icon> Add</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Close</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,91 @@
+/* Chat containers */
+.container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* Darker chat container */
+.darker {
+    border-color: #ccc;
+    background-color: #ddd;
+}
+
+.pending-error {
+    border-color: #ff99a8;
+    background-color: #ffb6c1;
+    font-weight: bold;
+}
+
+/* Clear floats */
+.container::after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+/* Style images */
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+/* Style the right image */
+.container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+/* Style time text */
+.time-right {
+    float: right;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+}
+
+select.input-sm-300 {
+    height: 26px !important;
+    margin-bottom: 5px;
+    padding: 2px;
+    width: 300px;
+}
+
+select.input-sm-100 {
+    height: 26px !important;
+    margin-bottom: 5px;
+    padding: 2px;
+    width: 100px;
+}
+
+.form-group {
+    margin-bottom: 0rem !important;
+}
+
+.modal-footer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: end;
+    justify-content: flex-start;
+    padding: 15px;
+    border-top: 1px solid #e9ecef;
+}
+
+.modal-footer-padding {
+    padding: 5px 15px 5px !important;
+}
+
+.modal-footer-padding-border {
+    padding: 0px 15px 15px !important;
+    border-top: 0px solid #e9ecef !important;
+}

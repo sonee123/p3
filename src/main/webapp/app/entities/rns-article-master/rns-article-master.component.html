@@ -1,0 +1,101 @@
+<div>
+    <h5 style="font-size:16px; font-weight:bold;">
+        <span>Article Masters</span>
+        <button *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']"
+                class="btn btn-primary float-right btn-sm jh-create-entity create-rns-article-master"
+                [routerLink]="['/', { outlets: { popup: ['rns-article-master-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsArticleMasters">
+                        <table class="display table table-sm no-wrap" id="exampleFixed">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Article&nbsp;Code</th>
+                                    <th>Article&nbsp;Description</th>
+                                    <th>Category&nbsp;Code</th>
+                                    <th>Created&nbsp;BY</th>
+                                    <th>Created&nbsp;Date</th>
+                                    <th>Modified&nbsp;By</th>
+                                    <th>Modified&nbsp;Date</th>
+                                    <th class="no-sort"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsArticleMaster of rnsArticleMasters ;trackBy: trackId">
+                                    <td>{{rnsArticleMaster.id}}
+                                    </td>
+                                    <td>{{rnsArticleMaster.articleCode}}</td>
+                                    <td><span style="width:200px;">{{rnsArticleMaster.articleDesc}}</span></td>
+                                    <td>
+                                        <div *ngIf="rnsArticleMaster.catgCode">
+                                            {{rnsArticleMaster.catgCode?.catgCode}} -
+                                            {{rnsArticleMaster.catgCode?.catgCodeDesc}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsArticleMaster.user">
+                                            {{rnsArticleMaster.user?.firstName}} {{rnsArticleMaster.user?.lastName}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsArticleMaster.createdDate">{{rnsArticleMaster.createdDate
+                                            |date:'dd-MMM-yy h:mm a'}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsArticleMaster.updatedUser">
+                                            {{rnsArticleMaster.updatedUser?.firstName}}
+                                            {{rnsArticleMaster.updatedUser?.lastName}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsArticleMaster.lastUpdatedDate">{{rnsArticleMaster.lastUpdatedDate
+                                            |date:'dd-MMM-yy h:mm a'}}
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-article-master', rnsArticleMaster.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']" type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-article-master/'+ rnsArticleMaster.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']" type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-article-master/'+ rnsArticleMaster.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

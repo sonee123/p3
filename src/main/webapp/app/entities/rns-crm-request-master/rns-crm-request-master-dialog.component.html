@@ -1,0 +1,86 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsCrmRequestMasterLabel">Create or edit a CRM Request Master</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="row" [hidden]="!rnsCrmRequestMaster.id">
+            <div class="col-md-2"><label for="id" class="form-control-label">ID</label></div>
+            <div class="col-md-10"><input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="rnsCrmRequestMaster.id" readonly /></div>
+        </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-2"><label class="form-control-label" for="field_crmCode">CRM Code</label></div>
+            <div class="col-md-10"><input type="text" class="form-control form-control-sm" name="crmCode" maxlength="255" id="field_crmCode" [(ngModel)]="rnsCrmRequestMaster.crmCode" [disabled]="rnsCrmRequestMaster.id?'true':'false'"/></div>
+        </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-2"><label class="form-control-label" for="field_requestedBy">Requested By</label></div>
+            <div class="col-md-10"><input type="text" class="form-control form-control-sm" name="requestedBy" maxlength="255" id="field_requestedBy" [(ngModel)]="rnsCrmRequestMaster.requestedBy"/></div>
+        </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-2"><label class="form-control-label" for="field_targetPcd">Target PCD</label></div>
+            <div class="col-md-10">
+                <div class="input-group input-group-sm">
+                    <input id="field_targetPcd" type="text" [owlDateTime]="targetPcd" placeholder="DD-MM-YYYY HH:MI PM" class="form-control form-control-sm" name="targetPcd" [(ngModel)]="rnsCrmRequestMaster.targetPcd" />
+                    <div class="input-group-btn">
+                        <button type="button" [owlDateTimeTrigger]="targetPcd" class="btn btn-secondary btn-sm"><fa-icon [icon]="'calendar'"></fa-icon></button>
+                        <owl-date-time #targetPcd></owl-date-time>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-2"><label class="form-control-label" for="field_merchantRemarks">Merchant Remarks</label></div>
+            <div class="col-md-10"><input type="text" class="form-control form-control-sm" name="merchantRemarks" maxlength="255" id="field_merchantRemarks" [(ngModel)]="rnsCrmRequestMaster.merchantRemarks" /></div>
+        </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-2"><label class="form-control-label" for="field_date">Date</label></div>
+            <div class="col-md-10">
+                <div class="input-group input-group-sm">
+                    <input id="field_date" type="text" [owlDateTime]="date" placeholder="DD-MM-YYYY HH:MI PM" class="form-control form-control-sm" name="date" [(ngModel)]="rnsCrmRequestMaster.date"/>
+                    <div class="input-group-btn">
+                        <button type="button" [owlDateTimeTrigger]="date" class="btn btn-secondary btn-sm"><fa-icon [icon]="'calendar'"></fa-icon></button>
+                        <owl-date-time #date></owl-date-time>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-2"><label class="form-control-label" for="field_rnsPchMaster">PCH Master</label></div>
+            <div class="col-md-10">
+                <select class="custom-select custom-select-sm form-control form-control-sm" id="field_rnsPchMaster" name="rnsPchMaster" [(ngModel)]="rnsCrmRequestMaster.rnsPchMaster" >
+                   <option [ngValue]="rnsPchMasterOption.id === rnsCrmRequestMaster.rnsPchMaster?.id ? rnsCrmRequestMaster.rnsPchMaster : rnsPchMasterOption" *ngFor="let rnsPchMasterOption of rnspchmasters; trackBy: trackRnsPchMasterById">{{rnsPchMasterOption.pchCode}}&nbsp;&nbsp;-&nbsp;{{rnsPchMasterOption.pchName}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-2"><label class="form-control-label" for="field_rnsArticleMaster">Article Master</label></div>
+            <div class="col-md-10">
+                <select class="custom-select custom-select-sm form-control form-control-sm" id="field_rnsArticleMaster" name="rnsArticleMaster" [(ngModel)]="rnsCrmRequestMaster.rnsArticleMaster" >
+                    <option [ngValue]="rnsArticleMasterOption.id === rnsCrmRequestMaster.rnsArticleMaster?.id ? rnsCrmRequestMaster.rnsArticleMaster : rnsArticleMasterOption" *ngFor="let rnsArticleMasterOption of rnsarticlemasters; trackBy: trackRnsArticleMasterById">{{rnsArticleMasterOption.articleCode}} - {{rnsArticleMasterOption.articleDesc}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-2"><label class="form-control-label" for="field_buyerCode">End User Code</label></div>
+            <div class="col-md-10">
+                <select class="custom-select custom-select-sm form-control form-control-sm" id="field_buyerCode" name="buyerCode" [(ngModel)]="rnsCrmRequestMaster.buyerCode" >
+                <option [ngValue]="rnsBuyerMasterOption.id === rnsCrmRequestMaster.buyerCode?.id ? rnsCrmRequestMaster.buyerCode : rnsBuyerMasterOption" *ngFor="let rnsBuyerMasterOption of rnsbuyermasters; trackBy: trackRnsBuyerMasterById">{{rnsBuyerMasterOption.buyerCode}}&nbsp;&nbsp;-&nbsp;{{rnsBuyerMasterOption.buyerName}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

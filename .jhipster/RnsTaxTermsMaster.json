@@ -1,0 +1,53 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "rnsCatgMaster",
+            "otherEntityName": "rnsCatgMaster",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "rnsTaxTermsMaster"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "taxTermsCode",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "taxTermsDesc",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "updatedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastUpdatedDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20180626053925",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "tax_terms_mast",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

@@ -1,0 +1,64 @@
+
+<div *ngIf="rnsEmpLinkMaster">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Workflow Master</span> {{rnsEmpLinkMaster.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Employee Code</span></dt>
+                        <dd>
+                            <span><ng-container *ngIf="rnsEmpLinkMaster.empCode">{{rnsEmpLinkMaster.empCode.firstName}} {{rnsEmpLinkMaster.empCode.lastName}}({{rnsEmpLinkMaster.empCode.login}})</ng-container></span>
+                        </dd>
+                        <dt><span>Will</span></dt>
+                        <dd>
+                            <span *ngIf="rnsEmpLinkMaster.rnsForwardTypeMaster">{{rnsEmpLinkMaster.rnsForwardTypeMaster.description}}</span>
+                        </dd>
+                        <dt><span>To Employee Code</span></dt>
+                        <dd>
+                            <span><ng-container *ngIf="rnsEmpLinkMaster.forwardEmpCode">{{rnsEmpLinkMaster.forwardEmpCode.firstName}} {{rnsEmpLinkMaster.forwardEmpCode.lastName}}({{rnsEmpLinkMaster.forwardEmpCode.login}})</ng-container></span>
+                        </dd>
+                        <dt><span>Created&nbsp;By</span></dt>
+                        <dd>
+                            <div *ngIf="rnsEmpLinkMaster.user">
+                                {{rnsEmpLinkMaster.user?.firstName}} {{rnsEmpLinkMaster.user?.lastName}}
+                            </div>
+                        </dd>
+                        <dt><span>Created&nbsp;Date</span></dt>
+                        <dd>
+                            <div *ngIf="rnsEmpLinkMaster.createdDate">{{rnsEmpLinkMaster.createdDate |date:'dd-MMM-yy h:mm a'}}
+                            </div>
+                        </dd>
+                        <dt><span>Modified&nbsp;By</span></dt>
+                        <dd>
+                            <div *ngIf="rnsEmpLinkMaster.updatedUser">
+                                {{rnsEmpLinkMaster.updatedUser?.firstName}}
+                                {{rnsEmpLinkMaster.updatedUser?.lastName}}
+                            </div>
+                        </dd>
+                        <dt><span>Modified&nbsp;Date</span></dt>
+                        <dd>
+                            <div *ngIf="rnsEmpLinkMaster.lastUpdatedDate">{{rnsEmpLinkMaster.lastUpdatedDate |date:'dd-MMM-yy h:mm a'}}
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-emp-link-master/'+ rnsEmpLinkMaster.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

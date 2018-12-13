@@ -1,0 +1,82 @@
+<div>
+    <h5>
+        <span>Vendor Remarks</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-rns-vendor-remark"
+                [routerLink]="['/', { outlets: { popup: ['rns-vendor-remark-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsVendorRemarks">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Remark Text</span></th>
+                                    <th><span>Vendor Email</span></th>
+                                    <th><span>Staff Email</span></th>
+                                    <th><span>From Email</span></th>
+                                    <th><span>To Email</span></th>
+                                    <th><span>Read</span></th>
+                                    <th><span>Quotation</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsVendorRemark of rnsVendorRemarks ;trackBy: trackId">
+                                    <td><a [routerLink]="['../rns-vendor-remark', rnsVendorRemark.id ]">{{rnsVendorRemark.id}}</a>
+                                    </td>
+                                    <td>{{rnsVendorRemark.remarkText}}</td>
+                                    <td>{{rnsVendorRemark.vendorEmail}}</td>
+                                    <td>{{rnsVendorRemark.staffEmail}}</td>
+                                    <td>{{rnsVendorRemark.fromEmail}}</td>
+                                    <td>{{rnsVendorRemark.toEmail}}</td>
+                                    <td>{{rnsVendorRemark.read}}</td>
+                                    <td>
+                                        <div *ngIf="rnsVendorRemark.quotation">
+                                            <a [routerLink]="['../rns-quotation', rnsVendorRemark.quotation?.id ]">{{rnsVendorRemark.quotation?.id}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-vendor-remark', rnsVendorRemark.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-vendor-remark/'+ rnsVendorRemark.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-vendor-remark/'+ rnsVendorRemark.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

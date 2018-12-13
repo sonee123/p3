@@ -1,0 +1,80 @@
+<div>
+    <h5 style="font-size:16px; font-weight:bold;">
+        <span>Email Templates</span>
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right btn-sm jh-create-entity create-email-template" [routerLink]="['/', { outlets: { popup: ['email-template-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="emailTemplates">
+                        <table class="display table table-sm no-wrap" id="exampleFixed">
+                            <thead>
+                                <tr>
+                                <th><span>ID</span></th>
+                                <th><span>Template Code</span></th>
+                                <th><span>Mail Subject</span></th>
+                                <!--th><span>Mail Body</span></th-->
+                                <th><span>Notification</span></th>
+                                <th><span>Email</span></th>
+                                <!--th><span>Created&nbsp;By</span></th-->
+                                <th><span>Created&nbsp;Date</span></th>
+                                <!--th><span>Last Updated By</span></th>
+                                <th><span>Last Updated Date</span></th-->
+                                <th class="no-sort"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let emailTemplate of emailTemplates ;trackBy: trackId">
+                                    <td><a [routerLink]="['../email-template', emailTemplate.id ]">{{emailTemplate.id}}</a></td>
+                                    <td>{{emailTemplate.templateCode}}</td>
+                                    <td>{{emailTemplate.mailSubject}}</td>
+                                    <!--td>{{emailTemplate.mailBody}}</td-->
+                                    <td>{{emailTemplate.notification}}</td>
+                                    <td>{{emailTemplate.email}}</td>
+                                    <!--td>{{emailTemplate.createdBy}}</td-->
+                                    <td>{{emailTemplate.createdDate | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <!--td>{{emailTemplate.lastUpdatedBy}}</td>
+                                    <td>{{emailTemplate.lastUpdatedDate | date:'mediumDate'}}</td-->
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../email-template', emailTemplate.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'email-template/'+ emailTemplate.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <!--button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'email-template/'+ emailTemplate.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button-->
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

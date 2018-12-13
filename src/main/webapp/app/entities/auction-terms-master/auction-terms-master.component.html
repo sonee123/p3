@@ -1,0 +1,80 @@
+<div>
+    <h5 style="font-size:16px; font-weight:bold;">
+        <span>Bidding Terms Masters</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-auction-terms-master"
+                [routerLink]="['/', { outlets: { popup: ['auction-terms-master-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="auctionTermsMasters">
+                        <table class="display table table-sm no-wrap" id="exampleFixed">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <!--th><span>Category</span></th>
+                                    <th><span>Quote Type</span></th>
+                                    <th><span>Sourcing Team</span></th-->
+                                    <th><span>Terms Body</span></th>
+                                    <th><span>Created By</span></th>
+                                    <th><span>Created Date</span></th>
+                                    <th>Modified&nbsp;By</th>
+                                    <th>Modified&nbsp;Date</th>
+                                    <th class="no-sort"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let auctionTermsMaster of auctionTermsMasters ;trackBy: trackId">
+                                    <td><a [routerLink]="['../auction-terms-master', auctionTermsMaster.id ]">{{auctionTermsMaster.id}}</a>
+                                    </td>
+                                    <!--td>{{auctionTermsMaster.rnsCatgMaster.catgCodeDesc}}</td>
+                                    <td>{{auctionTermsMaster.quoteType.typeCodeDesc}}</td>
+                                    <td>{{auctionTermsMaster.sourceTeamId.description}}</td-->
+                                    <td>{{auctionTermsMaster.termsBody}}</td>
+                                    <td><span *ngIf="auctionTermsMaster.user">{{auctionTermsMaster.user.firstName}} {{auctionTermsMaster.user.lastName}}</span></td>
+                                    <td>{{auctionTermsMaster.createdDate | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td><span *ngIf="auctionTermsMaster.updatedUser">{{auctionTermsMaster.updatedUser.firstName}} {{auctionTermsMaster.updatedUser.lastName}}</span></td>
+                                    <td>{{auctionTermsMaster.lastUpdatedDate | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../auction-terms-master', auctionTermsMaster.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'auction-terms-master/'+ auctionTermsMaster.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'auction-terms-master/'+ auctionTermsMaster.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

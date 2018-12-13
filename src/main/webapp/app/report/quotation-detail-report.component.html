@@ -1,0 +1,121 @@
+<div align="center" class="centered" id="prepage" *ngIf="isWait">
+    <img src="../../content/images/waiting.gif"/>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <form name="editForm">
+            <h5 id="myUserLabel">
+                Project Plan Detail
+            </h5>
+            <div class="clearfix"></div>
+            <div class="col-md-12">
+                <jhi-alert-error></jhi-alert-error>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3"><label class="form-control-label">Date From</label></div>
+                                    <div class="col-md-9">
+                                        <div class="input-group input-group-sm">
+                                            <input type="localdate" name="dateFrom" class="form-control form-control-sm" placeholder="Date From" [(ngModel)]="rnsQuotationSearch.dateFrom" ngbDatepicker #dateFrom="ngbDatepicker" required>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary btn-sm" (click)="dateFrom.toggle()" type="button">
+                                                    <fa-icon [icon]="'calendar'"></fa-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:5px;">
+                                    <div class="col-md-3"><label class="form-control-label">Date To</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="input-group input-group-sm">
+                                            <input style="" type="localdate" name="dateTo" class="form-control form-control-sm" placeholder="Date To" [(ngModel)]="rnsQuotationSearch.dateTo" ngbDatepicker #dateTo="ngbDatepicker" required>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary" (click)="dateTo.toggle()" type="button">
+                                                    <fa-icon [icon]="'calendar'"></fa-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:5px;">
+                                    <div class="col-md-3"><label class="form-control-label">Event Type</label></div>
+                                    <div class="col-md-9">
+                                        <select class="custom-select custom-select-sm form-control form-control-sm" name="field_eventType" [(ngModel)]="rnsQuotationSearch.eventType"  id="field_eventType">
+                                            <option  [ngValue]="undefined" hidden selected>Select Event Type</option>
+                                            <option value="AUCTION">Sale</option>
+                                            <option value="REVERSE_AUCTION">Purchase</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:5px;">
+                                    <div class="col-md-3">
+                                        <label class="form-control-label">Category</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select class="custom-select custom-select-sm form-control form-control-sm" id="searchrnscatgCode" name="searchrnscatgCode" [(ngModel)]="rnsQuotationSearch.catgCode" (ngModelChange)="changeCategory();">
+                                            <option [ngValue]="undefined" selected>Select Category</option>
+                                            <option [ngValue]="rnsCatgMaster" *ngFor="let rnsCatgMaster of rnsCatgMasters; ">
+                                                {{rnsCatgMaster.catgCode}} &nbsp;&nbsp;-&nbsp;{{rnsCatgMaster.catgCodeDesc}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:5px;">
+                                    <div class="col-md-3"><label class="form-control-label">Project Region</label></div>
+                                    <div class="col-md-9">
+                                        <select class="custom-select custom-select-sm form-control form-control-sm" id="quote_type" name="quote_type" [(ngModel)]="rnsQuotationSearch.projectType" title="First select Category to use filter by Project Region">
+                                            <option [ngValue]="undefined" selected>Select Project Region</option>
+                                            <option *ngFor="let rnsTypeMaster of rnsTypeMasters ;"
+                                                    [value]="rnsTypeMaster.typeCode">{{rnsTypeMaster.typeCode}} -
+                                                {{rnsTypeMaster.typeCodeDesc}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:5px;">
+                                    <div class="col-md-3"><label class="form-control-label">Source Team</label></div>
+                                    <div class="col-md-9">
+                                        <select class="custom-select custom-select-sm form-control form-control-sm" id="" name="source_team" [(ngModel)]="rnsQuotationSearch.sourceTeam">
+                                            <option [ngValue]="undefined" hidden selected>Select Source Team</option>
+                                            <option [value]="rnsSourceTeamMaster.id"
+                                                    *ngFor="let  rnsSourceTeamMaster of rnsSourceTeamMasters;">
+                                                {{rnsSourceTeamMaster.description}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:5px;">
+                                    <div class="col-md-3"><label class="form-control-label">PCH</label></div>
+                                    <div class="col-md-9">
+                                        <select class="custom-select custom-select-sm form-control form-control-sm" name="field_rnsPchMaster"  id="field_rnsPchMaster"  [(ngModel)]="rnsQuotationSearch.pchCode">
+                                            <option  [ngValue]="undefined" hidden selected>Select PCH Code</option>
+                                            <option [value]="rnsPchMaster.pchCode" *ngFor="let rnsPchMaster of rnsPchMasters;">{{rnsPchMaster.pchCode}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:5px;">
+                                    <div class="col-md-3"><label class="form-control-label">Report Type</label></div>
+                                    <div class="col-md-9">
+                                        <input type="radio" name="type" [(ngModel)]="rnsQuotationSearch.type" value="XLSX" checked/>&nbsp;Excel
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:5px;">
+                                    <div class="col-md-12" style="text-align: center;">
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="download();"><fa-icon [icon]="'save'"></fa-icon> Generate</button>&nbsp;&nbsp;
+                                        <button type="button" class="btn btn-secondary btn-sm" (click)="clearForm();"><fa-icon [icon]="'sync'"></fa-icon> Reset</button>&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

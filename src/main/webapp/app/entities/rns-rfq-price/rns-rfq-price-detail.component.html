@@ -1,0 +1,81 @@
+
+<div *ngIf="rnsRfqPrice">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Rfq Price</span> {{rnsRfqPrice.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Price One</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.priceOne}}</span>
+                        </dd>
+                        <dt><span>Price Two</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.priceTwo}}</span>
+                        </dd>
+                        <dt><span>Price Three</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.priceThree}}</span>
+                        </dd>
+                        <dt><span>Price Four</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.priceFour}}</span>
+                        </dd>
+                        <dt><span>Price Five</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.priceFive}}</span>
+                        </dd>
+                        <dt><span>Price Six</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.priceSix}}</span>
+                        </dd>
+                        <dt><span>Price Seven</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.priceSeven}}</span>
+                        </dd>
+                        <dt><span>Price Eight</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.priceEight}}</span>
+                        </dd>
+                        <dt><span>Price Nine</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.priceNine}}</span>
+                        </dd>
+                        <dt><span>Price Ten</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.priceTen}}</span>
+                        </dd>
+                        <dt><span>Vendor Id</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.vendorId}}</span>
+                        </dd>
+                        <dt><span>Created By</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.createdBy}}</span>
+                        </dd>
+                        <dt><span>Created Date</span></dt>
+                        <dd>
+                            <span>{{rnsRfqPrice.createdDate | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-rfq-price/'+ rnsRfqPrice.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

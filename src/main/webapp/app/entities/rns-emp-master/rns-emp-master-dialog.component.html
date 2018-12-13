@@ -1,0 +1,35 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsEmpMasterLabel">Create or edit a Employee Master</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsEmpMaster.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsEmpMaster.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_empCode">Employee Code</label>
+            <input type="text" class="form-control form-control-sm" name="empCode" maxlength="255" id="field_empCode"
+                [(ngModel)]="rnsEmpMaster.empCode" [disabled]="rnsEmpMaster.id?'true':'false'"/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_empName">Employee Name</label>
+            <input type="text" class="form-control form-control-sm" name="empName" maxlength="255" id="field_empName"
+                [(ngModel)]="rnsEmpMaster.empName" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,270 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "variant",
+            "otherEntityName": "rnsQuotationVariant",
+            "otherEntityField": "title"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "applicable",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "textOne",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uomOne",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "convFactOne",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "qtyOne",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceOne",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "amountOne",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "textTwo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uomTwo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "convFactTwo",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "qtyTwo",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceTwo",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "amountTwo",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "textThree",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uomThree",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "convFactThree",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "qtyThree",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceThree",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "amountThree",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "textFour",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uomFour",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "convFactFour",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "qtyFour",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceFour",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "amountFour",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "textFive",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uomFive",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "convFactFive",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "qtyFive",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceFive",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "amountFive",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "textSix",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uomSix",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "convFactSix",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "qtySix",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceSix",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "amountSix",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "textSeven",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uomSeven",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "convFactSeven",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "qtySeven",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceSeven",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "amountSeven",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "textEight",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uomEight",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "convFactEight",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "qtyEight",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceEight",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "amountEight",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "textNine",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uomNine",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "convFactNine",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "qtyNine",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceNine",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "amountNine",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "textTen",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uomTen",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "convFactTen",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "qtyTen",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceTen",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "amountTen",
+            "fieldType": "Float"
+        }
+    ],
+    "changelogDate": "20180320084940",
+    "entityTableName": "auction_variant_config",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

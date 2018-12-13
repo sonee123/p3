@@ -1,0 +1,82 @@
+<div>
+    <h5>
+        <span>Auction Var Details</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-auction-var-details"
+                [routerLink]="['/', { outlets: { popup: ['auction-var-details-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create new Auction Var Details
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="auctionVarDetails">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Lot Start Time</span></th>
+                                    <th><span>Lot End Time</span></th>
+                                    <th><span>Overtime Minutes</span></th>
+                                    <th><span>Variant Id</span></th>
+                                    <th><span>Quotation Id</span></th>
+                                    <th><span>Created By</span></th>
+                                    <th><span>Created Date</span></th>
+                                    <th><span>Updated By</span></th>
+                                    <th><span>Updated Date</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let auctionVarDetails of auctionVarDetails ;trackBy: trackId">
+                                    <td><a [routerLink]="['../auction-var-details', auctionVarDetails.id ]">{{auctionVarDetails.id}}</a>
+                                    </td>
+                                    <td>{{auctionVarDetails.lotStartTime | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td>{{auctionVarDetails.lotEndTime | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td>{{auctionVarDetails.overtimeMinutes}}</td>
+                                    <td>{{auctionVarDetails.variantId}}</td>
+                                    <td>{{auctionVarDetails.quotationId}}</td>
+                                    <td>{{auctionVarDetails.createdBy}}</td>
+                                    <td>{{auctionVarDetails.createdDate | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td>{{auctionVarDetails.updatedBy}}</td>
+                                    <td>{{auctionVarDetails.updatedDate | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../auction-var-details', auctionVarDetails.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'auction-var-details/'+ auctionVarDetails.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'auction-var-details/'+ auctionVarDetails.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

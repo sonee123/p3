@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property dbms="mysql,h2,postgresql" value="true" name="autoIncrement"/>
+    <property dbms="oracle" value="false" name="autoIncrement"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity RnsQuotationVendors.
+    -->
+    <changeSet id="20171206092735-1" author="jhipster">
+        <createTable tableName="rns_quotation_vendors">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="payment_terms" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="payment_terms_charge_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="payment_terms_charge" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="delivery_terms" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="delivery_terms_charge_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="delivery_terms_charge" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="exp_del_date" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="conf_del_date" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="currency" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="regular_rate" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="dis_rate" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="expiry_qty" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="quote_qty" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="award_qty" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="user_id_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="variant_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="vendor_quotation_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="vendor_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="rfq_user_type" type="varchar(1)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="auction_applicable" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="rns_quot_vendors_seq" ordered="true" incrementBy="1" cycle="false"/>
+        <createProcedure dbms="oracle" relativeToChangelogFile="true" procedureName="rns_quot_vendors_procedure" encoding="utf8" catalogName="rns_quot_vendors_catalog"> CREATE TRIGGER rns_quot_vendors_trigger BEFORE INSERT ON rns_quotation_vendors FOR EACH ROW BEGIN IF( :NEW.id IS NULL ) THEN :NEW.id:=rns_quot_vendors_seq.NEXTVAL; END IF; END; </createProcedure>
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

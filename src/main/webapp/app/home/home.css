@@ -1,0 +1,277 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.header .btn {
+    margin: 2rem;
+    color: #fff;
+    background-color: #3ebb8c;
+}
+
+@-webkit-keyframes bounceLeft {
+    0% {
+        -webkit-transform: translate3d(100%, -50%, 0);
+        transform: translate3d(100%, -50%, 0);
+    }
+    50% {
+        -webkit-transform: translate3d(-30px, -50%, 0);
+        transform: translate3d(-30px, -50%, 0);
+    }
+    100% {
+        -webkit-transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, -50%, 0);
+    }
+}
+
+@keyframes bounceLeft {
+    0% {
+        -webkit-transform: translate3d(100%, -50%, 0);
+        transform: translate3d(100%, -50%, 0);
+    }
+    50% {
+        -webkit-transform: translate3d(-30px, -50%, 0);
+        transform: translate3d(-30px, -50%, 0);
+    }
+    100% {
+        -webkit-transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, -50%, 0);
+    }
+}
+
+@-webkit-keyframes bounceRight {
+    0% {
+        -webkit-transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, -50%, 0);
+    }
+    50% {
+        -webkit-transform: translate3d(calc(100% + 30px), -50%, 0);
+        transform: translate3d(calc(100% + 30px), -50%, 0);
+    }
+    100% {
+        -webkit-transform: translate3d(100%, -50%, 0);
+        transform: translate3d(100%, -50%, 0);
+    }
+}
+
+@keyframes bounceRight {
+    0% {
+        -webkit-transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, -50%, 0);
+    }
+    50% {
+        -webkit-transform: translate3d(calc(100% + 30px), -50%, 0);
+        transform: translate3d(calc(100% + 30px), -50%, 0);
+    }
+    100% {
+        -webkit-transform: translate3d(100%, -50%, 0);
+        transform: translate3d(100%, -50%, 0);
+    }
+}
+
+@-webkit-keyframes showSignUp {
+    100% {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes showSignUp {
+    100% {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.auth .btn-outline-light {
+    color: #fff;
+}
+
+.auth .btn-outline-light:hover {
+    color: #000;
+}
+
+.auth-text {
+    background-color: rgba(0, 133, 196, 0.65);
+    border-radius: 0.25rem;
+    display: flex;
+    box-shadow: 0 0.5rem 1rem rgba(0, 133, 196, 0.15);
+}
+
+.auth-text .auth-login-text, .auth-text .auth-signup-text {
+    padding: 4.5rem;
+    width: 50%;
+    color: #fff;
+}
+
+.w-80 {
+    width: 80%;
+}
+
+.auth-forms {
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    width: 35%;
+    min-height: 420px;
+    overflow: hidden;
+}
+
+@media (min-width: 576px) {
+    .auth-forms {
+        -webkit-transform: translate3d(100%, -50%, 0);
+        transform: translate3d(100%, -50%, 0);
+        transition: -webkit-transform .4s ease-in-out;
+        transition: transform .4s ease-in-out;
+        transition: transform .4s ease-in-out, -webkit-transform .4s ease-in-out;
+    }
+}
+
+.auth-forms .auth-login {
+    transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
+}
+
+.auth-forms .auth-signup, .auth-forms .auth-login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .4s ease-in-out, visibility .4s ease-in-out, -webkit-transform .5s ease-in-out;
+    transition: opacity .4s ease-in-out, visibility .4s ease-in-out, transform .5s ease-in-out;
+    transition: opacity .4s ease-in-out, visibility .4s ease-in-out, transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
+}
+
+.auth-forms .auth-signup div.wrapper, .auth-forms .auth-login div.wrapper {
+    width: 80%;
+}
+
+.auth-forms .auth-signup {
+    -webkit-transform: translate3d(30%, 0, 0);
+    transform: translate3d(30%, 0, 0);
+}
+
+.auth-forms .auth-signup .forms_buttons {
+    justify-content: flex-end;
+}
+
+.auth-forms .auth-login {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (min-width: 576px) {
+    .auth-forms.bounceLeft {
+        -webkit-animation: bounceLeft 1s forwards;
+        animation: bounceLeft 1s forwards;
+    }
+}
+
+.auth-forms.bounceLeft .auth-signup {
+    -webkit-animation: showSignUp 1s forwards;
+    animation: showSignUp 1s forwards;
+}
+
+.auth-forms.bounceLeft .auth-login {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translate3d(-30%, 0, 0);
+    transform: translate3d(-30%, 0, 0);
+}
+
+@media (min-width: 576px) {
+    .auth-forms.bounceRight {
+        -webkit-animation: bounceRight 1s forwards;
+        animation: bounceRight 1s forwards;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .header .btn {
+        margin: 1rem;
+    }
+
+    .w-80 {
+        width: 100%;
+    }
+
+    .auth {
+        position: relative;
+        display: block;
+    }
+
+    .auth-text {
+        position: absolute;
+        height: 60%;
+        bottom: 10%;
+        width: 100%;
+        border-radius: 0;
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    .auth-text h2 {
+        font-size: 1.5rem;
+    }
+
+    .auth-text p, .auth-text .auth-signup-text {
+        display: none;
+    }
+
+    .auth-text .auth-login-text, .auth-text .auth-signup-text {
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .auth-text.bounceLeft .auth-signup-text {
+        display: block;
+    }
+
+    .auth-text.bounceLeft .auth-login-text {
+        display: none;
+    }
+
+    .auth-text.bounceRight .auth-signup-text {
+        display: none;
+    }
+
+    .auth-text.bounceRight .auth-login-text {
+        display: block;
+    }
+
+    .auth-forms {
+        position: absolute;
+        top: 10%;
+        min-height: 300px;
+        height: 60%;
+        bottom: 20%;
+        left: 5%;
+        width: 90%;
+    }
+}

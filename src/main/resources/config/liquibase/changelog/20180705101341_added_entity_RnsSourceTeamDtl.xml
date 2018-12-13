@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property dbms="mysql,h2,postgresql" value="true" name="autoIncrement"/>
+    <property dbms="oracle" value="false" name="autoIncrement"/>
+
+    <!--
+        Added the entity RnsSourceTeamDtl.
+    -->
+    <changeSet id="20180705101341-1" author="jhipster">
+        <createTable tableName="rns_source_team_dtl">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="master_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+             <column name="created_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+             <column name="updated_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_updated_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="rns_source_team_dtl" columnName="created_date" columnDataType="datetime"/>
+        <createSequence startValue="1" sequenceName="rns_source_team_dtl_seq" ordered="true" incrementBy="1" cycle="false"/>
+        <createProcedure dbms="oracle" relativeToChangelogFile="true" procedureName="rns_source_team_dtl_procedure" encoding="utf8" catalogName="rns_source_team_dtl_catalog"> CREATE TRIGGER rns_source_team_dtl_trigger BEFORE INSERT ON rns_source_team_dtl FOR EACH ROW BEGIN IF( :NEW.id IS NULL ) THEN :NEW.id:=rns_source_team_dtl_seq.NEXTVAL; END IF; END; </createProcedure>
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

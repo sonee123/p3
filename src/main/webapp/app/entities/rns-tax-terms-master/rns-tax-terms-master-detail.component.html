@@ -1,0 +1,57 @@
+
+<div *ngIf="rnsTaxTermsMaster">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Tax Terms Master</span> {{rnsTaxTermsMaster.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Tax Terms Code</span></dt>
+                        <dd>
+                            <span>{{rnsTaxTermsMaster.taxTermsCode}}</span>
+                        </dd>
+                        <dt><span>Tax Terms Desc</span></dt>
+                        <dd>
+                            <span>{{rnsTaxTermsMaster.taxTermsDesc}}</span>
+                        </dd>
+                        <dt><span>Created By</span></dt>
+                        <dd>
+                            <span *ngIf="rnsTaxTermsMaster.user">{{rnsTaxTermsMaster.user?.firstName}} {{rnsTaxTermsMaster.user?.lastName}}</span>
+                        </dd>
+                        <dt><span>Created Date</span></dt>
+                        <dd>
+                            <span *ngIf="rnsTaxTermsMaster.createdDate">{{rnsTaxTermsMaster.createdDate |date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Modified&nbsp;By</span></dt>
+                        <dd>
+                            <div *ngIf="rnsTaxTermsMaster.updatedUser">
+                                {{rnsTaxTermsMaster.updatedUser?.firstName}}
+                                {{rnsTaxTermsMaster.updatedUser?.lastName}}
+                            </div>
+                        </dd>
+                        <dt><span>Modified&nbsp;Date</span></dt>
+                        <dd>
+                            <div *ngIf="rnsTaxTermsMaster.lastUpdatedDate">{{rnsTaxTermsMaster.lastUpdatedDate | date:'dd-MMM-yy h:mm a'}}
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-tax-terms-master/'+ rnsTaxTermsMaster.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

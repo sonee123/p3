@@ -1,0 +1,21 @@
+/* after changing this file run 'npm run webpack:build' */
+
+/***************************
+put Sass variables here:
+eg $input-color: red;
+****************************/
+// Override Boostrap variables
+@import 'bootstrap-variables';
+// Import Bootstrap source files from node_modules
+@import '~bootstrap/scss/bootstrap';
+
+/* jhipster-needle-scss-add-vendor JHipster will add new css style */
+
+@import '~nprogress/nprogress.css';
+@import '~@ng-select/ng-select/themes/default.theme.css';
+@import '~datatables.net-dt/css/jquery.dataTables.css';
+@import '~datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css';
+@import '~ng-pick-datetime/assets/style/picker.min.css';
+@import '~@neos21/bootstrap3-glyphicons/dist/css/bootstrap3-glyphicons.min.css';
+@import '~angular-notifier/styles';
+@import '~@ng-select/ng-select/themes/default.theme.css';

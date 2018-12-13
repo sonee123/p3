@@ -1,0 +1,74 @@
+<div>
+    <h5>
+        <span>Quotation Articles</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-rns-quotation-article"
+                [routerLink]="['/', { outlets: { popup: ['rns-quotation-article-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsQuotationArticles">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Article Code</span></th>
+                                    <th><span>Article Name</span></th>
+                                    <th><span>Buyer Code</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsQuotationArticle of rnsQuotationArticles ;">
+                                    <td><a [routerLink]="['../rns-quotation-article', rnsQuotationArticle.id ]">{{rnsQuotationArticle.id}}</a>
+                                    </td>
+                                    <td>{{rnsQuotationArticle.articleCode}}</td>
+                                    <td>{{rnsQuotationArticle.articleName}}</td>
+                                    <td>
+                                        <div *ngIf="rnsQuotationArticle.buyerCode">
+                                            <a [routerLink]="['../rns-buyer-master', rnsQuotationArticle.buyerCode?.id ]">{{rnsQuotationArticle.buyerCode?.buyerCode}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-quotation-article', rnsQuotationArticle.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-article/'+ rnsQuotationArticle.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-article/'+ rnsQuotationArticle.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "variant",
+            "otherEntityName": "rnsQuotationVariant",
+            "otherEntityField": "title"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "currency",
+            "otherEntityName": "currency",
+            "otherEntityField": "currency"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "vndrQuotation",
+            "otherEntityName": "rnsQuotationVendors",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "priceOne",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceTwo",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceThree",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceFour",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceFive",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceSix",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceSeven",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceEight",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceNine",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "priceTen",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "vendorCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "surrogate",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20180406113521",
+    "entityTableName": "vndr_price",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

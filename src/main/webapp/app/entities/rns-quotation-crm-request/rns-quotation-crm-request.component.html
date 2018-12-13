@@ -1,0 +1,86 @@
+<div>
+    <h5>
+        <span>Quotation CRM Requests</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-rns-quotation-crm-request"
+                [routerLink]="['/', { outlets: { popup: ['rns-quotation-crm-request-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsQuotationCrmRequests">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>CRM Request Number</span></th>
+                                    <th><span>Requested By</span></th>
+                                    <th><span>Target PCD</span></th>
+                                    <th><span>Merchant Remarks</span></th>
+                                    <th><span>Date</span></th>
+                                    <th><span>Buyer Code</span></th>
+                                    <th><span>PCH Master</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsQuotationCrmRequest of rnsQuotationCrmRequests ;">
+                                    <td><a [routerLink]="['../rns-quotation-crm-request', rnsQuotationCrmRequest.id ]">{{rnsQuotationCrmRequest.id}}</a>
+                                    </td>
+                                    <td>{{rnsQuotationCrmRequest.crmRequestNumber}}</td>
+                                    <td>{{rnsQuotationCrmRequest.requestedBy}}</td>
+                                    <td>{{rnsQuotationCrmRequest.targetPcd | date:'mediumDate'}}</td>
+                                    <td>{{rnsQuotationCrmRequest.merchantRemarks}}</td>
+                                    <td>{{rnsQuotationCrmRequest.date | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td>
+                                        <div *ngIf="rnsQuotationCrmRequest.buyerCode">
+                                            <a [routerLink]="['../rns-buyer-master', rnsQuotationCrmRequest.buyerCode?.id ]">{{rnsQuotationCrmRequest.buyerCode?.buyerCode}}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsQuotationCrmRequest.rnsPchMaster">
+                                            <a [routerLink]="['../rns-pch-master', rnsQuotationCrmRequest.rnsPchMaster?.id ]">{{rnsQuotationCrmRequest.rnsPchMaster?.pchCode}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-quotation-crm-request', rnsQuotationCrmRequest.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-crm-request/'+ rnsQuotationCrmRequest.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-crm-request/'+ rnsQuotationCrmRequest.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

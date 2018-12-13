@@ -1,0 +1,136 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="myRnsQuotationLabel">Bidding Compare</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+            (click)="clear()">&times;
+    </button>
+</div>
+<div class="modal-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="exampleFixed">
+            <thead>
+            <tr style="height: 30px !important;background-color: #f2f2f2;">
+                <th colspan="2"></th>
+                <th style="text-align: right;padding-right: 6px !important;">Consumption</th>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <th colspan="2" style="text-align: center;">{{biddingCompareVendor.vendorName}}({{biddingCompareVendor.firstName}} {{biddingCompareVendor.lastName}})</th>
+                </ng-container>
+            </tr>
+            <tr style="height: 30px !important;background-color: #f2f2f2;">
+                <th>Element Description</th>
+                <th>UOM</th>
+                <th style="text-align: right;padding-right: 6px !important;">per Potential Unit</th>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <th style="text-align: center;">Price</th>
+                    <th style="text-align: center;">Amount</th>
+                </ng-container>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="biddingCompare.textOne">
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.textOne}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.uomOne}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: right;padding-right: 6px !important;">{{biddingCompare.convFactOne | number : '1.2-2'}}</td>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <td style="text-align: center;">{{biddingCompareVendor.priceOne | number : '1.2-2'}}</td>
+                    <td style="text-align: center;">{{biddingCompareVendor.amountOne | number : '1.2-2'}}</td>
+                </ng-container>
+            </tr>
+            <tr *ngIf="biddingCompare.textTwo">
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.textTwo}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.uomTwo}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: right;padding-right: 6px !important;">{{biddingCompare.convFactTwo | number : '1.2-2'}}</td>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <td style="text-align: center;">{{biddingCompareVendor.priceTwo | number : '1.2-2'}}</td>
+                    <td style="text-align: center;">{{biddingCompareVendor.amountTwo | number : '1.2-2'}}</td>
+                </ng-container>
+            </tr>
+            <tr *ngIf="biddingCompare.textThree">
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.textThree}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.uomThree}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: right;padding-right: 6px !important;">{{biddingCompare.convFactThree | number : '1.2-2'}}</td>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <td style="text-align: center;">{{biddingCompareVendor.priceThree | number : '1.2-2'}}</td>
+                    <td style="text-align: center;">{{biddingCompareVendor.amountThree | number : '1.2-2'}}</td>
+                </ng-container>
+            </tr>
+            <tr *ngIf="biddingCompare.textFour">
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.textFour}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.uomFour}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: right;padding-right: 6px !important;">{{biddingCompare.convFactFour | number : '1.2-2'}}</td>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <td style="text-align: center;">{{biddingCompareVendor.priceFour | number : '1.2-2'}}</td>
+                    <td style="text-align: center;">{{biddingCompareVendor.amountFour | number : '1.2-2'}}</td>
+                </ng-container>
+            </tr>
+            <tr *ngIf="biddingCompare.textFive">
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.textFive}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.uomFive}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: right;padding-right: 6px !important;">{{biddingCompare.convFactFive | number : '1.2-2'}}</td>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <td style="text-align: center;">{{biddingCompareVendor.priceFive | number : '1.2-2'}}</td>
+                    <td style="text-align: center;">{{biddingCompareVendor.amountFive | number : '1.2-2'}}</td>
+                </ng-container>
+            </tr>
+            <tr *ngIf="biddingCompare.textSix">
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.textSix}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.uomSix}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: right;padding-right: 6px !important;">{{biddingCompare.convFactSix | number : '1.2-2'}}</td>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <td style="text-align: center;">{{biddingCompareVendor.priceSix | number : '1.2-2'}}</td>
+                    <td style="text-align: center;">{{biddingCompareVendor.amountSix | number : '1.2-2'}}</td>
+                </ng-container>
+            </tr>
+            <tr *ngIf="biddingCompare.textSeven">
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.textSeven}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.uomSeven}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: right;padding-right: 6px !important;">{{biddingCompare.convFactSeven | number : '1.2-2'}}</td>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <td style="text-align: center;">{{biddingCompareVendor.priceSeven | number : '1.2-2'}}</td>
+                    <td style="text-align: center;">{{biddingCompareVendor.amountSeven | number : '1.2-2'}}</td>
+                </ng-container>
+            </tr>
+            <tr *ngIf="biddingCompare.textEight">
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.textEight}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.uomEight}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: right;padding-right: 6px !important;">{{biddingCompare.convFactEight | number : '1.2-2'}}</td>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <td style="text-align: center;">{{biddingCompareVendor.priceEight | number : '1.2-2'}}</td>
+                    <td style="text-align: center;">{{biddingCompareVendor.amountEight | number : '1.2-2'}}</td>
+                </ng-container>
+            </tr>
+            <tr *ngIf="biddingCompare.textNine">
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.textNine}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.uomNine}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: right;padding-right: 6px !important;">{{biddingCompare.convFactNine | number : '1.2-2'}}</td>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <td style="text-align: center;">{{biddingCompareVendor.priceNine | number : '1.2-2'}}</td>
+                    <td style="text-align: center;">{{biddingCompareVendor.amountNine | number : '1.2-2'}}</td>
+                </ng-container>
+            </tr>
+            <tr *ngIf="biddingCompare.textTen">
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.textTen}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">{{biddingCompare.uomTen}}</td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: right;padding-right: 6px !important;">{{biddingCompare.convFactTen | number : '1.2-2'}}</td>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <td style="text-align: center;">{{biddingCompareVendor.priceTen | number : '1.2-2'}}</td>
+                    <td style="text-align: center;">{{biddingCompareVendor.amountTen | number : '1.2-2'}}</td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;"></td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;"></td>
+                <td style="background-color: #FFCC99;color:#000;font-weight:bold;">Total</td>
+                <ng-container *ngFor="let biddingCompareVendor of biddingCompare.vendorBeans">
+                    <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: center;">{{biddingCompareVendor.priceTotal | number : '1.2-2'}}</td>
+                    <td style="background-color: #FFCC99;color:#000;font-weight:bold;text-align: center;">{{biddingCompareVendor.amountTotal | number : '1.2-2'}}</td>
+                </ng-container>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()" style="font-size: 1rem !important;">
+        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+    </button>
+</div>

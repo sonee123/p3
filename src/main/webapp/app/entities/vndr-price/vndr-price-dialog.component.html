@@ -1,0 +1,101 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myVndrPriceLabel">Create or edit a Vendor Price</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!vndrPrice.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="vndrPrice.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceOne">Price One</label>
+            <input type="number" class="form-control form-control-sm" name="priceOne" id="field_priceOne"
+                [(ngModel)]="vndrPrice.priceOne" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceTwo">Price Two</label>
+            <input type="number" class="form-control form-control-sm" name="priceTwo" id="field_priceTwo"
+                [(ngModel)]="vndrPrice.priceTwo" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceThree">Price Three</label>
+            <input type="number" class="form-control form-control-sm" name="priceThree" id="field_priceThree"
+                [(ngModel)]="vndrPrice.priceThree" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceFour">Price Four</label>
+            <input type="number" class="form-control form-control-sm" name="priceFour" id="field_priceFour"
+                [(ngModel)]="vndrPrice.priceFour" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceFive">Price Five</label>
+            <input type="number" class="form-control form-control-sm" name="priceFive" id="field_priceFive"
+                [(ngModel)]="vndrPrice.priceFive" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceSix">Price Six</label>
+            <input type="number" class="form-control form-control-sm" name="priceSix" id="field_priceSix"
+                [(ngModel)]="vndrPrice.priceSix" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceSeven">Price Seven</label>
+            <input type="number" class="form-control form-control-sm" name="priceSeven" id="field_priceSeven"
+                [(ngModel)]="vndrPrice.priceSeven" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceEight">Price Eight</label>
+            <input type="number" class="form-control form-control-sm" name="priceEight" id="field_priceEight"
+                [(ngModel)]="vndrPrice.priceEight" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceNine">Price Nine</label>
+            <input type="number" class="form-control form-control-sm" name="priceNine" id="field_priceNine"
+                [(ngModel)]="vndrPrice.priceNine" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_priceTen">Price Ten</label>
+            <input type="number" class="form-control form-control-sm" name="priceTen" id="field_priceTen"
+                [(ngModel)]="vndrPrice.priceTen" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_vendorCode">Vendor Code</label>
+            <input type="text" class="form-control form-control-sm" name="vendorCode" id="field_vendorCode"
+                [(ngModel)]="vndrPrice.vendorCode" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_variant">Variant</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_variant" name="variant" [(ngModel)]="vndrPrice.variant" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="rnsQuotationVariantOption.id === vndrPrice.variant?.id ? vndrPrice.variant : rnsQuotationVariantOption" *ngFor="let rnsQuotationVariantOption of rnsquotationvariants; trackBy: trackRnsQuotationVariantById">{{rnsQuotationVariantOption.title}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_vndrQuotation">Vendor Quotation</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_vndrQuotation" name="vndrQuotation" [(ngModel)]="vndrPrice.vndrQuotation" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="rnsQuotationVendorsOption.id === vndrPrice.vndrQuotation?.id ? vndrPrice.vndrQuotation : rnsQuotationVendorsOption" *ngFor="let rnsQuotationVendorsOption of rnsquotationvendors; trackBy: trackRnsQuotationVendorsById">{{rnsQuotationVendorsOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_currency">Currency</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_currency" name="currency" [(ngModel)]="vndrPrice.currency" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="currencyOption.id === vndrPrice.currency?.id ? vndrPrice.currency : currencyOption" *ngFor="let currencyOption of currencies; trackBy: trackCurrencyById">{{currencyOption.currency}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,114 @@
+<div class="card">
+    <div class="card-heading">
+        <div class="row" style="padding-left: 15px !important; padding-right: 15px !important; padding-top: 15px !important;">
+            <div class="col-md-6">
+                <h5><label class="form-control-label">Messages</label></h5>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-2" *jhiHasAnyAuthority="['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_AUDITOR']">
+                <form [formGroup]="myForm" novalidate><jhi-message-month-date-picker name="messagefecha" formControlName="messagefecha"></jhi-message-month-date-picker></form>
+            </div>
+            <div class="col-md-1" *jhiHasAnyAuthority="['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_AUDITOR']">
+                <button class="btn btn-primary btn-sm" (click)="loadAll();"><fa-icon [icon]="'sync'"></fa-icon></button>
+            </div>
+        </div>
+        <hr style="margin: 0;"/>
+    </div>
+    <div class="card-body">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-tabs card-header-success">
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <span class="nav-tabs-title">Messages:</span>
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                <li class="nav-item">
+                                    <a [ngClass]="(activeTab=='message')? 'nav-link active' : 'nav-link' " (click)="changeTab('message')" data-toggle="tab">
+                                        <fa-icon [icon]="'inbox'">inbox</fa-icon> Inbox
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a [ngClass]="(activeTab=='messageSent')? 'nav-link active' : 'nav-link' " (click)="changeTab('messageSent')" data-toggle="tab">
+                                        <fa-icon [icon]="'sign-out-alt'">send</fa-icon> Sent
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div [ngClass]="(activeTab=='message')? 'tab-pane active' : 'tab-pane' " id="messages">
+                            <table class="table table-sm text-dark" *ngIf="dashBoard && dashBoard.messageBeansTo" id="exampleFixed">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>From</th>
+                                    <th>Subject</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <ng-container *ngFor="let message of dashBoard.messageBeansTo;">
+                                    <tr [style.font-weight]=" message.readflag=='Y'?'normal':'bold' " [style.background-color]=" message.readflag=='Y'?'#f2f2f2':'#ffffff' ">
+                                        <td>
+                                            {{message.createdDate | date: 'dd-MMM-yy h:mm a'}}
+                                        </td>
+                                        <td>
+                                            {{message.fromUser.firstName}} {{message.fromUser.lastName}}
+                                        </td>
+                                        <td>
+                                            {{message.subject}}
+                                        </td>
+                                        <td>
+                                            <button (click)="readFlagChange(message);" class="btn btn-link btn-sm" [routerLink]="['/', { outlets: { popup: 'message/'+ message.id + '/edit'} }]"
+                                                    replaceUrl="true">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div [ngClass]="(activeTab=='messageSent')? 'tab-pane active' : 'tab-pane' " id="messagesSent">
+                            <table class="table table-sm text-dark" *ngIf="dashBoard && dashBoard.messageBeans" id="exampleFixedTo">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>To</th>
+                                    <th>Subject</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <ng-container *ngFor="let message of dashBoard.messageBeans;">
+                                    <tr>
+                                        <td>
+                                            {{message.createdDate | date: 'dd-MMM-yy h:mm a'}}
+                                        </td>
+                                        <td>
+                                            {{message.toUser.firstName}} {{message.toUser.lastName}}
+                                        </td>
+                                        <td>
+                                            {{message.subject}}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-link btn-sm" [routerLink]="['/', { outlets: { popup: 'message/'+ message.id + '/edit'} }]"
+                                                    replaceUrl="true">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

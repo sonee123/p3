@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="myAuctionVarDetailsLabel">Lot wise Breakup</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+            (click)="clear()">&times;
+    </button>
+</div>
+<div class="modal-body">
+    <div style="height:550px;overflow: auto;">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th style="width:15%;"></th>
+                <th style="width:25%;">Start Time</th>
+                <th style="width:25%;">End Time</th>
+                <th style="width:25%;" *ngIf="type"><ng-container *ngIf="type=='E'">Extend&nbsp;Minutes</ng-container><ng-container *ngIf="type=='R'">Reduce&nbsp;Minutes</ng-container></th>
+                <th style="width:10%;">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let auctionVarDetails of auctionVarDetailsList;let index = index">
+                <td>{{ auctionVarDetails.labelName }}</td>
+                <td>
+                    <div class="input-group input-group-sm">
+                        <input id="field_lotStartTime_{{index}}" [owlDateTime]="lotStartTime" placeholder="DD-MM-YYYY HH:MI PM" type="text" class="form-control form-control-sm" name="lotStartTime_{{index}}" [(ngModel)]="auctionVarDetails.lotStartTime" required hourFormat="24" disabled/>
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary btn-sm" [owlDateTimeTrigger]="lotStartTime" disabled><fa-icon [icon]="'calendar'"></fa-icon></button>
+                            <owl-date-time #lotStartTime></owl-date-time>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group input-group-sm">
+                        <input id="field_lotEndTime_{{index}}" [disabled]="true" [owlDateTime]="lotEndTime" placeholder="DD-MM-YYYY HH:MI PM" type="text" class="form-control form-control-sm" name="lotEndTime_{{index}}" [(ngModel)]="auctionVarDetails.lotEndTime" [min]="auctionVarDetails.lotStartTime" required hourFormat="24"/>
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary btn-sm" [disabled]="true" [owlDateTimeTrigger]="lotEndTime"><fa-icon [icon]="'calendar'"></fa-icon></button>
+                            <owl-date-time #lotEndTime></owl-date-time>
+                        </div>
+                    </div>
+                </td>
+                <td *ngIf="type">
+                    <input id="extendsReduceM_{{index}}" type="number" class="form-control form-control-sm" [(ngModel)]="auctionVarDetails.lotMinutes">
+                <td>
+                    <button class="btn btn-primary btn-sm" name="process" (click)="extendDateTime(auctionVarDetails);"><fa-icon [icon]="'sync'"></fa-icon> Process</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+    </button>
+</div>

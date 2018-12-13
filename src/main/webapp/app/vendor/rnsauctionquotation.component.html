@@ -1,0 +1,585 @@
+<div class="card">
+    <div class="card-body">
+        <div *ngIf="!variantAuctionApplicable && variantAuctionApplicable != false && !rnsQuotation.auctionClose" class="row" style="margin-top: 0">
+            <div class="col-md-6">
+                <button class="btn btn-success form-control" [routerLink]="['/', { outlets: { popup: 'auction-terms-master/'+ rnsQuotation.id + '/agree'} }]" replaceUrl="true">
+                    <fa-icon [icon]="'check'"></fa-icon>
+                    <span>Accept Invite</span>
+                </button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-danger form-control" (click)="rejectInvite(rnsQuotation)">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                    <span>Reject Invite</span>
+                </button>
+            </div>
+        </div>
+        <div class="row" *ngIf="rnsQuotation">
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="form-control-label"><span style="font-weight:900;padding-bottom: 10px;">#{{rnsQuotation.id}}</span>&nbsp;<span style="font-weight:500;padding-bottom: 10px;">{{rnsQuotation.projectTitle}}</span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="form-control-label"><span style="font-weight:900;padding-bottom: 10px;">Article: </span>{{rnsQuotation.articleCode}} <ng-container *ngIf="rnsQuotation.articleDesc"> ({{rnsQuotation.articleDesc}})</ng-container></label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 card" *ngIf="rnsQuotation.auctionDetails">
+                <table class="table table-sm">
+                    <tr>
+                        <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;"><label class="form-control-label">Publish&nbsp;Date&nbsp;:</label></td>
+                        <td style="width:25%;border-width:0!important;"><label class="form-control-label"><span style="font-weight:400;padding-left: 10px;">{{rnsQuotation.auctionDetails.publishTime | date: 'dd-MMM-yy h:mm a'}}</span></label></td>
+                        <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;"><label class="form-control-label">Start&nbsp;:</label></td>
+                        <td style="width:35%;border-width:0!important;"><label class="form-control-label"><span style="font-weight:400;padding-left: 10px;">{{variantStartTime | date:'dd-MMM-yy h:mm a'}}</span></label></td>
+                    </tr>
+                    <tr>
+                        <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;"><label class="form-control-label">Event&nbsp;Type&nbsp;:</label></td>
+                        <td style="width:25%;border-width:0!important;">
+                            <label class="form-control-label">
+                                <span style="font-weight:400;padding-left: 10px;">
+                                    <span *ngIf="rnsQuotation.eventType=='AUCTION'">Bid for Sale</span>
+                                    <span *ngIf="rnsQuotation.eventType=='REVERSE_AUCTION'">Bid for Purchase</span>
+                                </span>
+                            </label>
+                        </td>
+                        <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;"><label class="form-control-label">End&nbsp;:</label></td>
+                        <td style="width:35%;border-width:0!important;"><label class="form-control-label"><span style="font-weight:400;padding-left: 10px;">{{variantEndTime | date:'dd-MMM-yy h:mm a'}}</span></label></td>
+                    </tr>
+                    <tr>
+                        <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;"><label class="form-control-label">Lot&nbsp;Time&nbsp;:</label></td>
+                        <td style="width:25%;border-width:0!important;"><label class="form-control-label"><span style="font-weight:400;padding-left: 10px;">{{rnsQuotation.auctionDetails.lotRunningTime}} minutes</span></label></td>
+                        <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;"><label class="form-control-label">Over&nbsp;Time&nbsp;:</label></td>
+                        <td style="width:35%;border-width:0!important;"><label class="form-control-label"><span style="font-weight:400;padding-left: 10px;">{{ variantOverTime}} minutes</span></label></td>
+                    </tr>
+                    <tr>
+                        <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;"><label class="form-control-label">Time&nbsp;b/w&nbsp;Lots:</label></td>
+                        <td style="width:25%;border-width:0!important;"><label class="form-control-label"><span style="font-weight:400;padding-left: 10px;border-width:0!important;">{{  rnsQuotation.auctionDetails.timeBetweenLots }}  minutes</span></label></td>
+                        <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;"><label class="form-control-label">Current&nbsp;Status&nbsp;:</label></td>
+                        <td style="width:35%;border-width:0!important;"><label class="form-control-label"><span *ngIf="paused"><span style="padding-left: 10px;color:red;font-weight: bold;">Bidding paused</span></span><span style="font-weight:400;padding-left: 10px;"><span *ngIf="!paused">{{ variantMsg }}</span></span></label></td>
+                    </tr>
+                    <tr *ngIf="variantTimeMsg && !paused">
+                        <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;"></td>
+                        <td style="width:25%;border-width:0!important;"></td>
+                        <td style="width:20%;font-weight: 800;text-align: right;border-width:0!important;"><label class="form-control-label">{{variantTimeMsg}}</label></td>
+                        <td style="width:35%;border-width:0!important;">
+                            <label class="form-control-label">
+                                <span style="font-weight:400;padding-left: 10px;">
+                                    <span style="font-weight:400;background:  grey;padding:  2px 5px;border-radius: 5px;color:  white;">{{variantTimeLeft}}</span>
+                                </span>
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-2" [hidden]="rnsQuotation.auctionClose==true">
+                {{timer | date: 'dd-MMM-yy h:mm:ss a'}}<br/>
+                <span style="font-weight: bold;">Indian Standard Time</span>
+            </div>
+        </div>
+        <div class="row card" *ngIf="rnsQuotation">
+            <div class="card">
+                <div class="card-header card-header-sm bg-primary text-white">
+                    <ul  class="nav">
+                        <li class="nav-item" *ngFor="let variant of variants | orderBy: 'id'" [ngClass]="variant.title==variantDisplay ? 'active': ''">
+                            <a data-toggle="tab" class="nav-link pull-left" (click)="displayVariant(variant.title)" role="tab">{{lotNames[variant.title]}}
+                                <span *ngIf="variant.isAuctionPending==true && !paused" style="color:green;font-size: 14px;"> * </span> <span *ngIf="variant.isAuctionPending==false && !paused" style="color:red;font-size: 14px;"> * </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body" style="padding: 0.25rem 1.25rem !important;">
+                    <div class="tab-content">
+                        <div class="tab-pane tab-pane-sm"  [ngClass]="variant.title==variantDisplay? 'active': ''" *ngFor="let variant of variants ;let index = index"  role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-6" style="padding-right: 25px !important;">
+                                    <div class="row">
+                                        <label class="col-md-12 bg-primary text-white text-center" ><h6>Lot Description</h6></label>
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="card bg-light">
+                                                    <tr>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionOneRequired==true">
+                                                            <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec1">{{variant.varDescSpec1}}&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionOneRequired==true">
+                                                            <label class="form-control-label">{{variant.varDescSpec1Value}}</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding-left:10px!important;" *ngIf="variant.showInAuctionSixRequired==true">
+                                                            <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec6">{{variant.varDescSpec6}}&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionSixRequired==true">
+                                                            <label class="form-control-label">{{variant.varDescSpec6Value}}</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionTwoRequired==true">
+                                                            <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec2">{{variant.varDescSpec2}}&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionTwoRequired==true">
+                                                            <label class="form-control-label">{{variant.varDescSpec2Value}}</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding-left:10px!important;" *ngIf="variant.showInAuctionSevenRequired==true">
+                                                            <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec7">{{variant.varDescSpec7}}&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionSevenRequired==true">
+                                                            <label class="form-control-label">{{variant.varDescSpec7Value}}</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionThreeRequired==true">
+                                                            <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec3">{{variant.varDescSpec3}}&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionThreeRequired==true">
+                                                            <label class="form-control-label">{{variant.varDescSpec3Value}}</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding-left:10px!important;" *ngIf="variant.showInAuctionEightRequired==true">
+                                                            <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec8">{{variant.varDescSpec8}}&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionEightRequired==true">
+                                                            <label class="form-control-label">{{variant.varDescSpec8Value}}</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionFourRequired==true">
+                                                            <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec4">{{variant.varDescSpec4}}&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionFourRequired==true">
+                                                            <label class="form-control-label">{{variant.varDescSpec4Value}}</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding-left:10px!important;" *ngIf="variant.showInAuctionNineRequired==true">
+                                                            <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec9">{{variant.varDescSpec9}}&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionNineRequired==true">
+                                                            <label class="form-control-label">{{variant.varDescSpec9Value}}</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionFiveRequired==true">
+                                                            <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec5">{{variant.varDescSpec5}}&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionFiveRequired==true">
+                                                            <label class="form-control-label">{{variant.varDescSpec5Value}}</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding-left:10px!important;"  *ngIf="variant.showInAuctionTenRequired==true">
+                                                            <label class="form-control-label" style="font-weight:700;" *ngIf="variant.varDescSpec10">{{variant.varDescSpec10}}&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:25%;border: 0!important;padding:0!important;" *ngIf="variant.showInAuctionTenRequired==true">
+                                                            <label class="form-control-label">{{variant.varDescSpec10Value}}</label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" style="padding-right: 25px !important;">
+                                    <div class="row">
+                                        <label class="col-md-12 bg-primary text-white text-center"><h6>Commercial Terms</h6></label>
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="card bg-light">
+                                                    <tr>
+                                                        <td style="width:35%;border: 0!important;padding:0!important;">
+                                                            <label class="form-control-label" style="font-weight:700;">Tax Terms&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:65%;border: 0!important;padding:0!important;">
+                                                            <label class="form-control-label">{{variant.dealtermsTaxTermsDesc}}</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:35%;border: 0!important;padding:0!important;">
+                                                            <label class="form-control-label" style="font-weight:700;">Payment&nbsp;Terms&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:65%;border: 0!important;padding:0!important;">
+                                                            <label class="form-control-label">{{variant.dealtermPaymentTermsDesc}}</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:35%;border: 0!important;padding:0!important;">
+                                                            <label class="form-control-label" style="font-weight:700;">Delivery&nbsp;Terms&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:65%;border: 0!important;padding:0!important;">
+                                                            <label class="form-control-label">{{variant.dealtermDeliveryTermsDesc}}</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:35%;border: 0!important;padding:0!important;">
+                                                            <label class="form-control-label" style="font-weight:700;">Delivery&nbsp;Place&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:65%;border: 0!important;padding:0!important;">
+                                                            <label class="form-control-label">{{variant.dealtermsDelPlaceDesc}}</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:35%;border: 0!important;padding:0!important;">
+                                                            <label class="form-control-label" style="font-weight:700;">Potential&nbsp;Qty&nbsp;:&nbsp;</label>
+                                                        </td>
+                                                        <td style="width:65%;border: 0!important;padding:0!important;">
+                                                            <label class="form-control-label">
+                                                                {{variant.orderQuantity}}
+                                                                {{variant.orderUom}}
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <label class="col-md-12 bg-primary text-white text-center"><h6>
+                                            Remarks for Party&nbsp;
+                                            <a href="#" [routerLink]="['/', { outlets: { popup: 'rns-file-upload/'+ variant.id + '/L'} }]" replaceUrl="true">
+                                                <fa-icon [style.color]="variant.uploadFlag=='Y'?'RED':'WHITE'" style="font-size:15px;cursor: pointer;" title="Attachment" [icon]="'paperclip'"></fa-icon>
+                                            </a>
+                                        </h6>
+                                        </label>
+                                        <div class="col-md-12 card bg-light">
+                                            <div class="row">
+                                                <div class="col-md-12" style="height:80px; overflow: auto;">
+                                                    <label class="form-control-label">{{variant.remarks}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4"><label class="form-control-label" style="font-weight:700;">Exp.&nbsp;Delivery&nbsp;Date</label></div>
+                                                <div class="col-md-8"><label class="form-control-label">{{variant.vendors[0].expDelDate | date: 'dd-MMM-yy'}}</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-md-12 text-primary">
+                                    <hr class="hr-summary bg-primary text-white"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-sm table-responsive" *ngIf="variant.auctionConfig">
+                                        <thead>
+                                        <tr class="bg-primary text-white text-center">
+                                            <th style="width: 40% !important;text-align:left;">Element</th>
+                                            <th style="width: 20% !important;">Consumption per Unit</th>
+                                            <th style="width: 20% !important;">Rate / 1 {{variant.orderUom}}</th>
+                                            <th style="width: 20% !important;">Amount / {{variant.orderQuantity}} {{variant.orderUom}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngIf="variant.auctionConfig">
+                                            <td *ngIf="variant.auctionConfig.textOne">
+                                                <input type="text" class="form-control form-control-sm" name="textOne" id="field_textOne" [disabled]="true" [(ngModel)]="variant.auctionConfig.textOne"/>
+                                            </td>
+                                            <td *ngIf="!variant.auctionConfig.textOne">
+                                                <input type="text" class="form-control form-control-sm" name="textOne" id="field_projectTitle" [disabled]="true" value="{{rnsQuotation.projectTitle}}"/>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="convFactOne" id="field_convFactOne" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactOne" [disabled]="true"/>
+                                            </td>
+                                            <td hidden="true">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="qtyOne" id="field_qtyOne" placeholder="Qty" [(ngModel)]="variant.auctionConfig.qtyOne" (blur)="historyUpdate(variant, 'qtyOne', variant.auctionConfig.qtyOne)" [disabled]="true"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="priceOne" id="field_priceOne" placeholder="Price" (blur)="historyUpdate(variant, 'priceOne', variant.vndrPrice.priceOne)" [(ngModel)]="variant.vndrPrice.priceOne" [disabled]="!variant.isAuctionActive || paused || !variantAuctionApplicable"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="amountOne" id="field_amountOne" placeholder="Price" disabled="disabled" value="{{variant.auctionConfig.convFactOne * variant.orderQuantity * variant.vndrPrice.priceOne}}"/>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textTwo!=null">
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm" name="textTwo" id="field_textTwo" [disabled]="true" [(ngModel)]="variant.auctionConfig.textTwo"/>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="convFactTwo" id="field_convFactTwo" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactTwo" [disabled]="true"/>
+                                            </td>
+                                            <td hidden="true">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="qtyTwo" id="field_qtyTwo" placeholder="Qty" [(ngModel)]="variant.auctionConfig.qtyTwo" (blur)="historyUpdate(variant, 'qtyTwo', variant.auctionConfig.qtyTwo)" [disabled]="true"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="priceTwo" id="field_priceTwo" placeholder="Price" (blur)="historyUpdate(variant, 'priceTwo', variant.vndrPrice.priceTwo)" [(ngModel)]="variant.vndrPrice.priceTwo" [disabled]="!variant.isAuctionActive || paused || !variantAuctionApplicable"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="amountTwo" id="field_amountTwo" placeholder="Price" value="{{variant.auctionConfig.convFactTwo * variant.orderQuantity * variant.vndrPrice.priceTwo}}" [disabled]="true"/>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textThree!=null">
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm" name="textThree" id="field_textThree" [disabled]="true" [(ngModel)]="variant.auctionConfig.textThree"/>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="convFactThree" id="field_convFactThree" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactThree" [disabled]="true"/>
+                                            </td>
+                                            <td hidden="true">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="qtyThree" id="field_qtyThree" placeholder="Qty" [(ngModel)]="variant.auctionConfig.qtyThree" (blur)="historyUpdate(variant, 'qtyThree', variant.auctionConfig.qtyThree)" [disabled]="true"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="priceThree" id="field_priceThree" placeholder="Price" (blur)="historyUpdate(variant, 'priceThree', variant.vndrPrice.priceThree)" [(ngModel)]="variant.vndrPrice.priceThree" [disabled]="!variant.isAuctionActive || paused || !variantAuctionApplicable"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="amountThree" id="field_amountThree" placeholder="Price" value="{{variant.auctionConfig.convFactThree * variant.orderQuantity * variant.vndrPrice.priceThree}}" [disabled]="true"/>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textFour!=null">
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm" name="textFour" id="field_textFour" [disabled]="true" [(ngModel)]="variant.auctionConfig.textFour"/>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="convFactFour" id="field_convFactFour" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactFour" [disabled]="true"/>
+                                            </td>
+                                            <td hidden="true">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="qtyFour" id="field_qtyFour" placeholder="Qty" [(ngModel)]="variant.auctionConfig.qtyFour" (blur)="historyUpdate(variant, 'qtyFour', variant.auctionConfig.qtyFour)" [disabled]="true"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="priceFour" id="field_priceFour" placeholder="Price" (blur)="historyUpdate(variant, 'priceFour', variant.vndrPrice.priceFour)" [(ngModel)]="variant.vndrPrice.priceFour" [disabled]="!variant.isAuctionActive || paused || !variantAuctionApplicable"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="amountFour" id="field_amountFour" placeholder="Price" value="{{variant.auctionConfig.convFactFour * variant.orderQuantity * variant.vndrPrice.priceFour}}" [disabled]="true"/>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textFive!=null">
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm" name="textFive" id="field_textFive" [disabled]="true" [(ngModel)]="variant.auctionConfig.textFive"/>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="convFactFive" id="field_convFactFive" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactFive" [disabled]="true"/>
+                                            </td>
+                                            <td hidden="true">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="qtyFive" id="field_qtyFive" placeholder="Qty" [(ngModel)]="variant.auctionConfig.qtyFive" (blur)="historyUpdate(variant, 'qtyFive', variant.auctionConfig.qtyFive)" [disabled]="true"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="priceFive" id="field_priceFive" placeholder="Price" (blur)="historyUpdate(variant, 'priceFive', variant.vndrPrice.priceFive)" [(ngModel)]="variant.vndrPrice.priceFive" [disabled]="!variant.isAuctionActive || paused || !variantAuctionApplicable"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="amountFive" id="field_amountFive" placeholder="Price" value="{{variant.auctionConfig.convFactFive * variant.orderQuantity * variant.vndrPrice.priceFive}}" [disabled]="true"/>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textSix!=null">
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm" name="textSix" id="field_textSix" [disabled]="true" [(ngModel)]="variant.auctionConfig.textSix"/>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="convFactSix" id="field_convFactSix" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactSix" [disabled]="true"/>
+                                            </td>
+                                            <td hidden="true">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="qtySix" id="field_qtySix" placeholder="Qty" [(ngModel)]="variant.auctionConfig.qtySix" (blur)="historyUpdate(variant, 'qtySix', variant.auctionConfig.qtySix)" [disabled]="true"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="priceSix" id="field_priceSix" placeholder="Price" (blur)="historyUpdate(variant, 'priceSix', variant.vndrPrice.priceSix)" [(ngModel)]="variant.vndrPrice.priceSix" [disabled]="!variant.isAuctionActive || paused || !variantAuctionApplicable"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="amountSix" id="field_amountSix" placeholder="Price" value="{{variant.auctionConfig.convFactSix * variant.orderQuantity * variant.vndrPrice.priceSix}}" [disabled]="true"/>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textSeven!=null">
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm" name="textSeven" id="field_textSeven" [disabled]="true" [(ngModel)]="variant.auctionConfig.textSeven"/>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="convFactSeven" id="field_convFactSeven" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactSeven" [disabled]="true"/>
+                                            </td>
+                                            <td hidden="true">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="qtySeven" id="field_qtySeven" placeholder="Qty" [(ngModel)]="variant.auctionConfig.qtySeven" (blur)="historyUpdate(variant, 'qtySeven', variant.auctionConfig.qtySeven)" [disabled]="true"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="priceSeven" id="field_priceSeven" placeholder="Price" (blur)="historyUpdate(variant, 'priceSeven', variant.vndrPrice.priceSeven)" [(ngModel)]="variant.vndrPrice.priceSeven" [disabled]="!variant.isAuctionActive || paused || !variantAuctionApplicable"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="amountSeven" id="field_amountSeven" placeholder="Price" value="{{variant.auctionConfig.convFactSeven * variant.orderQuantity * variant.vndrPrice.priceSeven}}" [disabled]="true"/>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textEight!=null">
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm" name="textEight" id="field_textEight" [disabled]="true" [(ngModel)]="variant.auctionConfig.textEight"/>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="convFactEight" id="field_convFactEight" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactEight" [disabled]="true"/>
+                                            </td>
+                                            <td hidden="true">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="qtyEight" id="field_qtyEight" placeholder="Qty" [(ngModel)]="variant.auctionConfig.qtyEight" (blur)="historyUpdate(variant, 'qtyEight', variant.auctionConfig.qtyEight)" [disabled]="true"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="priceEight" id="field_priceEight" placeholder="Price" (blur)="historyUpdate(variant, 'priceEight', variant.vndrPrice.priceEight)" [(ngModel)]="variant.vndrPrice.priceEight" [disabled]="!variant.isAuctionActive || paused || !variantAuctionApplicable"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="amountEight" id="field_amountEight" placeholder="Price" value="{{variant.auctionConfig.convFactEight * variant.orderQuantity * variant.vndrPrice.priceEight}}" [disabled]="true"/>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textNine!=null">
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm" name="textNine" id="field_textNine" [disabled]="true" [(ngModel)]="variant.auctionConfig.textNine"/>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="convFactNine" id="field_convFactNine" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactNine" [disabled]="true"/>
+                                            </td>
+                                            <td hidden="true">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="qtyNine" id="field_qtyNine" placeholder="Qty" [(ngModel)]="variant.auctionConfig.qtyNine" (blur)="historyUpdate(variant, 'qtyNine', variant.auctionConfig.qtyNine)" [disabled]="true"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="priceNine" id="field_priceNine" placeholder="Price" (blur)="historyUpdate(variant, 'priceNine', variant.vndrPrice.priceNine)" [(ngModel)]="variant.vndrPrice.priceNine" [disabled]="!variant.isAuctionActive || paused || !variantAuctionApplicable"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="amountNine" id="field_amountNine" placeholder="Price" value="{{variant.auctionConfig.convFactNine * variant.orderQuantity * variant.vndrPrice.priceNine}}" [disabled]="true"/>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="variant.auctionConfig && variant.auctionConfig.textTen!=null">
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm" name="textTen" id="field_textTen" [disabled]="true" [(ngModel)]="variant.auctionConfig.textTen"/>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="convFactTen" id="field_convFactTen" placeholder="convFact" [(ngModel)]="variant.auctionConfig.convFactTen" [disabled]="true"/>
+                                            </td>
+                                            <td hidden="true">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="qtyTen" id="field_qtyTen" placeholder="Qty" [(ngModel)]="variant.auctionConfig.qtyTen" (blur)="historyUpdate(variant, 'qtyTen', variant.auctionConfig.qtyTen)" [disabled]="true"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm" name="priceTen" id="field_priceTen" placeholder="Price" (blur)="historyUpdate(variant, 'priceTen', variant.vndrPrice.priceTen)" [(ngModel)]="variant.vndrPrice.priceTen" [disabled]="!variant.isAuctionActive || paused || !variantAuctionApplicable"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" name="amountTen" id="field_amountTen" placeholder="Price" value="{{variant.auctionConfig.convFactTen * variant.orderQuantity * variant.vndrPrice.priceTen}}" [disabled]="true"/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7"></div>
+                                <div class="col-md-5">
+                                    <table style="margin-bottom: 0 !important;margin-top: -10px !important;color: #000;">
+                                        <tr>
+                                            <td style="width:45%;"><label class="form-control-label" style="font-weight: 700;">Total</label></td>
+                                            <td style="width:55%;" *ngIf="variant.auctionConfig">
+                                                <label class="form-control-label">: INR {{
+                                                    ((variant.auctionConfig.convFactOne * variant.vndrPrice.priceOne) +
+                                                    (variant.auctionConfig.convFactTwo * variant.vndrPrice.priceTwo) +
+                                                    (variant.auctionConfig.convFactThree * variant.vndrPrice.priceThree)
+                                                    +
+                                                    (variant.auctionConfig.convFactFour * variant.vndrPrice.priceFour) +
+                                                    (variant.auctionConfig.convFactFive * variant.vndrPrice.priceFive) +
+                                                    (variant.auctionConfig.convFactSix * variant.vndrPrice.priceSix) +
+                                                    (variant.auctionConfig.convFactSeven * variant.vndrPrice.priceSeven)
+                                                    +
+                                                    (variant.auctionConfig.convFactEight * variant.vndrPrice.priceEight)
+                                                    +
+                                                    (variant.auctionConfig.convFactNine * variant.vndrPrice.priceNine) +
+                                                    (variant.auctionConfig.convFactTen * variant.vndrPrice.priceTen)) |
+                                                    number : '1.2-2'}} / {{variant.orderUom}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr style="margin-top: 20px;">
+                                            <td style="width:45%;"><label class="form-control-label" style="font-weight: 700;">My Last Bid</label></td>
+                                            <td style="width:55%;" *ngIf="highestPrice">
+                                                <label class="form-control-label">: INR {{highestPrice.price | number : '1.2-2'}} / {{variant.orderUom}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="highestPrice">
+                                            <td style="width:45%;"><label class="form-control-label" style="font-weight: 700;">Leading Bid</label></td>
+                                            <td style="width:55%;">
+                                                <label class="form-control-label">: INR {{highestPrice.highestPrice | number : '1.2-2'}} / {{variant.orderUom}}</label>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="highestPrice">
+                                            <td style="width:45%;"><label class="form-control-label" style="font-weight: 700;">My Rank</label></td>
+                                            <td style="width:55%;"><label class="form-control-label">: {{highestPrice.rank}}</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:45%;"><label class="form-control-label" style="font-weight: 700;">Improve Bid by minimum</label></td>
+                                            <td style="width:55%;"><label class="form-control-label">: INR {{rnsQuotation.auctionDetails.minPriceChanges | number : '1.2-2'}}</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="text-right">
+                                                <button class="btn btn-primary btn-sm" (click)="saveVndrPrice(variant, variant.id, variant.vendors[0])" [disabled]="!variant.isAuctionActive || priceWrong || paused || !variantAuctionApplicable" *ngIf="variantAuctionActive">{{ isSaving?'Saving...':'Save' }}</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-primary">
+                                    <h5>Bid History</h5>
+                                    <hr class="hr-summary bg-primary text-white"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" style="border-width: 2px; border-style:solid;border-color: #0085c4;">
+                                    <svg style="width:550px;height:350px;" id="area{{variant.id}}">
+                                    </svg>
+                                </div>
+                                <div class="col-md-6 table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                        <tr class="bg-primary text-white">
+                                            <th>Party</th>
+                                            <th>Submit Time</th>
+                                            <th>Rate</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <ng-container *ngFor="let revvendor of revisionList;">
+                                            <ng-container *ngIf="revvendor?.title==variant.title">
+                                                <tr>
+                                                    <td>{{revvendor.vendorName}}</td>
+                                                    <td>{{revvendor.date | date: 'dd-MMM-yy h:mm:ss a'}}</td>
+                                                    <td>{{revvendor.value}}</td>
+                                                    <td><ng-container *ngIf="revvendor && revvendor.surrogate"><fa-icon [icon]="'bezier-curve'"></fa-icon></ng-container></td>
+                                                </tr>
+                                            </ng-container>
+                                        </ng-container>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RnsQuotationReport_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e2a1e18c-e3d8-4346-97f4-2d96a77566ea">
+	<property name="ireport.zoom" value="2.853116706110006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="336"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<field name="id" class="java.lang.Long"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="varDescSpec1Value" class="java.lang.String"/>
+	<field name="varDescSpec2Value" class="java.lang.String"/>
+	<field name="varDescSpec3Value" class="java.lang.String"/>
+	<field name="varDescSpec4Value" class="java.lang.String"/>
+	<field name="varDescSpec5Value" class="java.lang.String"/>
+	<field name="varDescSpec6Value" class="java.lang.String"/>
+	<field name="varDescSpec7Value" class="java.lang.String"/>
+	<field name="varDescSpec8Value" class="java.lang.String"/>
+	<field name="varDescSpec9Value" class="java.lang.String"/>
+	<field name="varDescSpec10Value" class="java.lang.String"/>
+	<field name="varDescSpec1" class="java.lang.String"/>
+	<field name="varDescSpec2" class="java.lang.String"/>
+	<field name="varDescSpec3" class="java.lang.String"/>
+	<field name="varDescSpec4" class="java.lang.String"/>
+	<field name="varDescSpec5" class="java.lang.String"/>
+	<field name="varDescSpec6" class="java.lang.String"/>
+	<field name="varDescSpec7" class="java.lang.String"/>
+	<field name="varDescSpec8" class="java.lang.String"/>
+	<field name="varDescSpec9" class="java.lang.String"/>
+	<field name="varDescSpec10" class="java.lang.String"/>
+	<field name="dealtermDeliveryTermsDesc" class="java.lang.String"/>
+	<field name="dealtermsTaxTermsDesc" class="java.lang.String"/>
+	<field name="dealtermsDelPlaceDesc" class="java.lang.String"/>
+	<field name="dealtermPaymentTermsDesc" class="java.lang.String"/>
+	<field name="remarks" class="java.lang.String"/>
+	<field name="quotationVendors" class="java.util.List"/>
+	<field name="historicalPrice" class="java.lang.Float"/>
+	<field name="currency" class="java.lang.String"/>
+	<field name="natureOfPrice" class="java.lang.String"/>
+	<field name="orderQuantity" class="java.lang.String"/>
+	<field name="orderUom" class="java.lang.String"/>
+	<field name="rfqCreatedDate" class="java.sql.Timestamp"/>
+	<field name="rfqPublishedDate" class="java.sql.Timestamp"/>
+	<field name="rfqExpiredDate" class="java.sql.Timestamp"/>
+	<field name="noOfInvites" class="java.lang.Integer"/>
+	<field name="noOfPortal" class="java.lang.Integer"/>
+	<field name="noOfSurrogate" class="java.lang.String"/>
+	<field name="noOfTotal" class="java.lang.String"/>
+	<field name="auctionCreatedDate" class="java.sql.Timestamp"/>
+	<field name="auctionPublishedDate" class="java.sql.Timestamp"/>
+	<field name="auctionStartDate" class="java.sql.Timestamp"/>
+	<field name="auctionEndDate" class="java.sql.Timestamp"/>
+	<field name="auctionNoOfInvites" class="java.lang.Integer"/>
+	<field name="auctionNoOfPortal" class="java.lang.Integer"/>
+	<field name="auctionNoOfSurrogate" class="java.lang.Integer"/>
+	<field name="auctionNoOfTotal" class="java.lang.Integer"/>
+	<field name="noOfOverTime" class="java.lang.Integer"/>
+	<group name="ID" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+		<groupHeader>
+			<band height="174">
+				<rectangle>
+					<reportElement x="0" y="20" width="320" height="120" uuid="2ff8bd82-8297-4790-80f5-72430e1ffc40"/>
+				</rectangle>
+				<textField>
+					<reportElement x="0" y="0" width="320" height="20" forecolor="#999999" uuid="eacd7a0f-b1f2-45a1-bd62-8af3344f8775"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" isBold="true" isUnderline="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{title}.replace("Variant","Lot")+" details"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="20" width="120" height="12" uuid="81999579-8ab5-4219-9370-1df2439036ee"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $F{varDescSpec1}!=null ? $F{varDescSpec1}+":" : "" )]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="120" y="20" width="200" height="12" uuid="14000e4e-9ac0-448b-9e4b-9f326cea408f"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{varDescSpec1Value}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="32" width="120" height="12" uuid="953ac64a-e157-4603-b1c5-3d61acec94b3"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $F{varDescSpec2}!=null ? $F{varDescSpec2}+":" : "" )]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="120" y="32" width="200" height="12" uuid="37e7d451-0b52-4065-9461-ca5360d4b382"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{varDescSpec2Value}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="44" width="120" height="12" uuid="c3953338-0895-4ae7-99db-7e88f0da5a0f"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $F{varDescSpec3}!=null ? $F{varDescSpec3}+":" : "" )]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="120" y="44" width="200" height="12" uuid="a6f399f6-17d2-4233-9281-0827618e1263"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{varDescSpec3Value}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="120" y="68" width="200" height="12" uuid="5d35fe05-4bc7-4c91-a75f-865a26c6a42a"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{varDescSpec5Value}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="120" y="80" width="200" height="12" uuid="2921ea37-dcb9-4878-a82e-88561040c243"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{varDescSpec6Value}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="68" width="120" height="12" uuid="ec588915-1ea1-4c66-a700-400e7ccca80d"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $F{varDescSpec5}!=null ? $F{varDescSpec5}+":" : "" )]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="56" width="120" height="12" uuid="8e173c3d-9b00-4135-8923-cb9ca30b7e21"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $F{varDescSpec4}!=null ? $F{varDescSpec4}+":" : "" )]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="120" y="56" width="200" height="12" uuid="4d657077-9923-43ef-b9ae-41afbfae997b"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{varDescSpec4Value}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="80" width="120" height="12" uuid="fad530d4-b8a7-457c-888f-080122855815"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $F{varDescSpec6}!=null ? $F{varDescSpec6}+":" : "" )]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="128" width="120" height="12" uuid="e51140f6-7c03-4319-acb1-eabd2f778355"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $F{varDescSpec10}!=null ? $F{varDescSpec10}+":" : "" )]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="120" y="128" width="200" height="12" uuid="0d5c3699-0e65-4f2b-ae9f-6818086f5e7a"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{varDescSpec10Value}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="104" width="120" height="12" uuid="bd49ff78-6dc0-45fb-b574-57bb1b38bfc8"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $F{varDescSpec8}!=null ? $F{varDescSpec8}+":" : "" )]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="120" y="92" width="200" height="12" uuid="feaabcf9-4516-4049-be82-32138f4fec9b"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{varDescSpec7Value}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="120" y="104" width="200" height="12" uuid="a5c935d5-ee7c-42cb-af10-c6182d000b45"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{varDescSpec8Value}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="92" width="120" height="12" uuid="5c07175a-1837-41e0-85f8-b439ec82e8b1"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $F{varDescSpec7}!=null ? $F{varDescSpec7}+":" : "" )]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="116" width="120" height="12" uuid="7adc9b7d-647b-4dd9-92a3-7768bdca3279"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $F{varDescSpec9}!=null ? $F{varDescSpec9}+":" : "" )]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="120" y="116" width="200" height="12" uuid="9cbdb969-bcad-4cda-9151-6f4b9eee1889"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{varDescSpec9Value}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="335" y="0" width="220" height="20" forecolor="#999999" uuid="25b1bdb0-ab4c-435a-8e97-e7925efd7469"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" isBold="true" isUnderline="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Commercial terms"]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement x="335" y="20" width="220" height="48" uuid="a62ab2d6-ba25-4dd2-bfeb-b983e8c71f1a"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="335" y="92" width="220" height="48" uuid="37c737d8-ee35-4cb6-adbd-70439909e58a"/>
+				</rectangle>
+				<staticText>
+					<reportElement mode="Transparent" x="335" y="20" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="f2a9b172-71bf-4e93-8d9d-ecf13e84d2cf"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Tax Terms:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="335" y="32" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="1593f2b8-3294-426c-996f-d42e9160584c"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Payment Terms:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="335" y="44" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="031ab21f-2650-4126-bccb-31d2b83d81f0"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Delivery Terms:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="335" y="56" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="a7af8ccb-b389-4723-ba0a-eec8eb8b5c1b"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Delivery Place:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="335" y="92" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="ecd877d5-db2f-4703-9e9f-447b47357653"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Potential Qty:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="335" y="104" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="2ee0046c-808d-4018-be77-e19ceac7c296"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Nature:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="335" y="116" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="b8f09f32-d284-4748-869a-b4d70b08035f"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Historical Price:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="415" y="20" width="140" height="12" uuid="bba416cc-aeab-4b0c-b05b-14fe2161eb1c"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dealtermsTaxTermsDesc}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="415" y="32" width="140" height="12" uuid="ff4bb1be-da72-44d2-b428-aec8c38878ea"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dealtermPaymentTermsDesc}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="415" y="44" width="140" height="12" uuid="a8307d57-2388-44d0-bd04-7de84e850f6b"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dealtermDeliveryTermsDesc}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="415" y="56" width="140" height="12" uuid="2856d131-887c-4396-a070-d449f7122569"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dealtermsDelPlaceDesc}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="140" width="320" height="20" forecolor="#999999" uuid="fa86ac53-15ca-4d65-b16a-5653b1719102"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" isBold="true" isUnderline="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Remarks for Vendor"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="0" y="160" width="555" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="254ec8d1-da3f-4116-a6f4-9c1dc4e9d120"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement x="415" y="92" width="75" height="12" uuid="4344623b-de1c-4395-baab-3e02fe7e0030"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.lang.Float($F{orderQuantity})]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="490" y="92" width="65" height="12" uuid="58f824f7-fb5a-4478-be24-c8fc48889c2d"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{orderUom}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="415" y="104" width="140" height="12" uuid="caa06370-a9c7-4921-a633-c4e6810e4e6e"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{natureOfPrice}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement x="415" y="116" width="75" height="12" uuid="0d16d37b-42f8-468f-9174-987891eb2e28"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{historicalPrice}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="490" y="116" width="65" height="12" uuid="8294cfc5-ea60-4648-8b38-8ece0f8b0582"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{currency}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="320" height="20" forecolor="#999999" uuid="ab07c4a1-c94d-4610-902b-15acf25757e0"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" isBold="true" isUnderline="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Financials"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="68">
+				<rectangle>
+					<reportElement x="0" y="20" width="555" height="48" uuid="1143a442-70a7-4010-9ab2-7eb0b84dcf53"/>
+				</rectangle>
+				<textField>
+					<reportElement x="0" y="0" width="555" height="20" forecolor="#999999" uuid="bb3b3559-c7e6-4409-976f-76fbe6a5e557"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" isBold="true" isUnderline="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["RFQ Event Details"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="20" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="71829363-8ae7-49e9-9fb2-7c5ab14a30c6"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Created:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="32" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="7accb54f-930b-455f-be98-9e5fd71043a0"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Published:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="44" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="1185861c-a0c3-443f-85d8-9a1828f81862"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Expired:]]></text>
+				</staticText>
+				<textField pattern="dd-MMM-yy h.mm a" isBlankWhenNull="true">
+					<reportElement x="80" y="20" width="100" height="12" uuid="ef744ca3-e61b-42ac-877a-3bdae5cab9a6"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{rfqCreatedDate}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd-MMM-yy h.mm a" isBlankWhenNull="true">
+					<reportElement x="80" y="32" width="100" height="12" uuid="89188a6d-cc90-47be-aa5f-de0eef7654b7"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{rfqPublishedDate}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd-MMM-yy h.mm a" isBlankWhenNull="true">
+					<reportElement x="80" y="44" width="100" height="12" uuid="7a603338-1df3-4d20-8f7d-b60713ad45cb"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{rfqExpiredDate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="180" y="20" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="7b0c2aa2-c959-4008-8501-c9db1487122f"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Number of Invites:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="180" y="32" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="1ab25201-93b7-440a-8f6b-2d6a4b48d056"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Number of Responses:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="260" y="32" width="75" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="cad5af95-a899-4b77-a1d5-b5bfa42dff38"/>
+					<box leftPadding="0" rightPadding="10"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Portal:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="260" y="44" width="75" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="0f2ed44c-7c38-4b2a-bdf8-b45ec1a8262a"/>
+					<box leftPadding="0" rightPadding="10"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Surrogate:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="260" y="56" width="75" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="f1e17d3a-5fe7-4cd0-bf0f-de17d953f91b"/>
+					<box leftPadding="0" rightPadding="10"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+				<textField pattern="###0;-###0" isBlankWhenNull="true">
+					<reportElement x="335" y="20" width="80" height="12" uuid="d249ac23-3f31-4de9-b048-04aabe71dd4e"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{noOfInvites}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0;-###0" isBlankWhenNull="true">
+					<reportElement x="335" y="32" width="80" height="12" uuid="0566a783-9bb4-4fd5-816c-55ca6732081b"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{noOfPortal}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0;-###0" isBlankWhenNull="true">
+					<reportElement x="335" y="44" width="80" height="12" uuid="9f770087-2df4-4a8b-910c-f65b4404327b"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{noOfSurrogate}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0;-###0" isBlankWhenNull="true">
+					<reportElement x="335" y="56" width="80" height="12" uuid="8d0ffe37-7489-450b-b97c-9e91d5f2cc68"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{noOfTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="106">
+				<rectangle>
+					<reportElement x="0" y="32" width="555" height="61" uuid="39093575-69ee-4061-afb7-5ed20ed5f9c6"/>
+				</rectangle>
+				<textField>
+					<reportElement x="0" y="12" width="555" height="20" forecolor="#999999" uuid="2fa5117c-fb6e-4ce9-9677-2a1342caf69a"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" isBold="true" isUnderline="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Bidding Event Details"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="44" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="ef2f9da5-a3b3-4161-98a6-fa4846085ac0"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Published:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="56" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="0373d3bd-8bb7-49a1-8e87-7cb618a9d5f6"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Start:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="32" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="40b5a9a4-2b59-4549-8476-9d345f9ef125"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Created:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="68" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="75f29dd0-a64f-4643-8a54-170c6c66b9b1"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[End:]]></text>
+				</staticText>
+				<textField pattern="###0;-###0" isBlankWhenNull="true">
+					<reportElement x="335" y="33" width="80" height="12" uuid="0f48ca3f-c770-4f94-a043-fb88a3b7fcd4"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auctionNoOfInvites}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd-MMM-yy h.mm a" isBlankWhenNull="true">
+					<reportElement x="80" y="45" width="100" height="12" uuid="87dbb81a-5da2-4239-be08-a2142a2d714a"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auctionPublishedDate}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd-MMM-yy h.mm a" isBlankWhenNull="true">
+					<reportElement x="80" y="33" width="100" height="12" uuid="3712767a-cd2d-487e-8423-558c406566b6"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auctionCreatedDate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="260" y="69" width="75" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="1475b78d-61f5-4339-a2e0-7d5346f38df9"/>
+					<box leftPadding="0" rightPadding="10"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+				<textField pattern="###0;-###0" isBlankWhenNull="true">
+					<reportElement x="335" y="45" width="80" height="12" uuid="b60be154-5831-4c21-996b-d2af04362fab"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auctionNoOfPortal}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="260" y="45" width="75" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="149cec83-b657-4389-98e7-89e61a1dd63b"/>
+					<box leftPadding="0" rightPadding="10"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Portal:]]></text>
+				</staticText>
+				<textField pattern="###0;-###0" isBlankWhenNull="true">
+					<reportElement x="335" y="57" width="80" height="12" uuid="10270679-4eae-4818-b87b-99a2892d2998"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auctionNoOfSurrogate}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0;-###0" isBlankWhenNull="true">
+					<reportElement x="335" y="69" width="80" height="12" uuid="9fa40a74-7073-4daa-b746-48f9d70e3830"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auctionNoOfTotal}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="180" y="45" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="fd982462-5fc8-469e-b88b-a3af8904fa87"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Number of Responses:]]></text>
+				</staticText>
+				<textField pattern="dd-MMM-yy h.mm a" isBlankWhenNull="true">
+					<reportElement x="80" y="57" width="100" height="12" uuid="f08f4088-25ac-4175-b316-c870c9173084"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auctionStartDate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="260" y="57" width="75" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="9ba0dc29-db01-4c87-833c-6a7b5daf7335"/>
+					<box leftPadding="0" rightPadding="10"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Surrogate:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="180" y="33" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="5796a555-b4c2-4f5a-94e6-a7dff447acd8"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Number of Invites:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="180" y="81" width="155" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="51b9d88d-8853-471c-b8ba-dbf4ab47bffb"/>
+					<box leftPadding="2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Number of Overtime Runs:]]></text>
+				</staticText>
+				<textField pattern="###0;-###0" isBlankWhenNull="true">
+					<reportElement x="335" y="81" width="80" height="12" uuid="f69add03-afe4-4613-8c9d-ea141c0b378b"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{noOfOverTime}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd-MMM-yy h.mm a" isBlankWhenNull="true">
+					<reportElement x="80" y="68" width="100" height="12" uuid="a9ba6a63-d5f0-40ed-bb86-a73327e93d97"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auctionEndDate}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="19" uuid="ca5eac74-45ae-42f4-b6ee-708e60fc38d2"/>
+				<subreportParameter name="historicalPrice">
+					<subreportParameterExpression><![CDATA[$F{historicalPrice}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{quotationVendors})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/RnsQuotationReport_subreport1_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

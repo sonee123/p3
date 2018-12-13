@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property dbms="mysql,h2,postgresql" value="true" name="autoIncrement"/>
+    <property dbms="oracle" value="false" name="autoIncrement"/>
+
+    <!--
+        Added the entity RnsQuotationDealTerms.
+    -->
+    <changeSet id="20171206092736-1" author="jhipster">
+        <createTable tableName="rns_quotation_deal_terms">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="completion_by" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="valid_until" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="deliver_at" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="text_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="quotation_deal_terms_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="payment_terms_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="delivery_terms_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="rns_quot_deal_terms_seq" ordered="true" incrementBy="1" cycle="false"/>
+        <createProcedure dbms="oracle" relativeToChangelogFile="true" procedureName="rns_quot_deal_terms_procedure" encoding="utf8" catalogName="rns_quot_deal_terms_catalog"> CREATE TRIGGER rns_quot_deal_terms_trigger BEFORE INSERT ON rns_quotation_deal_terms FOR EACH ROW BEGIN IF( :NEW.id IS NULL ) THEN :NEW.id:=rns_quot_deal_terms_seq.NEXTVAL; END IF; END; </createProcedure>
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

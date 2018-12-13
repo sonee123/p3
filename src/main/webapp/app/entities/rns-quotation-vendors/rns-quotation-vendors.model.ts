@@ -1,0 +1,50 @@
+import { BaseEntity, BaseEntityQuotationVariants, BaseEntityVndrPrice, User } from 'app/core';
+import { RnsRfqPrice } from '../rns-rfq-price';
+import { VndrPrice } from '../vndr-price';
+
+export class RnsQuotationVendors implements BaseEntity, BaseEntityQuotationVariants {
+    constructor(
+        public id?: number,
+        public paymentTerms?: string,
+        public paymentTermsChargeType?: string,
+        public paymentTermsCharge?: string,
+        public deliveryTerms?: string,
+        public deliveryTermsChargeType?: string,
+        public deliveryTermsCharge?: string,
+        public expDelDate?: string,
+        public minExpDelDate?: any,
+        public expDelDatedate?: any,
+        public confDelDate?: string,
+        public confDelDatedate?: any,
+        public minConfDelDate?: any,
+        public currency?: string,
+        public regularRate?: number,
+        public disRate?: number,
+        public expiryQty?: number,
+        public quoteQty?: string,
+        public awardQty?: string,
+        public userId?: User,
+        public chatActive?: any,
+        public variant?: BaseEntityQuotationVariants,
+        public fullDetails?: BaseEntityQuotationVariants,
+        public vendor?: User,
+        public vendorQuotation?: BaseEntity,
+        public allEditable?: Boolean,
+        public showChargeType?: Boolean,
+        public showdeltermChargeType?: Boolean,
+        public vendorCode?: string,
+        public noRevision?: number,
+        public rank?: number,
+        public createdOn?: any,
+        public revisionList?: BaseEntityVndrPrice[],
+        public vendorActive?: boolean,
+        public bidRate?: number,
+        public upCharge?: number,
+        public ctc?: number,
+        public rfqUserType?: string,
+        public rfqPrice?: RnsRfqPrice,
+        public remarkExist?: boolean,
+        public vndrPrice?: VndrPrice,
+        public auctionApplicable?: boolean
+    ) {}
+}

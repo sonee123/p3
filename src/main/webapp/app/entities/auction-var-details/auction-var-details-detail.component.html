@@ -1,0 +1,65 @@
+
+<div *ngIf="auctionVarDetails">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Auction Var Details</span> {{auctionVarDetails.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Lot Start Time</span></dt>
+                        <dd>
+                            <span>{{auctionVarDetails.lotStartTime | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Lot End Time</span></dt>
+                        <dd>
+                            <span>{{auctionVarDetails.lotEndTime | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Overtime Minutes</span></dt>
+                        <dd>
+                            <span>{{auctionVarDetails.overtimeMinutes}}</span>
+                        </dd>
+                        <dt><span>Variant Id</span></dt>
+                        <dd>
+                            <span>{{auctionVarDetails.variantId}}</span>
+                        </dd>
+                        <dt><span>Quotation Id</span></dt>
+                        <dd>
+                            <span>{{auctionVarDetails.quotationId}}</span>
+                        </dd>
+                        <dt><span>Created By</span></dt>
+                        <dd>
+                            <span>{{auctionVarDetails.createdBy}}</span>
+                        </dd>
+                        <dt><span>Created Date</span></dt>
+                        <dd>
+                            <span>{{auctionVarDetails.createdDate | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Updated By</span></dt>
+                        <dd>
+                            <span>{{auctionVarDetails.updatedBy}}</span>
+                        </dd>
+                        <dt><span>Updated Date</span></dt>
+                        <dd>
+                            <span>{{auctionVarDetails.updatedDate | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'auction-var-details/'+ auctionVarDetails.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+
+<div *ngIf="rnsEmpMaster">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Employee Master</span> {{rnsEmpMaster.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Employee Code</span></dt>
+                        <dd>
+                            <span>{{rnsEmpMaster.empCode}}</span>
+                        </dd>
+                        <dt><span>Employee Name</span></dt>
+                        <dd>
+                            <span>{{rnsEmpMaster.empName}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-emp-master/'+ rnsEmpMaster.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

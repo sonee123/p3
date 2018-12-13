@@ -1,0 +1,55 @@
+
+<div *ngIf="feedback">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Feedback edit</span> {{feedback.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Created Date</span></dt>
+                        <dd>
+                            <span>{{feedback.createdDate |date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Your Email Id</span></dt>
+                        <dd>
+                            <span>{{feedback.yourEmailId}}</span>
+                        </dd>
+                        <dt><span>Remarks</span></dt>
+                        <dd>
+                            <span>{{feedback.remarks}}</span>
+                        </dd>
+                        <dt><span>Attach File</span></dt>
+                        <dd>
+                            <span>
+                                <button *ngIf="feedback.displayAttachFile" class="btn btn-secondary btn-sm" type="button" (click)="downloadPdf(feedback)"><fa-icon [icon]="'download'"></fa-icon> Attachment</button>
+                            </span>
+                        </dd>
+                        <dt><span>CCD Response</span></dt>
+                        <dd>
+                            <span>{{feedback.ccdResponse}}</span>
+                        </dd>
+                        <dt><span>CCD Response Date</span></dt>
+                        <dd>
+                            <span>{{feedback.ccdResponseDate |date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                            [routerLink]="['/', { outlets: { popup: 'feedback/'+ feedback.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

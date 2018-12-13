@@ -1,0 +1,69 @@
+<div>
+    <h5>
+        <span>Feedback</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-feedback" [routerLink]="['/', { outlets: { popup: ['feedback-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="feedbacks">
+                        <table class="display table table-sm no-wrap" id="exampleFixed">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Created&nbsp;Date</span></th>
+                                    <th><span>Your&nbsp;Email&nbsp;Id</span></th>
+                                    <th><span>Remarks</span></th>
+                                    <th class="no-sort"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let feedback of feedbacks ;trackBy: trackId">
+                                    <td><a [routerLink]="['../feedback', feedback.id ]">{{feedback.id}}</a></td>
+                                    <td>{{feedback.createdDate |date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td>{{feedback.yourEmailId}}</td>
+                                    <td>{{feedback.remarks}}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button *ngIf="feedback.displayAttachFile" class="btn btn-secondary btn-sm" type="button" (click)="downloadPdf(feedback)"><fa-icon [icon]="'download'"></fa-icon><span class="d-none d-md-inline">Attachment</span></button>
+                                            <button type="submit"
+                                                    [routerLink]="['../feedback', feedback.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                           <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'feedback/'+ feedback.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'feedback/'+ feedback.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

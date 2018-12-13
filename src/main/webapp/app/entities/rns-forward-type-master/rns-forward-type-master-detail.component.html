@@ -1,0 +1,29 @@
+
+<div *ngIf="rnsForwardTypeMaster">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Forward Type Master</span> {{rnsForwardTypeMaster.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Code</span></dt>
+        <dd>
+            <span>{{rnsForwardTypeMaster.code}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{rnsForwardTypeMaster.description}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info btn-sm">
+        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'rns-forward-type-master/'+ rnsForwardTypeMaster.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary btn-sm">
+        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+    </button>
+</div>

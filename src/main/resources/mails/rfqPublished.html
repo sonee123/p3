@@ -1,0 +1,8 @@
+<p>Dear <span th:text="${vendor.firstName}" th:remove="tag"/> <span th:text="${vendor.lastName}" th:remove="tag"/>,</p>
+
+<p>RFQ event #<span th:text="${rnsQuotation.id}" th:remove="tag"/> <span th:text="${rnsQuotation.projectTitle}" th:remove="tag"/> has been published.</p>
+
+<p>Regards,<br />
+<span th:text="${user.firstName}" th:remove="tag"/> <span th:text="${user.lastName}" th:remove="tag"/><br />
+<span th:text="${applicationProperties.company}" th:remove="tag"/></p>
+

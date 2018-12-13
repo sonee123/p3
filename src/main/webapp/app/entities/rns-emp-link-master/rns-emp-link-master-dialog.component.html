@@ -1,0 +1,76 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsEmpLinkMasterLabel">Create or edit a Workflow Master</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsEmpLinkMaster.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsEmpLinkMaster.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_empCode">Will receive Approve/Reject Mail</label>
+            <input type="checkbox" name="mailApplicable" id="mailApplicable" [checked]="rnsEmpLinkMaster.mailApplicable"/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_empCode">Employee Code</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control form-control-sm" name="empCode" id="field_empCode" *ngIf="rnsEmpLinkMaster.empCode" [value]="rnsEmpLinkMaster.empCode.firstName+' '+rnsEmpLinkMaster.empCode.lastName+'('+rnsEmpLinkMaster.empCode.login+')'" required readonly="true"/>
+                <input type="text" class="form-control form-control-sm" *ngIf="!rnsEmpLinkMaster.empCode" readonly="true">
+                <div class="input-group-append">
+                    <a class="btn btn-secondary btn-sm" [routerLink]="['/', { outlets: { popup: ['employee-search', 'empCode'] } }]" replaceUrl="true"><fa-icon [icon]="'search'"></fa-icon></a>
+                </div>
+            </div>
+            <div [hidden]="!(editForm.controls.empCode?.dirty && editForm.controls.empCode?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.empCode?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_forwardEmpType">Will</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_forwardEmpType" name="forwardEmpType" [(ngModel)]="rnsEmpLinkMaster.forwardEmpType" required maxlength="1" (change)="checktype()">
+                <option *ngFor="let rnsForwardTypeMaster of rnsForwardTypeMasters;" value="{{rnsForwardTypeMaster?.code}}">{{rnsForwardTypeMaster?.description}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.forwardEmpType?.dirty && editForm.controls.forwardEmpType?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.forwardEmpType?.errors?.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.forwardEmpType?.errors?.maxlength">
+                    This field cannot be longer than 1 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group" [hidden]="rnsEmpLinkMaster.forwardEmpType=='C' || rnsEmpLinkMaster.forwardEmpType=='R'">
+            <label class="form-control-label" for="field_forwardEmpCode">To Employee Code</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control form-control-sm" name="forwardEmpCode" id="field_forwardEmpCode" *ngIf="rnsEmpLinkMaster.forwardEmpCode" [value]="rnsEmpLinkMaster.forwardEmpCode.firstName+' '+rnsEmpLinkMaster.forwardEmpCode.lastName+'('+rnsEmpLinkMaster.forwardEmpCode.login+')'" required readonly="true"/>
+                <input type="text" class="form-control form-control-sm" *ngIf="!rnsEmpLinkMaster.forwardEmpCode" readonly="true">
+                <div class="input-group-append">
+                    <a class="btn btn-secondary btn-sm" [routerLink]="['/', { outlets: { popup: ['employee-search','forwardEmpCode'] } }]" replaceUrl="true"><fa-icon [icon]="'search'"></fa-icon></a>
+                </div>
+            </div>
+            <div [hidden]="!(editForm.controls.forwardEmpCode?.dirty && editForm.controls.forwardEmpCode?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.forwardEmpCode?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

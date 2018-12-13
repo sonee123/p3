@@ -1,0 +1,91 @@
+<div>
+    <h5>
+        <span>Quotation Deal Terms</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-rns-quotation-deal-terms"
+                [routerLink]="['/', { outlets: { popup: ['rns-quotation-deal-terms-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <jhi-alert></jhi-alert>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsQuotationDealTerms">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Completion By</span></th>
+                                    <th><span>Valid Until</span></th>
+                                    <th><span>Deliver At</span></th>
+                                    <th><span>Text 2</span></th>
+                                    <th><span>Quotation Deal Terms</span></th>
+                                    <th><span>Payment Terms</span></th>
+                                    <th><span>Delivery Terms</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsQuotationDealTerms of rnsQuotationDealTerms ;">
+                                    <td><a [routerLink]="['../rns-quotation-deal-terms', rnsQuotationDealTerms.id ]">{{rnsQuotationDealTerms.id}}</a>
+                                    </td>
+                                    <td>{{rnsQuotationDealTerms.completionBy | date:'mediumDate'}}</td>
+                                    <td>{{rnsQuotationDealTerms.validUntil}}</td>
+                                    <td>{{rnsQuotationDealTerms.deliverAt}}</td>
+                                    <td>{{rnsQuotationDealTerms.text2}}</td>
+                                    <td>
+                                        <div *ngIf="rnsQuotationDealTerms.quotationDealTerms">
+                                            <a [routerLink]="['../rns-quotation', rnsQuotationDealTerms.quotationDealTerms?.id ]">{{rnsQuotationDealTerms.quotationDealTerms?.id}}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsQuotationDealTerms.paymentTerms">
+                                            <a [routerLink]="['../rns-pay-terms-master', rnsQuotationDealTerms.paymentTerms?.id ]">{{rnsQuotationDealTerms.paymentTerms?.id}}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsQuotationDealTerms.deliveryTerms">
+                                            <a [routerLink]="['../rns-del-place-master', rnsQuotationDealTerms.deliveryTerms?.id ]">{{rnsQuotationDealTerms.deliveryTerms?.id}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-quotation-deal-terms', rnsQuotationDealTerms.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-deal-terms/'+ rnsQuotationDealTerms.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-deal-terms/'+ rnsQuotationDealTerms.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

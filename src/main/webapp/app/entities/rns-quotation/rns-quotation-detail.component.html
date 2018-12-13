@@ -1,0 +1,99 @@
+
+<div *ngIf="rnsQuotation">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Quotation</span> {{rnsQuotation.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Category Name</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.catgName}}</span>
+                        </dd>
+                        <dt><span>Quote Number</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.quoteNumber}}</span>
+                        </dd>
+                        <dt><span>Quote Type</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.quoteType}}</span>
+                        </dd>
+                        <dt><span>Validity</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.validity | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Internal Remarks</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.internalRemarks}}</span>
+                        </dd>
+                        <dt><span>Created On</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.createdOn | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>CRM Request Number</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.crmRequestNumber}}</span>
+                        </dd>
+                        <dt><span>Requested By</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.requestedBy}}</span>
+                        </dd>
+                        <dt><span>PCH Code</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.pchCode}}</span>
+                        </dd>
+                        <dt><span>Target PCD</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.targetPcd | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt><span>Buyer Code</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.buyerCode}}</span>
+                        </dd>
+                        <dt><span>Buyer Name</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.buyerName}}</span>
+                        </dd>
+                        <dt><span>Merchant Remarks</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.merchantRemarks}}</span>
+                        </dd>
+                        <dt><span>Date</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.date | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Article Code</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.articleCode}}</span>
+                        </dd>
+                        <dt><span>Article Description</span></dt>
+                        <dd>
+                            <span>{{rnsQuotation.articleDesc}}</span>
+                        </dd>
+                        <dt><span>Category Code</span></dt>
+                        <dd>
+                            <div *ngIf="rnsQuotation.rnsCatgCode">
+                                <a style="font-weight: 100!important;" [routerLink]="['/rns-catg-master', rnsQuotation.rnsCatgCode?.id]">{{rnsQuotation.rnsCatgCode?.catgCode}}</a>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-quotation/'+ rnsQuotation.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

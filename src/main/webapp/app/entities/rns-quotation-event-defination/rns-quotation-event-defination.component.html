@@ -1,0 +1,77 @@
+<div>
+    <h5>
+        <span>Quotation Event Definations</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-rns-quotation-event-defination"
+                [routerLink]="['/', { outlets: { popup: ['rns-quotation-event-defination-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsQuotationEventDefinations">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Technology</span></th>
+                                    <th><span>Defect Code</span></th>
+                                    <th><span>Text 1</span></th>
+                                    <th><span>Type</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsQuotationEventDefination of rnsQuotationEventDefinations ;">
+                                    <td><a
+                                        [routerLink]="['../rns-quotation-event-defination', rnsQuotationEventDefination.id ]">{{rnsQuotationEventDefination.id}}</a>
+                                    </td>
+                                    <td>{{rnsQuotationEventDefination.technology}}</td>
+                                    <td>{{rnsQuotationEventDefination.defectCode}}</td>
+                                    <td>{{rnsQuotationEventDefination.text1}}</td>
+                                    <td>
+                                        <div *ngIf="rnsQuotationEventDefination.rnsType">
+                                            <a [routerLink]="['../rns-type-master', rnsQuotationEventDefination.rnsType?.id ]">{{rnsQuotationEventDefination.rnsType?.id}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-quotation-event-defination', rnsQuotationEventDefination.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-event-defination/'+ rnsQuotationEventDefination.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-event-defination/'+ rnsQuotationEventDefination.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "userId",
+            "otherEntityName": "user",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "variant",
+            "otherEntityName": "rnsQuotationVariant",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "vendorQuotation",
+            "otherEntityName": "rnsQuotation",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "paymentTerms",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "paymentTermsChargeType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "paymentTermsCharge",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "deliveryTerms",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "deliveryTermsChargeType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "deliveryTermsCharge",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "expDelDate",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "confDelDate",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "currency",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "regularRate",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "disRate",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "expiryQty",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "quoteQty",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "awardQty",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "vendorCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "rfqUserType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "auctionApplicable",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20180310101147",
+    "entityTableName": "rns_quotation_vendors",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

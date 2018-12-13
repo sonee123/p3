@@ -1,0 +1,75 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsQuotationCrmRequestLabel">Create or edit a Quotation CRM Request</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsQuotationCrmRequest.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsQuotationCrmRequest.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_crmRequestNumber">CRM Request Number</label>
+            <input type="text" class="form-control form-control-sm" name="crmRequestNumber" id="field_crmRequestNumber"
+                [(ngModel)]="rnsQuotationCrmRequest.crmRequestNumber" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_requestedBy">Requested By</label>
+            <input type="text" class="form-control form-control-sm" name="requestedBy" id="field_requestedBy"
+                [(ngModel)]="rnsQuotationCrmRequest.requestedBy" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_targetPcd">Target PCD</label>
+            <div class="input-group">
+                <input id="field_targetPcd" type="text" class="form-control form-control-sm" name="targetPcd" ngbDatepicker  #targetPcdDp="ngbDatepicker" [(ngModel)]="rnsQuotationCrmRequest.targetPcd"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="targetPcdDp.toggle()"><fa-icon [icon]="'calendar'"></fa-icon></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_merchantRemarks">Merchant Remarks</label>
+            <input type="text" class="form-control form-control-sm" name="merchantRemarks" id="field_merchantRemarks"
+                [(ngModel)]="rnsQuotationCrmRequest.merchantRemarks" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_date">Date</label>
+            <div class="input-group input-group-sm">
+                <input id="field_date" type="text" [owlDateTime]="date" placeholder="DD-MM-YYYY HH:MI PM" class="form-control form-control-sm" name="date" [(ngModel)]="rnsQuotationCrmRequest.date"/>
+                <div class="input-group-btn">
+                    <button type="button" [owlDateTimeTrigger]="date" class="btn btn-secondary btn-sm"><fa-icon [icon]="'calendar'"></fa-icon></button>
+                    <owl-date-time #date></owl-date-time>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_buyerCode">Buyer Code</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_buyerCode" name="buyerCode" [(ngModel)]="rnsQuotationCrmRequest.buyerCode" >
+               <!--  <option [ngValue]="null"></option> -->
+                <option [ngValue]="rnsBuyerMasterOption.id === rnsQuotationCrmRequest.buyerCode?.id ? rnsQuotationCrmRequest.buyerCode : rnsBuyerMasterOption" *ngFor="let rnsBuyerMasterOption of rnsbuyermasters; trackBy: trackRnsBuyerMasterById">{{rnsBuyerMasterOption.buyerCode}} ({{rnsBuyerMasterOption.buyerName}})</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_rnsPchMaster">PCH Master</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_rnsPchMaster" name="rnsPchMaster" [(ngModel)]="rnsQuotationCrmRequest.rnsPchMaster" >
+               <!--  <option [ngValue]="null"></option> -->
+                <option [ngValue]="rnsPchMasterOption.id === rnsQuotationCrmRequest.rnsPchMaster?.id ? rnsQuotationCrmRequest.rnsPchMaster : rnsPchMasterOption" *ngFor="let rnsPchMasterOption of rnspchmasters; trackBy: trackRnsPchMasterById">{{rnsPchMasterOption.pchCode}} ({{rnsPchMasterOption.pchName}})</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

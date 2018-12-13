@@ -1,0 +1,116 @@
+.wrapper {
+    display: flex;
+}
+
+.main-panel {
+    transition: all 0.2s ease-in-out;
+}
+
+.main-panel .panel-content {
+    margin: 25px;
+}
+
+@media (max-width: 5000.98px) {
+    .sidebar-panel {
+        width: 220px;
+    }
+    .main-panel {
+        width: calc(100% - 220px);
+    }
+    .main-panel .panel-content {
+        margin: 25px;
+    }
+    .sidebar-panel-unauthorized {
+        width: 0 !important;
+    }
+    .main-panel-unauthorized {
+        width: calc(100% - 0px);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .sidebar-panel {
+        width: 62px;
+    }
+    .main-panel {
+        width: calc(100% - 62px);
+    }
+    .sidebar-panel-unauthorized {
+        width: 0 !important;
+    }
+    .main-panel-unauthorized {
+        width: calc(100% - 0px);
+    }
+}
+
+@media (max-width: 767.98px) {
+    .sidebar-panel {
+        width: 0;
+    }
+    .main-panel {
+        width: 100%;
+    }
+}
+
+/**** sidebar minimize ****/
+.sidebar-mini .sidebar-panel {
+    width: 60px !important;
+}
+
+.sidebar-mini .main-panel {
+    width: calc(100% - 60px) !important;
+}
+
+.sidebar-login .main-panel {
+    width: calc(100% - 0px) !important;
+}
+
+.sidebar-mini .navigation-bar {
+    left: 60px !important;
+}
+
+.sidebar-login .navigation-bar {
+    left: 0 !important;
+}
+
+.sidebar-mini .sidebar .mini-hide {
+    display: none !important;
+}
+
+.sidebar-mini .sidebar .sidebar-item {
+    margin: 0;
+}
+
+.sidebar-mini .sidebar .sidebar-item a {
+    margin: 0.5rem 0 0 0.5rem;
+}
+
+.sidebar-mini .sidebar .sidebar-item a i.toggle-icon {
+    right: 0 !important;
+    font-size: 1rem;
+    top: 0.8rem !important;
+}
+
+@media (max-width: 991.98px) {
+    .sidebar-mini .sidebar .sidebar-item a strong {
+        display: inline-block !important;
+    }
+}
+
+/**** sidebar for md devices ****/
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .sidebar.hide .mini-hide {
+        display: none !important;
+    }
+    .sidebar.hide .sidebar-item {
+        margin: 0;
+    }
+    .sidebar.hide .sidebar-item a {
+        margin: 0.5rem 0 0 0.5rem;
+    }
+    .sidebar.hide .sidebar-item a i.toggle-icon {
+        right: 0 !important;
+        font-size: 1rem;
+        top: 0.8rem !important;
+    }
+}

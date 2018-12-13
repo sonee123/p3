@@ -1,0 +1,91 @@
+
+<div *ngIf="vndrPrice">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Vendor Price</span> {{vndrPrice.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Price One</span></dt>
+                        <dd>
+                            <span>{{vndrPrice.priceOne}}</span>
+                        </dd>
+                        <dt><span>Price Two</span></dt>
+                        <dd>
+                            <span>{{vndrPrice.priceTwo}}</span>
+                        </dd>
+                        <dt><span>Price Three</span></dt>
+                        <dd>
+                            <span>{{vndrPrice.priceThree}}</span>
+                        </dd>
+                        <dt><span>Price Four</span></dt>
+                        <dd>
+                            <span>{{vndrPrice.priceFour}}</span>
+                        </dd>
+                        <dt><span>Price Five</span></dt>
+                        <dd>
+                            <span>{{vndrPrice.priceFive}}</span>
+                        </dd>
+                        <dt><span>Price Six</span></dt>
+                        <dd>
+                            <span>{{vndrPrice.priceSix}}</span>
+                        </dd>
+                        <dt><span>Price Seven</span></dt>
+                        <dd>
+                            <span>{{vndrPrice.priceSeven}}</span>
+                        </dd>
+                        <dt><span>Price Eight</span></dt>
+                        <dd>
+                            <span>{{vndrPrice.priceEight}}</span>
+                        </dd>
+                        <dt><span>Price Nine</span></dt>
+                        <dd>
+                            <span>{{vndrPrice.priceNine}}</span>
+                        </dd>
+                        <dt><span>Price Ten</span></dt>
+                        <dd>
+                            <span>{{vndrPrice.priceTen}}</span>
+                        </dd>
+                        <dt><span>Vendor Code</span></dt>
+                        <dd>
+                            <span>{{vndrPrice.vendorCode}}</span>
+                        </dd>
+                        <dt><span>Variant</span></dt>
+                        <dd>
+                            <div *ngIf="vndrPrice.variant">
+                                <a [routerLink]="['/rns-quotation-variant', vndrPrice.variant?.id]">{{vndrPrice.variant?.title}}</a>
+                            </div>
+                        </dd>
+                        <dt><span>Vendor Quotation</span></dt>
+                        <dd>
+                            <div *ngIf="vndrPrice.vndrQuotation">
+                                <a [routerLink]="['/rns-quotation-vendors', vndrPrice.vndrQuotation?.id]">{{vndrPrice.vndrQuotation?.id}}</a>
+                            </div>
+                        </dd>
+                        <dt><span>Currency</span></dt>
+                        <dd>
+                            <div *ngIf="vndrPrice.currency">
+                                <a [routerLink]="['/currency', vndrPrice.currency?.id]">{{vndrPrice.currency?.currency}}</a>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'vndr-price/'+ vndrPrice.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+<div>
+    <h5 style="font-size:16px; font-weight:bold;">
+        <span>Tax Terms Masters</span>
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                class="btn btn-primary float-right btn-sm jh-create-entity create-rns-tax-terms-master"
+                [routerLink]="['/', { outlets: { popup: ['rns-tax-terms-master-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsTaxTermsMasters">
+                        <table class="display table table-sm no-wrap" id="exampleFixed">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Code</span></th>
+                                    <th><span>Description</span></th>
+                                    <th><span>Created&nbsp;BY</span></th>
+                                    <th><span>Created&nbsp;Date</span></th>
+                                    <th><span>Modified&nbsp;By</span></th>
+                                    <th><span>Modified&nbsp;Date</span></th>
+                                    <!--th><span>Category Code</span></th-->
+                                    <th class="no-sort"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsTaxTermsMaster of rnsTaxTermsMasters ;trackBy: trackId">
+                                    <td><a [routerLink]="['../rns-tax-terms-master', rnsTaxTermsMaster.id ]">{{rnsTaxTermsMaster.id}}</a>
+                                    </td>
+                                    <td>{{rnsTaxTermsMaster.taxTermsCode}}</td>
+                                    <td>{{rnsTaxTermsMaster.taxTermsDesc}}</td>
+                                    <td>
+                                        <div *ngIf="rnsTaxTermsMaster.user">
+                                            {{rnsTaxTermsMaster.user?.firstName}} {{rnsTaxTermsMaster.user?.lastName}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsTaxTermsMaster.createdDate">{{rnsTaxTermsMaster.createdDate
+                                            |date:'dd-MMM-yy h:mm a'}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsTaxTermsMaster.updatedUser">
+                                            {{rnsTaxTermsMaster.updatedUser?.firstName}}
+                                            {{rnsTaxTermsMaster.updatedUser?.lastName}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsTaxTermsMaster.lastUpdatedDate">{{rnsTaxTermsMaster.lastUpdatedDate
+                                            |date:'dd-MMM-yy h:mm a'}}
+                                        </div>
+                                    </td>
+                                    <!--td>
+                                        <div *ngIf="rnsTaxTermsMaster.rnsCatgCode">
+                                            <a style="font-weight: 100!important;" [routerLink]="['../rns-catg-master', rnsTaxTermsMaster.rnsCatgCode?.id ]" >{{rnsTaxTermsMaster.rnsCatgCode?.catgCode}}&nbsp;&nbsp;-&nbsp;{{rnsTaxTermsMaster.rnsCatgCode?.catgCodeDesc}}</a>
+                                        </div>
+                                    </td-->
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-tax-terms-master', rnsTaxTermsMaster.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-tax-terms-master/'+ rnsTaxTermsMaster.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-tax-terms-master/'+ rnsTaxTermsMaster.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

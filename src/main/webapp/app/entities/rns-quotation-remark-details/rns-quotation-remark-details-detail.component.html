@@ -1,0 +1,53 @@
+
+<div *ngIf="rnsQuotationRemarkDetails">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Quotation Remark Details</span> {{rnsQuotationRemarkDetails.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Quote Id</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationRemarkDetails.quoteId}}</span>
+                        </dd>
+                        <dt><span>Emp Code</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationRemarkDetails.empCode}}</span>
+                        </dd>
+                        <dt><span>Forward Code</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationRemarkDetails.forwardCode}}</span>
+                        </dd>
+                        <dt><span>Remarks</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationRemarkDetails.remarks}}</span>
+                        </dd>
+                        <dt><span>Auth Type</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationRemarkDetails.authType}}</span>
+                        </dd>
+                        <dt><span>Auth Date</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationRemarkDetails.authDate | date:'mediumDate'}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-quotation-remark-details/'+ rnsQuotationRemarkDetails.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

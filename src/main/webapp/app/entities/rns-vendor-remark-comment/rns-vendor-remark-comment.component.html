@@ -1,0 +1,78 @@
+<div>
+    <h5>
+        <span>Vendor Remark Comments</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-rns-vendor-remark-comment"
+                [routerLink]="['/', { outlets: { popup: ['rns-vendor-remark-comment-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsVendorRemarkComments">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Remark Text</span></th>
+                                    <th><span>Vendor Id</span></th>
+                                    <th><span>Vendor Remark Id</span></th>
+                                    <th><span>Read</span></th>
+                                    <th><span>Vendor Remark</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsVendorRemarkComment of rnsVendorRemarkComments ;trackBy: trackId">
+                                    <td><a [routerLink]="['../rns-vendor-remark-comment', rnsVendorRemarkComment.id ]">{{rnsVendorRemarkComment.id}}</a>
+                                    </td>
+                                    <td>{{rnsVendorRemarkComment.remarkText}}</td>
+                                    <td>{{rnsVendorRemarkComment.vendorId}}</td>
+                                    <td>{{rnsVendorRemarkComment.vendorRemarkId}}</td>
+                                    <td>{{rnsVendorRemarkComment.read}}</td>
+                                    <td>
+                                        <div *ngIf="rnsVendorRemarkComment.rnsVendorRemark">
+                                            <a [routerLink]="['../rns-vendor-remark', rnsVendorRemarkComment.rnsVendorRemark?.id ]">{{rnsVendorRemarkComment.rnsVendorRemark?.id}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-vendor-remark-comment', rnsVendorRemarkComment.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-vendor-remark-comment/'+ rnsVendorRemarkComment.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-vendor-remark-comment/'+ rnsVendorRemarkComment.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

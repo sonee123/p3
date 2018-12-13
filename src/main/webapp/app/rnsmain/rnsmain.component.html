@@ -1,0 +1,258 @@
+<div align="center" class="centered" id="prepage" [ngStyle]="setStyles()">
+    <img src="../../content/images/waiting.gif"/>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="input-group input-group-sm">
+                            <input type="localdate" name="dateFrom" class="form-control form-control-sm" placeholder="Date From" [(ngModel)]="rnsQuotationSearch.dateFrom" ngbDatepicker #dateFrom="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary btn-sm" (click)="dateFrom.toggle()" type="button">
+                                    <fa-icon [icon]="'calendar'"></fa-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group input-group-sm">
+                            <input style="" type="localdate" name="dateTo" class="form-control form-control-sm" placeholder="Date To" [(ngModel)]="rnsQuotationSearch.dateTo" ngbDatepicker #dateTo="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" (click)="dateTo.toggle()" type="button">
+                                    <fa-icon [icon]="'calendar'"></fa-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-control-sm" name="searchTitle" id="searchTitle" placeholder="Project Title" [(ngModel)]="rnsQuotationSearch.title"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control form-control-sm" name="searchId" id="searchId" placeholder="Project#" [(ngModel)]="rnsQuotationSearch.id"/>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-secondary btn-sm" (click)="searchQuery()">
+                            <fa-icon [icon]="'search'"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="row" style="padding-top:5px;">
+                    <div class="col-md-3">
+                        <select class="custom-select custom-select-sm form-control form-control-sm"
+                                id="searchrnscatgCode" name="searchrnscatgCode"
+                                [(ngModel)]="rnsQuotationSearch.catgCode" (ngModelChange)="changeCategory();">
+                            <option [ngValue]="undefined" selected>Select Category</option>
+                            <option [ngValue]="rnsCatgMaster" *ngFor="let rnsCatgMaster of rnsCatgMasters; ">
+                                {{rnsCatgMaster.catgCode}} &nbsp;&nbsp;-&nbsp;{{rnsCatgMaster.catgCodeDesc}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="custom-select custom-select-sm form-control form-control-sm"
+                                id="quote_type" name="quote_type" [(ngModel)]="rnsQuotationSearch.projectType"
+                                title="First select Category to use filter by Project Region">
+                            <option [ngValue]="undefined" selected>Select Project Region</option>
+                            <option *ngFor="let rnsTypeMaster of rnsTypeMasters ;"
+                                    [value]="rnsTypeMaster.typeCode">{{rnsTypeMaster.typeCode}} -
+                                {{rnsTypeMaster.typeCodeDesc}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="custom-select custom-select-sm form-control form-control-sm" id=""
+                                name="source_team" [(ngModel)]="rnsQuotationSearch.sourceTeam">
+                            <option [ngValue]="undefined" selected>Select Source Team</option>
+                            <option [value]="rnsSourceTeamMaster.id"
+                                    *ngFor="let  rnsSourceTeamMaster of rnsSourceTeamMasters ;">
+                                {{rnsSourceTeamMaster.description}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="btn-group mr-3">
+                            <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                                <button *ngIf="rnsQuotationSearch.rfqStatus=='A'" title="All RFQ" class="btn btn-outline-grey btn-sm" ngbDropdownToggle>R</button>
+                                <button *ngIf="rnsQuotationSearch.rfqStatus=='N'" title="Not Started/Not Applicable RFQ" class="btn btn-sm" ngbDropdownToggle><fa-icon [icon]="'times'"></fa-icon></button>
+                                <button *ngIf="rnsQuotationSearch.rfqStatus=='F'" title="Not Started/Not Approved RFQ" class="btn btn-danger btn-sm" ngbDropdownToggle><fa-icon [icon]="'times'"></fa-icon></button>
+                                <button *ngIf="rnsQuotationSearch.rfqStatus=='P'" title="Not Started/Approved RFQ" class="btn btn-success btn-sm" ngbDropdownToggle><fa-icon [icon]="'times'"></fa-icon></button>
+                                <button *ngIf="rnsQuotationSearch.rfqStatus=='I'" title="Started/In Progress RFQ" class="btn btn-danger btn-sm" ngbDropdownToggle><fa-icon [icon]="'check'"></fa-icon></button>
+                                <button *ngIf="rnsQuotationSearch.rfqStatus=='C'" title="Started/Completed RFQ" class="btn btn-success btn-sm" ngbDropdownToggle><fa-icon [icon]="'check'"></fa-icon></button>
+                                <div class="dropdown-menu" style="min-width: 12.5rem !important;" ngbDropdownMenu>
+                                    <button class="btn btn-outline-grey btn-sm" title="All RFQ" (click)="rfqFilter('A')">R</button>
+                                    <button class="btn btn-sm" title="Not Started/Not Applicable RFQ" (click)="rfqFilter('N')"><fa-icon [icon]="'times'"></fa-icon></button>
+                                    <button class="btn btn-danger btn-sm" title="Not Started/Not Approved RFQ" (click)="rfqFilter('F')"><fa-icon [icon]="'times'"></fa-icon></button>
+                                    <button class="btn btn-success btn-sm" title="Not Started/Approved RFQ" (click)="rfqFilter('P')"><fa-icon [icon]="'times'"></fa-icon></button>
+                                    <button class="btn btn-danger btn-sm" title="Started/In Progress RFQ" (click)="rfqFilter('I')"><fa-icon [icon]="'check'"></fa-icon></button>
+                                    <button class="btn btn-success btn-sm" title="Started/Completed RFQ" (click)="rfqFilter('C')"><fa-icon [icon]="'check'"></fa-icon></button>
+                                </div>
+                            </div>
+                            <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                                <button *ngIf="rnsQuotationSearch.rfbStatus=='A'" title="All Bidding" class="btn btn-outline-grey btn-sm" ngbDropdownToggle>B</button>
+                                <button *ngIf="rnsQuotationSearch.rfbStatus=='N'" title="Not Started/Not Applicable Bidding" class="btn btn-sm" ngbDropdownToggle><fa-icon [icon]="'times'"></fa-icon></button>
+                                <button *ngIf="rnsQuotationSearch.rfbStatus=='F'" title="Not Started/Not Approved Bidding" class="btn btn-danger btn-sm" ngbDropdownToggle><fa-icon [icon]="'times'"></fa-icon></button>
+                                <button *ngIf="rnsQuotationSearch.rfbStatus=='P'" title="Not Started/Approved Bidding" class="btn btn-success btn-sm" ngbDropdownToggle><fa-icon [icon]="'times'"></fa-icon></button>
+                                <button *ngIf="rnsQuotationSearch.rfbStatus=='I'" title="Started/In Progress Bidding" class="btn btn-danger btn-sm" ngbDropdownToggle><fa-icon [icon]="'check'"></fa-icon></button>
+                                <button *ngIf="rnsQuotationSearch.rfbStatus=='C'" title="Started/Completed Bidding" class="btn btn-success btn-sm" ngbDropdownToggle><fa-icon [icon]="'check'"></fa-icon></button>
+                                <div class="dropdown-menu" style="min-width: 12.5rem !important;" ngbDropdownMenu>
+                                    <button class="btn btn-outline-grey btn-sm" title="All Bidding" (click)="rfbFilter('A')">B</button>
+                                    <button class="btn btn-sm" title="Not Started/Not Applicable Bidding" (click)="rfbFilter('N')"><fa-icon [icon]="'times'"></fa-icon></button>
+                                    <button class="btn btn-danger btn-sm" title="Not Started/Not Approved Bidding" (click)="rfbFilter('F')"><fa-icon [icon]="'times'"></fa-icon></button>
+                                    <button class="btn btn-success btn-sm" title="Not Started/Approved Bidding" (click)="rfbFilter('P')"><fa-icon [icon]="'times'"></fa-icon></button>
+                                    <button class="btn btn-danger btn-sm" title="Started/In Progress Bidding" (click)="rfbFilter('I')"><fa-icon [icon]="'check'"></fa-icon></button>
+                                    <button class="btn btn-success btn-sm" title="Started/Completed Bidding" (click)="rfbFilter('C')"><fa-icon [icon]="'check'"></fa-icon></button>
+                                </div>
+                            </div>
+                            <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                                <button *ngIf="rnsQuotationSearch.workflowStatus=='A'" title="All Award Workflow" class="btn btn-outline-grey btn-sm" ngbDropdownToggle>A</button>
+                                <button *ngIf="rnsQuotationSearch.workflowStatus=='F'" title="Not Started/Not Approved Award Workflow" class="btn btn-danger btn-sm" ngbDropdownToggle><fa-icon [icon]="'times'"></fa-icon></button>
+                                <button *ngIf="rnsQuotationSearch.workflowStatus=='P'" title="Not Started/Approved Award Workflow" class="btn btn-success btn-sm" ngbDropdownToggle><fa-icon [icon]="'times'"></fa-icon></button>
+                                <button *ngIf="rnsQuotationSearch.workflowStatus=='I'" title="Started/In Progress Award Workflow" class="btn btn-danger btn-sm" ngbDropdownToggle><fa-icon [icon]="'check'"></fa-icon></button>
+                                <button *ngIf="rnsQuotationSearch.workflowStatus=='C'" title="Started/Completed Award Workflow" class="btn btn-success btn-sm" ngbDropdownToggle><fa-icon [icon]="'check'"></fa-icon></button>
+                                <div class="dropdown-menu" style="min-width: 12.5rem !important;" ngbDropdownMenu>
+                                    <button class="btn btn-outline-grey btn-sm" title="All Award Workflow" (click)="workFilter('A')">A</button>
+                                    <button class="btn btn-danger btn-sm" title="Not Started/Not Approved Award Workflow" (click)="workFilter('F')"><fa-icon [icon]="'times'"></fa-icon></button>
+                                    <button class="btn btn-success btn-sm" title="Not Started/Approved Award Workflow" (click)="workFilter('P')"><fa-icon [icon]="'times'"></fa-icon></button>
+                                    <button class="btn btn-danger btn-sm" title="Started/In Progress Award Workflow" (click)="workFilter('I')"><fa-icon [icon]="'check'"></fa-icon></button>
+                                    <button class="btn btn-success btn-sm" title="Started/Completed Award Workflow" (click)="workFilter('C')"><fa-icon [icon]="'check'"></fa-icon></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER']">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <select class="custom-select custom-select-sm form-control form-control-sm"
+                                id="rnscatgCode" name="rnscatgCode" [(ngModel)]="rnsQuotation.rnsCatgCode"
+                                required #rnscatgCode>
+                            <option [ngValue]="undefined" hidden selected>Select Category</option>
+                            <option [ngValue]="rnsCatgMaster" *ngFor="let rnsCatgMaster of rnsCatgMasters; ">
+                                {{rnsCatgMaster.catgCode}} &nbsp;&nbsp;-&nbsp;{{rnsCatgMaster.catgCodeDesc}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary btn-sm" (click)="generateQuotation()">
+                            <fa-icon [icon]="'plus'"></fa-icon>
+                            {{ generateQuotationText }}
+                        </button>
+                    </div>
+                </div>
+                <div class="row" style="padding-top:5px;">
+                    <div class="col-md-12">
+                        <input style="visibility: hidden;" type="text" name="tempField"
+                               class="form-control form-control-sm" placeholder=""/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive" *ngIf="rnsQuotations">
+                    <table class="display table responsive no-wrap" id="exampleFixed">
+                        <thead>
+                        <tr>
+                            <th>Project#</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Region</th>
+                            <!--th>Article</th-->
+                            <th>Created&nbsp;By</th>
+                            <th>Date</th>
+                            <th class="no-sort"></th>
+                            <th class="no-sort" style="text-align: center;">RFQ</th>
+                            <th class="no-sort" style="text-align: center;">Bidding</th>
+                            <th class="no-sort" style="text-align: center;">Award<br/>Workflow</th>
+                            <th class="no-sort" style="text-align: center;"></th>
+                            <th class="no-sort" style="text-align: center;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let rnsQuotation of rnsQuotations ;">
+                            <td>{{rnsQuotation.id}}</td>
+                            <td>{{rnsQuotation.projectTitle}}</td>
+                            <td><ng-container *ngIf="rnsQuotation.rnsCatgCode">{{rnsQuotation.rnsCatgCode?.catgCodeDesc}}</ng-container></td>
+                            <td><ng-container *ngIf="rnsQuotation.rnsTypeMaster">{{rnsQuotation.rnsTypeMaster.typeCodeDesc}}</ng-container></td>
+                            <td>{{rnsQuotation.user.firstName +' '+rnsQuotation.user.lastName}}</td>
+                            <td>{{rnsQuotation.createdOn | date: 'dd-MMM-yy'}}</td>
+                            <td>
+                                <div class="btn-group flex-btn-group-container">
+                                    <button style="cursor: pointer;" type="submit" title="View Project# {{rnsQuotation.id}}" class="btn btn-sm btn-primary" [routerLink]="['../quotation/'+rnsQuotation.id+'/edit' ]" replaceUrl="true"><fa-icon [icon]="'edit'"></fa-icon> Plan</button>
+                                    <button  *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER']" style="cursor: pointer;" type="submit" title="Copy Project# {{rnsQuotation.id}}" class="btn btn-sm btn-secondary" [routerLink]="['../quotation/'+rnsQuotation.id+'/C/copy' ]" replaceUrl="true"><fa-icon [icon]="'copy'"></fa-icon></button>
+                                </div>
+                            </td>
+                            <td style="text-align: center;">
+                                <div class="btn-group flex-btn-group-container">
+                                    <ng-container *ngIf="rnsQuotation.rfqActive==true">
+                                        <button style="cursor: pointer;" data-toggle="tooltip" title="RFQ Prepare" class="btn btn-sm btn-primary" [routerLink]="['/', { outlets: { popup: 'rns-quotation/'+ rnsQuotation.id + '/edit'} }]"><fa-icon [icon]="'list'"></fa-icon></button>
+                                        <button style="cursor: pointer;" data-toggle="tooltip" title="RFQ Publish" class="btn btn-sm rfq" (click)="updateRfq(rnsQuotation)" [ngClass]="rnsQuotation.rfqStatus"><fa-icon [icon]="rnsQuotation.rfqIcon"></fa-icon></button>
+                                    </ng-container>
+                                    <ng-container *ngIf="rnsQuotation.rfqActive==false">
+                                        <ng-container *ngIf="rnsQuotation.rfqApplicable == true">
+                                            <button style="cursor: pointer;" data-toggle="tooltip" title="RFQ Prepare" class="btn btn-sm btn-primary" [routerLink]="['/', { outlets: { popup: 'rns-quotation/'+ rnsQuotation.id + '/edit'} }]"><fa-icon [icon]="'list'"></fa-icon></button>
+                                        </ng-container>
+                                        <ng-container *ngIf="!rnsQuotation.rfqApplicable">
+                                            <button style="cursor: pointer;" data-toggle="tooltip" title="RFQ Prepare" class="btn btn-sm btn-primary disabled" (click)="clickAlert(rnsQuotation.rfqMessage)"><fa-icon [icon]="'list'"></fa-icon></button>
+                                        </ng-container>
+                                        <button style="cursor: pointer;" data-toggle="tooltip" title="RFQ Publish" class="btn btn-sm rfq disabled" (click)="clickAlert(rnsQuotation.rfqMessage)" [ngClass]="rnsQuotation.rfqStatus"><fa-icon [icon]="rnsQuotation.rfqIcon"></fa-icon></button>
+                                    </ng-container>
+                                </div>
+                            </td>
+                            <td style="text-align: center;">
+                                <div class="btn-group flex-btn-group-container">
+                                    <ng-container *ngIf="rnsQuotation.rfbActive==true">
+                                        <button style="cursor: pointer;" data-toggle="tooltip" title="Bidding Prepare" class="btn btn-sm btn-primary" [routerLink]="['/', { outlets: { popup: 'auction/'+rnsQuotation.id+'/edit' } }]"><fa-icon [icon]="'list'"></fa-icon></button>
+                                        <button style="cursor: pointer;" data-toggle="tooltip" title="Bidding Publish" class="btn btn-sm rfq" (click)="updateAuction(rnsQuotation)" [ngClass]="rnsQuotation.rfbStatus"><fa-icon [icon]="rnsQuotation.rfbIcon"></fa-icon></button>
+                                        <button style="cursor: pointer;" data-toggle="tooltip" title="Bid Console" class="btn btn-sm btn-dark disabled" (click)="clickAlert('Bidding is not active!!!')"><fa-icon [icon]="'eye'"></fa-icon></button>
+                                    </ng-container>
+                                    <ng-container *ngIf="rnsQuotation.rfbActive==false">
+                                        <ng-container *ngIf="rnsQuotation.auctionApplicable == true">
+                                            <button style="cursor: pointer;" data-toggle="tooltip" title="Bidding Prepare" class="btn btn-sm btn-primary" [routerLink]="['/', { outlets: { popup: 'auction/'+rnsQuotation.id+'/edit' } }]"><fa-icon [icon]="'list'"></fa-icon></button>
+                                            <button style="cursor: pointer;" data-toggle="tooltip" title="Bidding Publish" class="btn btn-sm rfq disabled" (click)="clickAlert(rnsQuotation.rfbMessage)" [ngClass]="rnsQuotation.rfbStatus"><fa-icon [icon]="rnsQuotation.rfbIcon"></fa-icon></button>
+                                            <button [disabled]="!rnsQuotation.auction" style="cursor: pointer;" type="submit" title="Bid Console" [routerLink]="['../quotation/'+rnsQuotation.id+'/auctionlisting']" replaceUrl="true"  class="btn btn-sm btn-dark" ><fa-icon [icon]="'eye'"></fa-icon></button>
+                                        </ng-container>
+                                        <ng-container *ngIf="!rnsQuotation.auctionApplicable">
+                                            <button style="cursor: pointer;" data-toggle="tooltip" title="Bidding Prepare" class="btn btn-sm btn-primary disabled" (click)="clickAlert(rnsQuotation.rfbMessage)"><fa-icon [icon]="'list'"></fa-icon></button>
+                                            <button style="cursor: pointer;" data-toggle="tooltip" title="Bidding Publish" class="btn btn-sm rfq disabled" (click)="clickAlert(rnsQuotation.rfbMessage)" [ngClass]="rnsQuotation.rfbStatus"><fa-icon [icon]="rnsQuotation.rfbIcon"></fa-icon></button>
+                                            <button style="cursor: pointer;" data-toggle="tooltip" title="Bid Console" class="btn btn-sm btn-dark disabled" (click)="clickAlert(rnsQuotation.rfbMessage)"><fa-icon [icon]="'eye'"></fa-icon></button>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+                            </td>
+                            <td style="text-align: center;">
+                                <div class="btn-group flex-btn-group-container">
+                                <ng-container *ngIf="rnsQuotation.workflowActive==true">
+                                    <button style="cursor: pointer;" data-toggle="tooltip" title="Prepare Award Workflow" class="btn btn-sm btn-primary" [routerLink]="['/', { outlets: { popup: 'rns-quotation-remark-details-call-quote/'+rnsQuotation.id+'/W'}}]"><fa-icon [icon]="['fab', 'wikipedia-w']"></fa-icon></button>
+                                    <button style="cursor: pointer;" data-toggle="tooltip" title="Award Workflow Status" class="btn btn-sm rfq disabled" [ngClass]="rnsQuotation.workflowStatus"><fa-icon [icon]="rnsQuotation.workflowIcon"></fa-icon></button>
+                                </ng-container>
+                                <ng-container *ngIf="rnsQuotation.workflowActive==false">
+                                    <button style="cursor: pointer;" data-toggle="tooltip" title="Prepare Award Workflow" class="btn btn-sm btn-primary disabled" (click)="clickAlert(rnsQuotation.workflowMessage)"><fa-icon [icon]="['fab', 'wikipedia-w']"></fa-icon></button>
+                                    <button style="cursor: pointer;" data-toggle="tooltip" title="Award Workflow Status" class="btn btn-sm rfq disabled" [ngClass]="rnsQuotation.workflowStatus"><fa-icon [icon]="rnsQuotation.workflowIcon"></fa-icon></button>
+                                </ng-container>
+                                </div>
+                            </td>
+                            <td style="text-align: center;">
+                                <button style="cursor: pointer;" data-toggle="tooltip" title="Generate Report" class="btn btn-sm btn-danger" (click)="generateReport(rnsQuotation);"><fa-icon [icon]="'file-pdf'"></fa-icon></button>
+                            </td>
+                            <td style="text-align: center;">
+                                <button style="cursor: pointer;" data-toggle="tooltip" title="Mails" class="btn btn-sm btn-secondary" [routerLink]="['/', { outlets: { popup: 'message/'+ rnsQuotation.id + '/quotation'} }]"><fa-icon [icon]="'envelope'"></fa-icon></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

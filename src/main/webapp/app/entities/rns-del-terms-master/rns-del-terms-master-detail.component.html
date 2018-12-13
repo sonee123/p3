@@ -1,0 +1,53 @@
+
+<div *ngIf="rnsDelTermsMaster">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Delivery Terms Master</span> {{rnsDelTermsMaster.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Delivery Terms Code</span></dt>
+                        <dd>
+                            <span>{{rnsDelTermsMaster.delTermsCode}}</span>
+                        </dd>
+                        <dt><span>Delivery Terms Code Description</span></dt>
+                        <dd>
+                            <span>{{rnsDelTermsMaster.delTermsCodeDesc}}</span>
+                        </dd>
+                        <dt><span>Created By</span></dt>
+                        <dd>
+                            <span *ngIf="rnsDelTermsMaster.user">{{rnsDelTermsMaster.user?.firstName}} {{rnsDelTermsMaster.user?.lastName}}</span>
+                        </dd>
+                        <dt><span>Created Date</span></dt>
+                        <dd>
+                            <span *ngIf="rnsDelTermsMaster.createdDate">{{rnsDelTermsMaster.createdDate |date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Modified By</span></dt>
+                        <dd>
+                            <span *ngIf="rnsDelTermsMaster.updatedUser">{{rnsDelTermsMaster.updatedUser?.firstName}} {{rnsDelTermsMaster.updatedUser?.lastName}}</span>
+                        </dd>
+                        <dt><span>Modified Date</span></dt>
+                        <dd>
+                            <span *ngIf="rnsDelTermsMaster.lastUpdatedDate">{{rnsDelTermsMaster.lastUpdatedDate |date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-del-terms-master/'+ rnsDelTermsMaster.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

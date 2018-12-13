@@ -1,0 +1,41 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsCrmRequestMasterLabel">Article</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="row">
+            <div class="col-md-12">
+                <table  class="display table table-sm responsive no-wrap" id="exampleFixed" *ngIf="rnsArticleMasters">
+                    <thead>
+                    <tr>
+                        <th><span>Article&nbsp;Code</span></th>
+                        <th><span>Description</span></th>
+                        <th class="no-sort">&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let rnsArticleMaster of rnsArticleMasters">
+                        <td>{{rnsArticleMaster.articleCode}}</td>
+                        <td>
+                            {{rnsArticleMaster.articleDesc}}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary btn-sm" (click)="selectArticle(rnsArticleMaster)">
+                                <fa-icon [icon]="'plus'"></fa-icon> Add
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+    </div>-->
+</form>

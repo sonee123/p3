@@ -1,0 +1,211 @@
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h5 id="myUserLabel">
+                Create or edit a User
+            </h5>
+            <div class="clearfix"></div>
+            <div class="col-md-12">
+                <jhi-alert-error></jhi-alert-error>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row" [hidden]="!user.id">
+                                    <div class="col-md-3"><label>ID</label></div>
+                                    <div class="col-md-9">
+                                        <div class="form-group" [hidden]="!user.id">
+                                            <input type="text" class="form-control form-control-sm" name="id" [(ngModel)]="user.id" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="form-control-label">Login</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-sm" name="login" #loginInput="ngModel" [(ngModel)]="user.login" required minlength="1" maxlength="50" [disabled]="user.id" pattern="^[_'.@A-Za-z0-9-]*$">
+
+                                            <div *ngIf="loginInput.dirty && loginInput.invalid">
+                                                <small class="form-text text-danger" *ngIf="loginInput.errors.required">
+                                                    This field is required.
+                                                </small>
+
+                                                <small class="form-text text-danger" *ngIf="loginInput.errors.maxlength">
+                                                    This field cannot be longer than 50 characters.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="!user.id">
+                                    <div class="col-md-3"><label class="form-control-label" for="password">New password</label></div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-sm" id="password" name="password" #password="ngModel" placeholder="New Password" [(ngModel)]="user.password" minlength=4 maxlength=50 required>
+                                            <div *ngIf="password.dirty && password.invalid">
+                                                <small class="form-text text-danger" *ngIf="password.errors.required">
+                                                    Your password is required.
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="password.errors.minlength">
+                                                    Your password is required to be at least 4 characters.
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="password.errors.maxlength">
+                                                    Your password cannot be longer than 50 characters.
+                                                </small>
+                                            </div>
+                                            <jhi-vendor-password-strength-bar [passwordToCheck]="user.password"></jhi-vendor-password-strength-bar>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="!user.id">
+                                    <div class="col-md-3"><label class="form-control-label" for="confirmPassword">New password confirmation</label></div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-sm" id="confirmPassword" name="confirmPassword" #confirmPasswordInput="ngModel" placeholder="Confirm the new password"
+                                                   [(ngModel)]="confirmPassword" minlength=4 maxlength=50 required>
+                                            <div *ngIf="confirmPasswordInput.dirty && confirmPasswordInput.invalid">
+                                                <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.required">
+                                                    Your confirmation password is required.
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.minlength">
+                                                    Your confirmation password is required to be at least 4 characters.
+                                                </small>
+                                                <small class="form-text text-danger" *ngIf="confirmPasswordInput.errors.maxlength">
+                                                    Your confirmation password cannot be longer than 50 characters.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3"><label class="form-control-label">First Name</label></div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-sm" name="firstName" #firstNameInput="ngModel" [(ngModel)]="user.firstName" maxlength="50">
+
+                                            <div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
+                                                <small class="form-text text-danger" *ngIf="firstNameInput.errors.maxlength">
+                                                    This field cannot be longer than 50 characters.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3"><label class="form-control-label">Last Name</label></div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-sm" name="lastName" #lastNameInput="ngModel" [(ngModel)]="user.lastName" maxlength="50">
+                                            <div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
+                                                <small class="form-text text-danger" *ngIf="lastNameInput.errors.maxlength">
+                                                    This field cannot be longer than 50 characters.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3"><label class="form-control-label">Email</label></div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control form-control-sm" name="email" #emailInput="ngModel" [(ngModel)]="user.email" minlength="5" required maxlength="100" email>
+                                            <div *ngIf="emailInput.dirty && emailInput.invalid">
+                                                <small class="form-text text-danger" *ngIf="emailInput.errors.required">
+                                                    This field is required.
+                                                </small>
+
+                                                <small class="form-text text-danger" *ngIf="emailInput.errors.maxlength">
+                                                    This field cannot be longer than 100 characters.
+                                                </small>
+
+                                                <small class="form-text text-danger" *ngIf="emailInput.errors.minlength">
+                                                    This field is required to be at least 5 characters.
+                                                </small>
+
+                                                <small class="form-text text-danger" *ngIf="emailInput.errors.email">
+                                                    Your email is invalid.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3"><label class="form-control-label">Secondary Email</label></div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control form-control-sm" name="secondaryEmail" #secondaryEmailInput="ngModel" [(ngModel)]="user.secondaryEmail" maxlength="100">
+                                            <div *ngIf="secondaryEmailInput.dirty && secondaryEmailInput.invalid">
+
+                                                <small class="form-text text-danger" *ngIf="secondaryEmailInput.errors.maxlength">
+                                                    This field cannot be longer than 100 characters.
+                                                </small>
+
+                                                <small class="form-text text-danger" *ngIf="secondaryEmailInput.errors.email">
+                                                    Your Secondary email is invalid.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3"><label class="form-control-label">Contact Number 1</label></div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-sm" name="contactNumber1" #contactNumber1Input="ngModel" [(ngModel)]="user.contactNumber1" maxlength="20">
+
+                                            <div *ngIf="contactNumber1Input.dirty && contactNumber1Input.invalid">
+                                                <small class="form-text text-danger" *ngIf="contactNumber1Input.errors.maxlength">
+                                                    This field cannot be longer than 20 characters.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3"><label class="form-control-label">Contact Number 2</label></div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-sm" name="contactNumber2" #contactNumber2Input="ngModel" [(ngModel)]="user.contactNumber2" maxlength="50">
+                                            <div *ngIf="contactNumber2Input.dirty && contactNumber2Input.invalid">
+                                                <small class="form-text text-danger" *ngIf="contactNumber2Input.errors.maxlength">
+                                                    This field cannot be longer than 20 characters.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="form-control-label">Profiles</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <select class="custom-select custom-select-sm form-control form-control-sm" name="authority" [(ngModel)]="authority" required style="height:28px;">
+                                                <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button type="button" class="btn btn-secondary btn-sm" (click)="previousState()">
+                                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                                        </button>
+                                        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+                                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

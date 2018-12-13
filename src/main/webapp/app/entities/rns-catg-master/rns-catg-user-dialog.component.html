@@ -1,0 +1,59 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsCatgMasterLabel">Access Category ({{rnsCatgUser.login}})</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="row" [formGroup]="listBoxForm">
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                            <h5 class="text-center vertical-spacing-5">{{availableText}}</h5>
+                            <input type="text" class="form-control form-control-sm vertical-spacing-5" placeholder="{{availableFilterPlaceholder}}"
+                                   formControlName="availableSearchInput" />
+                            <select class="form-control form-control-sm list-box" formControlName="availableListBox" multiple style="height: 250px;">
+                                <option *ngFor="let item of availableItems | arrayFilter:['name', searchTermAvailable] | arraySort:['name', 'ASC']; trackBy:trackByValue" [value]="item?.id" (dblclick)="moveAvailableItemToSelected(item)">{{item?.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-lg-2 col-sm-12 center-block text-center">
+                            <button type="button" class="btn btn-primary col-md-8 col-md-offset-2 atr top80 sm-spacing" *ngIf="moveAllButton" (click)="moveAllItemsToSelected()">
+                                <span class="glyphicon glyphicon-list"></span>
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary col-md-8 col-md-offset-2 str vertical-spacing-5 sm-spacing" [disabled]="!availableListBoxControl.value?.length" (click)="moveMarkedAvailableItemsToSelected()">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary col-md-8 col-md-offset-2 stl vertical-spacing-5 sm-spacing" [disabled]="!selectedListBoxControl.value?.length" (click)="moveMarkedSelectedItemsToAvailable()">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary col-md-8 col-md-offset-2 atl bottom10 sm-spacing" *ngIf="moveAllButton" (click)="moveAllItemsToAvailable()">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="glyphicon glyphicon-list"></span>
+                            </button>
+                        </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                            <h5 class="text-center vertical-spacing-5">{{selectedText}}</h5>
+                            <input type="text" class="form-control form-control-sm vertical-spacing-5" placeholder="{{selectedFilterPlaceholder}}"
+                                   formControlName="selectedSearchInput" />
+                            <select class="form-control form-control-sm list-box" multiple style="height: 250px;" formControlName="selectedListBox">
+                                <option *ngFor="let item of selectedItems | arrayFilter:['name', searchTermSelected] | arraySort:['name', 'ASC'];trackBy:trackByValue" [value]="item?.id" (dblclick)="moveSelectedItemToAvailable(item)">{{item?.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="button" (click)="save()" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

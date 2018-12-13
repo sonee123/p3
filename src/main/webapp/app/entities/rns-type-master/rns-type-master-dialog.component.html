@@ -1,0 +1,45 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsTypeMasterLabel">Create or edit a Project Region Master</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsTypeMaster.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsTypeMaster.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_typeCode">Project Region Code</label>
+            <input type="text" class="form-control form-control-sm" name="typeCode" id="field_typeCode" [(ngModel)]="rnsTypeMaster.typeCode" required [disabled]="rnsTypeMaster.id?'true':'false'"/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_typeCodeDesc">Project Region Description</label>
+            <input type="text" class="form-control form-control-sm" name="typeCodeDesc" id="field_typeCodeDesc" [(ngModel)]="rnsTypeMaster.typeCodeDesc" required/>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_rnsCatgCode">Category Code</label>
+            <!-- <select class="custom-select custom-select-sm form-control form-control-sm" id="field_rnsCatgCode" name="rnsCatgCode" [(ngModel)]="rnsTypeMaster.rnsCatgCode" >
+                <option [ngValue]="rnsCatgMasterOption.id === rnsTypeMaster.rnsCatgCode?.id ? rnsTypeMaster.rnsCatgCode : rnsCatgMasterOption" *ngFor="let rnsCatgMasterOption of rnscatgmasters; trackBy: trackRnsCatgMasterById">{{rnsCatgMasterOption.catgCode}}&nbsp;&nbsp;-&nbsp; {{rnsTypeMaster.rnsCatgCode?.catgCodeDesc}}</option>
+            </select> -->
+
+             <select class="custom-select custom-select-sm form-control form-control-sm" id="field_rnsCatgCode" name="rnsCatgCode" [(ngModel)]="rnsTypeMaster.rnsCatgCode" required>
+               <!--  <option [ngValue]="null"></option> -->
+                <option [ngValue]="rnsCatgMasterOption.id === rnsTypeMaster.rnsCatgCode?.id ? rnsTypeMaster.rnsCatgCode : rnsCatgMasterOption" *ngFor="let rnsCatgMasterOption of rnscatgmasters; trackBy: trackRnsCatgMasterById">{{rnsCatgMasterOption.catgCode}}&nbsp;&nbsp;-&nbsp;{{rnsCatgMasterOption.catgCodeDesc}}</option>
+            </select>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

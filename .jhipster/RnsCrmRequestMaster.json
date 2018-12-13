@@ -1,0 +1,61 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "rnsPchMaster",
+            "otherEntityName": "rnsPchMaster",
+            "otherEntityField": "pchCode"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "buyerCode",
+            "otherEntityName": "rnsBuyerMaster",
+            "otherEntityField": "buyerCode"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "crmCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "requestedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "targetPcd",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "merchantRemarks",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastUpdatedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastUpdatedDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20180310101159",
+    "entityTableName": "rns_crm_request_master",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property dbms="mysql,h2,postgresql" value="true" name="autoIncrement"/>
+    <property dbms="oracle" value="false" name="autoIncrement"/>
+
+    <!--
+        Added the entity RnsCatgMaster.
+    -->
+    <changeSet id="20171205085825-1" author="jhipster">
+        <createTable tableName="rns_catg_master">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="catg_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="catg_code_desc" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_crm" type="bit">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+             <column name="updated_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_updated_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+
+        <createTable tableName="rns_catg_master_user">
+            <column name="users_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rns_catg_masters_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createSequence startValue="1" sequenceName="rns_catg_master_seq" ordered="true" incrementBy="1" cycle="false"/>
+        <createProcedure dbms="oracle" relativeToChangelogFile="true" procedureName="rns_catg_master_procedure" encoding="utf8" catalogName="rns_catg_master_catalog"> CREATE TRIGGER rns_catg_master_trigger BEFORE INSERT ON rns_catg_master FOR EACH ROW BEGIN IF( :NEW.id IS NULL ) THEN :NEW.id:=rns_catg_master_seq.NEXTVAL; END IF; END; </createProcedure>
+        <addPrimaryKey columnNames="rns_catg_masters_id, users_id" tableName="rns_catg_master_user"/>
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

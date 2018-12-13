@@ -1,0 +1,62 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsVendorRemarkLabel">Create or edit a Rns Vendor Remark</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsVendorRemark.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsVendorRemark.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_remarkText">Remark Text</label>
+            <input type="text" class="form-control form-control-sm" name="remarkText" id="field_remarkText"
+                [(ngModel)]="rnsVendorRemark.remarkText" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_vendorEmail">Vendor Email</label>
+            <input type="text" class="form-control form-control-sm" name="vendorEmail" id="field_vendorEmail"
+                [(ngModel)]="rnsVendorRemark.vendorEmail" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_staffEmail">Staff Email</label>
+            <input type="text" class="form-control form-control-sm" name="staffEmail" id="field_staffEmail"
+                [(ngModel)]="rnsVendorRemark.staffEmail" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_fromEmail">From Email</label>
+            <input type="text" class="form-control form-control-sm" name="fromEmail" id="field_fromEmail"
+                [(ngModel)]="rnsVendorRemark.fromEmail" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_toEmail">To Email</label>
+            <input type="text" class="form-control form-control-sm" name="toEmail" id="field_toEmail"
+                [(ngModel)]="rnsVendorRemark.toEmail" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_read">Read</label>
+            <input type="checkbox" class="form-control form-control-sm" name="read" id="field_read"
+                [(ngModel)]="rnsVendorRemark.read" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_quotation">Quotation</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_quotation" name="quotation" [(ngModel)]="rnsVendorRemark.quotation" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="rnsQuotationOption.id === rnsVendorRemark.quotation?.id ? rnsVendorRemark.quotation : rnsQuotationOption" *ngFor="let rnsQuotationOption of rnsquotations; trackBy: trackRnsQuotationById">{{rnsQuotationOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

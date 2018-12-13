@@ -1,0 +1,139 @@
+
+<div *ngIf="rnsQuotationVariant">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Quotation Variant</span> {{rnsQuotationVariant.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Title</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.title}}</span>
+                        </dd>
+                        <dt><span>Var Desc Spec 1</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.varDescSpec1}}</span>
+                        </dd>
+                        <dt><span>Var Desc Spec 1 Value</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.varDescSpec1Value}}</span>
+                        </dd>
+                        <dt><span>Var Desc Spec 2</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.varDescSpec2}}</span>
+                        </dd>
+                        <dt><span>Var Desc Spec 2 Value</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.varDescSpec2Value}}</span>
+                        </dd>
+                        <dt><span>Var Desc Spec 3</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.varDescSpec3}}</span>
+                        </dd>
+                        <dt><span>Var Desc Spec 3 Value</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.varDescSpec3Value}}</span>
+                        </dd>
+                        <dt><span>Var Desc Spec 4</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.varDescSpec4}}</span>
+                        </dd>
+                        <dt><span>Var Desc Spec 4 Value</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.varDescSpec4Value}}</span>
+                        </dd>
+                        <dt><span>Var Desc Spec 5</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.varDescSpec5}}</span>
+                        </dd>
+                        <dt><span>Var Desc Spec 5 Value</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.varDescSpec5Value}}</span>
+                        </dd>
+                        <dt><span>Event Def Type</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.eventDefType}}</span>
+                        </dd>
+                        <dt><span>Event Def Category</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.eventDefCategory}}</span>
+                        </dd>
+                        <dt><span>Event Def Technology</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.eventDefTechnology}}</span>
+                        </dd>
+                        <dt><span>Event Def Defect Code</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.eventDefDefectCode}}</span>
+                        </dd>
+                        <dt><span>Event Def Text 1</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.eventDefText1}}</span>
+                        </dd>
+                        <dt><span>Dealterm Completion By</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.dealtermCompletionBy | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt><span>Dealterm Valid Until</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.dealtermValidUntil}}</span>
+                        </dd>
+                        <dt><span>Dealterm Payment Terms</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.dealtermPaymentTerms}}</span>
+                        </dd>
+                        <dt><span>Dealterm Delivery Terms</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.dealtermDeliveryTerms}}</span>
+                        </dd>
+                        <dt><span>Tax Terms</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.taxTerms}}</span>
+                        </dd>
+                        <dt><span>Dealterm Deliver At</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.dealtermDeliverAt}}</span>
+                        </dd>
+                        <dt><span>Dealterm Text 2</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.dealtermText2}}</span>
+                        </dd>
+                        <dt><span>Order Quantity</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.orderQuantity}}</span>
+                        </dd>
+                        <dt><span>Order Uom</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.orderUom}}</span>
+                        </dd>
+                        <dt><span>Remarks</span></dt>
+                        <dd>
+                            <span>{{rnsQuotationVariant.remarks}}</span>
+                        </dd>
+                        <dt><span>Quotation</span></dt>
+                        <dd>
+                            <div *ngIf="rnsQuotationVariant.quotation">
+                                <a [routerLink]="['/rns-quotation', rnsQuotationVariant.quotation?.id]">{{rnsQuotationVariant.quotation?.id}}</a>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-quotation-variant/'+ rnsQuotationVariant.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

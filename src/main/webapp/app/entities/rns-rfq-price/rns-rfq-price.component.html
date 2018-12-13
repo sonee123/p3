@@ -1,0 +1,89 @@
+<div>
+    <h5>
+        <span>Rfq Prices</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-rns-rfq-price"
+                [routerLink]="['/', { outlets: { popup: ['rns-rfq-price-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsRfqPrices">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Price One</span></th>
+                                    <th><span>Price Two</span></th>
+                                    <th><span>Price Three</span></th>
+                                    <th><span>Price Four</span></th>
+                                    <th><span>Price Five</span></th>
+                                    <th><span>Price Six</span></th>
+                                    <th><span>Price Seven</span></th>
+                                    <th><span>Price Eight</span></th>
+                                    <th><span>Price Nine</span></th>
+                                    <th><span>Price Ten</span></th>
+                                    <th><span>Vendor Id</span></th>
+                                    <th><span>Created By</span></th>
+                                    <th><span>Created Date</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsRfqPrice of rnsRfqPrices ;trackBy: trackId">
+                                    <td><a [routerLink]="['../rns-rfq-price', rnsRfqPrice.id ]">{{rnsRfqPrice.id}}</a></td>
+                                    <td>{{rnsRfqPrice.priceOne}}</td>
+                                    <td>{{rnsRfqPrice.priceTwo}}</td>
+                                    <td>{{rnsRfqPrice.priceThree}}</td>
+                                    <td>{{rnsRfqPrice.priceFour}}</td>
+                                    <td>{{rnsRfqPrice.priceFive}}</td>
+                                    <td>{{rnsRfqPrice.priceSix}}</td>
+                                    <td>{{rnsRfqPrice.priceSeven}}</td>
+                                    <td>{{rnsRfqPrice.priceEight}}</td>
+                                    <td>{{rnsRfqPrice.priceNine}}</td>
+                                    <td>{{rnsRfqPrice.priceTen}}</td>
+                                    <td>{{rnsRfqPrice.vendorId}}</td>
+                                    <td>{{rnsRfqPrice.createdBy}}</td>
+                                    <td>{{rnsRfqPrice.createdDate | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-rfq-price', rnsRfqPrice.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-rfq-price/'+ rnsRfqPrice.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-rfq-price/'+ rnsRfqPrice.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

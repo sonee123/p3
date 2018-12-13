@@ -1,0 +1,407 @@
+<div class="container" *ngIf="rnsQuotation">
+
+    <div class="form-group marginbuttom">
+        <div class="col-md-12 " style="margin-left: -15px !important;" class="well well-sm">
+
+            <!-- <label class="pull-left" style="font-weight: 900;">Category Type</label>-->
+            <div class="pull-left col-sm-4 col-md-4 col-lg-4">
+                <select class="form-control" id="rnscatgCode" name="rnscatgCode" [(ngModel)]="rnsQuotation.rnsCatgCode.id">
+                    <option [ngValue]="null">Select Category</option>
+                    <option *ngFor="let rnsCatgMaster of rnsCatgMasters;" [ngValue]="rnsCatgMaster?.id">{{rnsCatgMaster?.catgCode}}</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-sm-4 col-md-4 col-lg-4 quote-div" ng-show="data.showQuote" *ngIf="rnsQuotation">
+                <div class="form-group">
+                    <label>Quote Number</label>
+                    <input type="text" class="form-control" name="quote_number_disabled" value="{{rnsQuotation.id }}" disabled="disabled" style="background-color: #fff;">
+                </div>
+                <div class="form-group">
+                    <label>Validaity Date</label>
+                    <input style="background-color: #fff;" type="datetime-local" class="form-control" name="validaity_date" disabled="disabled" [(ngModel)]="rnsQuotation.validity">
+                </div>
+                <div class="form-group">
+                    <label>Created On</label>
+                    <input style="background-color: #fff;" type="text" class="form-control" name="created_on_disbled" value="{{rnsQuotation.createdOn| date: 'dd MMM, yyyy HH:mm'}}" disabled="disabled">
+                </div>
+                <div class="form-group">
+                    <label>Quote Type</label>
+                    <input style="background-color: #fff;" type="text" class="form-control" disabled="disabled" name="" [(ngModel)]="rnsQuotation.quoteType">
+                </div>
+                <div class="form-group">
+                    <label>Internal Remarks</label>
+                    <textarea style="background-color: #fff;" rows="1" name="" class="form-control " disabled="disabled" [(ngModel)]="rnsQuotation.internalRemarks"></textarea>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4" ng-show="data.CRM_request">
+                <div class="form-group">
+                    <label>CRM Request Number</label>
+
+                    <input style="background-color: #fff;" type="text" class="form-control" [(ngModel)]="rnsQuotation.crmRequestNumber" name="crm_request_no_disabled" disabled="disabled">
+                    <div class="search" [routerLink]="['/', { outlets: { popup: 'rns-crm-request-master/search' } }]"><i class="fa fa-search"></i></div>
+                </div>
+                <div class="form-group">
+                    <label>Requested by</label>
+                    <input style="background-color: #fff;" type="text" class="form-control" name="requested_by_disabled" [(ngModel)]="rnsQuotation.requestedBy" disabled="disabled">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input style="background-color: #fff;" type="text" class="form-control" name="CRM_date_disabled" value="{{rnsQuotation.date | date: 'dd MMM, yyyy HH:mm'}}" disabled="disabled">
+                </div>
+                <div class="form-group">
+                    <label>PCH</label>
+                    <input style="background-color: #fff;" type="text" class="form-control" name="PCM_disabled" disabled="disabled" [(ngModel)]="rnsQuotation.pchCode">
+                </div>
+                <div class="form-group">
+                    <label>Target PCD</label>
+                    <input style="background-color: #fff;" type="text" class="form-control" name="target_PCD_disabled" value="{{targetPcd | date: 'dd MMM, yyyy'}}" disabled="disabled">
+                </div>
+
+
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4" ng-show="data.article">
+                <div class="form-group">
+                    <label>Buyer</label>
+                    <input style="background-color: #fff;" type="text" class="form-control" name="buyers_disabled" disabled="disabled" value="{{rnsQuotation.buyerName}}">
+                </div>
+                <div class="form-group">
+                    <label>Merchant Remarks</label>
+                    <textarea style="background-color: #fff;" name="" class="form-control" disabled="disabled" [(ngModel)]="rnsQuotation.merchantRemarks"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Article Code</label>
+                    <input style="background-color: #fff;" type="text" class="hidden" name="article_code" value="YCK4G">
+                    <div class="">
+                        <input style="background-color: #fff;" type="text" name="article_code_disabled" [(ngModel)]="rnsQuotation.articleCode" class="form-control" disabled="disabled">
+                        <div class="search" [routerLink]="['/', { outlets: { popup: 'rns-article-master/search' } }]"><i class="fa fa-search"></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="hidden" name="description" value="XXXXX-XXX">
+                    <textarea style="background-color: #fff;" rows="3" name="description_disabled" class="form-control" [(ngModel)]="rnsQuotation.articleDesc" disabled="disabled">
+                </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="clearfix">&nbsp;</div>
+<!-- Variant Div Start-->
+<div class="container">
+    <div class="col-md-12 Variant-div" ng-show="data.showVariant">
+        <div id="exTab1" class="col-md-12 grey-shade">
+            <ul class="nav nav-tabs grey-shade">
+                <li class="nav-item" *ngFor="let variant of variants ;" [ngClass]="variant.title==variantDisplay? 'active': ''">
+                    <a data-toggle="tab" class="nav-link" (click)="displayVariant(variant.title)" role="tab" [(ngModel)]="variant.title">
+                        {{variant.title}}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a data-toggle="tab" class="nav-link" role="tab" (click)="createNewVariant()">
+                        <i class="glyphicon glyphicon-plus"></i> Add new Variant
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content clearfix">
+                <div class="tab-pane" [ngClass]="variant.title==variantDisplay? 'active': ''" *ngFor="let variant of variants ;" role="tabpanel">
+                    <div class="pane-border-shade"></div>
+                    <!-- Vendor Div -->
+                    <div class="">
+                        <div class="col-md-3 row-padding pull-left">
+                            <div class="variant_heading" style="margin-right: -10px;margin-top: 3px;">Variable Description</div>
+                            <div class="col-md-12 row-padding">
+                                <!--<div class="col-md-3 row-padding label-md pull-left">Spec 1</div>-->
+                                <div class="col-md-4 row-padding pull-left col4">
+                                    <select class="form-control input-sm" id="rnsRefrDetail_spec1" name="rnsRefrDetail_spec1" [(ngModel)]="variant.varDescSpec1" (ngModelChange)="spec2TitleChange($event, 'input1')">
+                                        <option [ngValue]="null">Select</option>
+                                        <option *ngFor="let rnsRefrDetail of rnsRefrDetails ;">{{rnsRefrDetail.subCode}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5 row-padding pull-left ">
+                                    <input disabled="disabled" style="background-color: #fff;" type="text" name="spec1" value="" class="form-control input-sm" [(ngModel)]="variant.varDescSpec1Value" *ngIf="subcodeInput.input1.display">
+                                    <select class="form-control input-sm" id="spec1" name="spec1" [(ngModel)]="variant.varDescSpec1Value" *ngIf="!subcodeInput.input1.display">
+                                        <option [ngValue]="null">Select</option>
+                                        <option *ngFor="let rnsRefrMasters of subcodeInput.input1.data ;">{{rnsRefrMasters.subcode}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 row-padding">
+                                <!--<div class="col-md-3 row-padding label-md pull-left">Spec 2*</div>-->
+                                <div class="col-md-4 row-padding pull-left col4">
+                                    <select class="form-control input-sm" id="rnsRefrDetail_spec2" name="rnsRefrDetail_spec2" [(ngModel)]="variant.varDescSpec2" (ngModelChange)="spec2TitleChange($event, 'input2')">
+                                        <option [ngValue]="null">Select</option>
+                                        <option *ngFor="let rnsRefrDetails of rnsRefrDetails ;">{{rnsRefrDetails.subCode}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5 row-padding pull-left">
+                                    <input disabled="disabled" style="background-color: #fff;" type="text" name="spec2" value="" class="form-control input-sm" [(ngModel)]="variant.varDescSpec2Value" (ngModelChange)="spec2ValueChange($event)" *ngIf="subcodeInput.input2.display">
+                                    <select class="form-control input-sm" id="spec2" name="spec2" [(ngModel)]="variant.varDescSpec2Value" *ngIf="!subcodeInput.input2.display">
+                                        <option [ngValue]="null">Select</option>
+                                        <option *ngFor="let rnsRefrMasters of subcodeInput.input2.data ;">{{rnsRefrMasters.subcode}}</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12 row-padding">
+                                <!--<div class="col-md-3 row-padding label-md pull-left">Spec 3</div>-->
+                                <div class="col-md-4 row-padding pull-left col4">
+                                    <select class="form-control input-sm" id="rnsRefrDetail_spec3" name="rnsRefrDetail_spec3" [(ngModel)]="variant.varDescSpec3" (ngModelChange)="spec2TitleChange($event, 'input3')">
+                                        <option [ngValue]="null">Select</option>
+                                        <option *ngFor="let rnsRefrDetails of rnsRefrDetails ;">{{rnsRefrDetails.subCode}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5 row-padding pull-left">
+                                    <input disabled="disabled" style="background-color: #fff;" type="text" name="spec-3" value="" class="form-control input-sm" [(ngModel)]="variant.varDescSpec3Value" *ngIf="subcodeInput.input3.display">
+                                    <select class="form-control input-sm" id="spec3" name="spec3" [(ngModel)]="variant.varDescSpec3Value" *ngIf="!subcodeInput.input3.display">
+                                        <option [ngValue]="null">Select</option>
+                                        <option *ngFor="let rnsRefrMasters of subcodeInput.input3.data ;">{{rnsRefrMasters.subcode}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 row-padding">
+                                <!--<div class="col-md-3 row-padding label-md pull-left">Spec 4</div>-->
+                                <div class="col-md-4 row-padding pull-left col4">
+                                    <select class="form-control input-sm" id="rnsRefrDetail_spec4" name="rnsRefrDetail_spec4" [(ngModel)]="variant.varDescSpec4" (ngModelChange)="spec2TitleChange($event, 'input4')">
+                                        <option [ngValue]="null">Select</option>
+                                        <option *ngFor="let rnsRefrDetails of rnsRefrDetails ;">{{rnsRefrDetails.subCode}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5 row-padding pull-left">
+                                    <input disabled="disabled" style="background-color: #fff;" type="text" name="spec4" value="" class="form-control input-sm" [(ngModel)]="variant.varDescSpec4Value" *ngIf="subcodeInput.input4.display">
+                                    <select class="form-control input-sm" id="spec4" name="spec4" [(ngModel)]="variant.varDescSpec4Value" *ngIf="!subcodeInput.input4.display">
+                                        <option [ngValue]="null">Select</option>
+                                        <option *ngFor="let rnsRefrMasters of subcodeInput.input4.data ;">{{rnsRefrMasters.subcode}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 row-padding">
+                                <!--<div class="col-md-3 row-padding label-md pull-left">Spec 5</div>-->
+                                <div class="col-md-4 row-padding pull-left col4">
+                                    <select class="form-control input-sm" id="rnsRefrDetail_spec5" name="rnsRefrDetail_spec5" [(ngModel)]="variant.varDescSpec5" (ngModelChange)="spec2TitleChange($event, 'input5')">
+                                        <option [ngValue]="null">Select</option>
+                                        <option *ngFor="let rnsRefrDetails of rnsRefrDetails ;">{{rnsRefrDetails.subCode}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5 row-padding pull-left">
+                                    <input disabled="disabled" style="background-color: #fff;" type="text" name="spec5" value="" class="form-control input-sm" [(ngModel)]="variant.varDescSpec5Value" *ngIf="subcodeInput.input5.display">
+                                    <select class="form-control input-sm" id="spec4" name="spec4" [(ngModel)]="variant.varDescSpec5Value" *ngIf="!subcodeInput.input5.display">
+                                        <option [ngValue]="null">Select</option>
+                                        <option *ngFor="let rnsRefrMasters of subcodeInput.input5.data ;">{{rnsRefrMasters.subcode}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 pull-left">
+                            <div class="variant_heading" style="margin-right: -10px;color: #fff;margin-top: 3px;">Event Defination</div>
+                            <div class="">
+                                <div class="col-md-4 row-padding label-md pull-left">Type</div>
+                                <div class="col-md-8 row-padding pull-left col8">
+                                    <input type="text" name="event_defination_type" [(ngModel)]="variant.eventDefType" class="form-control input-sm">
+                                </div>
+                            </div>
+
+                            <div class=" ">
+                                <div class="col-md-4 row-padding label-md pull-left">Category*</div>
+                                <div class="col-md-8 row-padding pull-left col8">
+                                    <input type="text" name="Category" value="Purchase / JobWork" class="form-control input-sm" [(ngModel)]="variant.eventDefCategory">
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <div class="col-md-4 row-padding label-md pull-left">Technology</div>
+                                <div class="col-md-8 row-padding pull-right col8">
+                                    <input type="text" name="event_defination_technology" value="AutoLoom" class="form-control input-sm" [(ngModel)]="variant.eventDefTechnology">
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <div class="col-md-4 row-padding label-md pull-left">Defect Code</div>
+                                <div class="col-md-8 row-padding pull-right col8">
+                                    <input type="text" name="event_defination_defect_code" value="Yarn Dyed System" class="form-control input-sm" [(ngModel)]="variant.eventDefDefectCode">
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <div class="col-md-4 row-padding label-md pull-left">Text 1</div>
+                                <div class="col-md-8 row-padding pull-left col8">
+                                    <input type="text" name="event_defination_text" value="Yarn Dyed System" class="form-control input-sm" [(ngModel)]="variant.eventDefText1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 row-padding pull-left" style="margin-top: 3px;">
+                            <div class="variant_heading">Deal Terms</div>
+                            <div class="col-md-12 row-padding">
+                                <div class="col-md-6 row-padding pull-left">
+                                    Completion By
+                                    <input type="text" name="completion_by" value="1 Jan 2017" class="form-control input-sm" [(ngModel)]="variant.dealtermCompletionBy">
+                                </div>
+                                <div class="col-md-6 row-padding pull-left">
+                                    Valid Until
+                                    <input type="text" name="valid_until" value="60" class="form-control input-sm" [(ngModel)]="variant.dealtermValidUntil">
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="col-md-6 row-padding label-md pull-left">Payment Terms*</div>
+                                <div class="col-md-6 row-padding pull-left">
+                                    <input type="text" name="payments_terms" value="Credit 15 Days" class="form-control input-sm" [(ngModel)]="variant.dealtermPaymentTerms">
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="col-md-6 row-padding label-md pull-left">Delivery Terms</div>
+                                <div class="col-md-6 row-padding pull-left">
+                                    <input type="text" name="delivery_terms" value="EXWORKS" class="form-control input-sm" [(ngModel)]="variant.dealtermDeliveryTerms">
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="col-md-6 row-padding label-md pull-left">Delivery Place</div>
+                                <div class="col-md-6 row-padding pull-left">
+                                    <input type="text" name="deliver_at" value="Faridabad" class="form-control input-sm" [(ngModel)]="variant.dealtermDeliverAt">
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="col-md-3 row-padding label-md pull-left">Text 2</div>
+                                <div class="col-md-9 row-padding pull-left">
+                                    <input type="text" name="deal_terms_text" style="margin-top: 5px !important;" value="Yarn Dyed System" class="form-control input-sm" [(ngModel)]="variant.dealtermText2">
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-3 row-padding pull-left">
+                            <div class="variant_heading" style="margin-left: 5px;margin-top: 3px;">Order</div>
+                            <div class="col-md-12 row-padding">
+                                <div class="col-md-6 row-padding pull-left">
+                                    Quantity
+                                    <input type="text" name="quantity" value="1 Jan 2017" class="form-control input-sm" [(ngModel)]="variant.orderQuantity">
+                                </div>
+                                <div class="col-md-6 row-padding pull-left">
+                                    UOM
+                                    <input type="text" name="uom" value="60" class="form-control input-sm" [(ngModel)]="variant.orderUom">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 row-padding">
+                                Remarks
+                                <textarea name="remarks" rows="1" class="form-control" [(ngModel)]="variant.remarks"></textarea>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Vendor Div -->
+                    <div class="col-md-12" style="padding-top: 15px;padding-bottom: 2px;font-size: 12px;font-weight: 500;margin-left: 12px ! important;" ng-show="data.showVendorsdiv">
+                        <div>
+                            <div class="">
+                                <div class="">
+                                    <div class="col-md-2 variant_color" style="background-color: #464a4e;text-align: center;height: 29px;padding-top: 7px;margin-right: 2px;">Vendor</div>
+                                    <div class="col-md-2 row-padding variant_color" style="background-color: #464a4e;text-align: center;height: 29px;padding-top: 7px;margin-right: 2px;">Payment Terms</div>
+                                    <div class="col-md-2 row-padding variant_color" style="background-color: #464a4e;text-align: center;height: 29px;padding-top: 7px;margin-right: 2px;">Delivery Terms</div>
+                                    <div class="col-md-2 row-padding variant_color" style="background-color: #464a4e;text-align: center;height: 29px;padding-top: 7px;padding-left: 0 ! important;margin-right: 2px;">Expe Del Date</div>
+                                    <div class="col-md-2 row-padding variant_color" style="background-color: #464a4e;text-align: center;height: 29px;padding-top: 7px;padding-left: 0 ! important;margin-right: 2px;">Conf Del Date</div>
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <div class="">
+                                    <div class="">
+                                        <div class="col-md-2 variant_color" style="background-color: #464a4e;text-align: center;height: 29px;padding-top: 7px;padding-left: 0 ! important;margin-right: 2px;">Currency</div>
+                                        <div class="col-md-2 row-padding variant_color" style="background-color: #464a4e;text-align: center;height: 29px;padding-top: 7px;margin-right: 2px;">Regular Date</div>
+                                        <div class="col-md-2 row-padding variant_color" style="background-color: #464a4e;text-align: center;height: 29px;padding-top: 7px;margin-right: 2px;">Discount Rate</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <div class="">
+                                    <div class="">
+                                        <div class="col-md-2 row-padding variant_color" style="background-color: #464a4e;text-align: center;height: 29px;padding-top: 7px;padding-left: 0 ! important;margin-right: 2px;">Enquiry Qty.</div>
+                                        <div class="col-md-2 row-padding variant_color" style="background-color: #464a4e;text-align: center;height: 29px;padding-top: 7px;padding-left: 0 ! important;margin-right: 2px;">Quote Qty</div>
+                                        <div class="col-md-2 row-padding variant_color" style="background-color: #464a4e;text-align: center;height: 29px;padding-top: 7px;padding-left: 0 ! important;margin-right: 2px;">Award Qty</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngFor="let vendor of vendors;">
+                            <div *ngIf="vendor.variant.id==variant.id">
+                                <div class="col-md-2 row-padding text-center">
+                                    <div class="height_30 label-md vendorpadding">
+                                        {{vendor.vendor.vendorName}}
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="height_30">
+                                        <div class="col-md-2 row-padding">
+                                            <input type="text" name="" class="form-control input-sm vendorpadding" [(ngModel)]="vendor.paymentTerms">
+                                        </div>
+                                        <div class="col-md-2 row-padding">
+                                            <input type="text" name="" class="form-control input-sm vendorpadding" [(ngModel)]="vendor.deliveryDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="height_30">
+                                        <div class="col-md-2 row-padding">
+                                            <input style="margin-left:6px;" type="text" name="" class="form-control input-sm vendorpadding" [(ngModel)]="vendor.expDelDate">
+                                        </div>
+                                        <div class="col-md-2 row-padding">
+                                            <input style="margin-left:5px;" type="text" name="" class="form-control input-sm vendorpadding" [(ngModel)]="vendor.confDelDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="height_30">
+                                        <div class="col-md-2 row-padding">
+                                            <input style="margin-left:9px;" type="text" name="" class="form-control input-sm vendorpadding" [(ngModel)]="vendor.currency">
+                                        </div>
+                                        <div class="col-md-2 row-padding">
+                                            <input style="margin-left:10px;" type="text" name="" class="form-control input-sm vendorpadding" [(ngModel)]="vendor.regularDate">
+                                        </div>
+                                        <div class="col-md-2 row-padding">
+                                            <input style="margin-left:13px;" type="text" name="" class="form-control input-sm vendorpadding" [(ngModel)]="vendor.distDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="height_30">
+                                        <div class="col-md-2 row-padding">
+                                            <input style="margin-left:14px;" type="text" name="" class="form-control input-sm vendorpadding" [(ngModel)]="vendor.expiryQty">
+                                        </div>
+                                        <div class="col-md-2 row-padding">
+                                            <input style="margin-left:15px;" type="text" name="" class="form-control input-sm vendorpadding" [(ngModel)]="vendor.quoteQty">
+                                        </div>
+                                        <div class="col-md-2 row-padding">
+                                            <input style="margin-left:17px;" type="text" name="" class="form-control input-sm vendorpadding" [(ngModel)]="vendor.awardQty">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- save quotation button start -->
+
+                        <!--<button style=";background-color:#ad2d3e;margin-top:15px;margin-right: 33px;margin-left: 10px;float:right;color:#fff" type="button" class="btn btn-sm " (click)="saveQuotation()">
+                            <span class="fa fa-check-circle-o"></span> {{saveQuotationText}}</button>
+                         <!-- save quotation button end -->
+                        <!-- add vendor button start -->
+                        <!--<button style="background-color: #5c90c7;margin-top:15px;float:right;border-color:#5c90c7;color:#fff" type="button" class="btn btn-sm " [routerLink]="['/', { outlets: { popup: 'rns-vendor-master/search-select' }}]">
+                             <span class="fa fa-plus-circle"></span> Add Vendor </button>
+                        <!-- add vendor button end -->
+                    </div>
+                </div>
+                <!-- Variant Div End-->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "rnsRefrDetails",
+            "otherEntityName": "rnsRefrDetails",
+            "otherEntityField": "subCode"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "subcode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "subCodeDesc",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180310101148",
+    "entityTableName": "rns_refr_master",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

@@ -1,0 +1,76 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myEmailTemplateBodyLabel">Create or edit a Email Template Body</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!emailTemplateBody.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="emailTemplateBody.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_templateCode">Template Code</label>
+            <input type="text" class="form-control form-control-sm" name="templateCode" id="field_templateCode"
+                [(ngModel)]="emailTemplateBody.templateCode" required maxlength="50"/>
+            <div [hidden]="!(editForm.controls.templateCode?.dirty && editForm.controls.templateCode?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.templateCode?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.templateCode?.errors?.maxlength">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_mailBody">Mail Body</label>
+            <input type="text" class="form-control form-control-sm" name="mailBody" id="field_mailBody"
+                [(ngModel)]="emailTemplateBody.mailBody" required/>
+            <div [hidden]="!(editForm.controls.mailBody?.dirty && editForm.controls.mailBody?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.mailBody?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.mailBody?.errors?.maxlength">
+                   This field cannot be longer than 1000 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control form-control-sm" name="createdBy" id="field_createdBy"
+                [(ngModel)]="emailTemplateBody.createdBy" maxlength="50"/>
+            <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createdBy?.errors?.maxlength">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createdDate">Created Date</label>
+            <div class="input-group">
+                <input id="field_createdDate" type="text" class="form-control form-control-sm" name="createdDate" ngbDatepicker  #createdDateDp="ngbDatepicker" [(ngModel)]="emailTemplateBody.createdDate"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="createdDateDp.toggle()"><fa-icon [icon]="'calendar'"></fa-icon></button>
+                </span>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

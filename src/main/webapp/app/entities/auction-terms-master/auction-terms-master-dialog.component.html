@@ -1,0 +1,79 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myAuctionTermsMasterLabel">Create or edit a Bidding Terms Master</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!auctionTermsMaster.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="auctionTermsMaster.id" readonly />
+        </div>
+        <!--div class="form-group">
+            <label class="form-control-label" for="field_categoryId">Category</label>
+            <select *ngIf="!auctionTermsMaster.id" class="custom-select custom-select-sm form-control form-control-sm" name="categoryId" id="field_categoryId" [(ngModel)]="auctionTermsMaster.rnsCatgMaster" style="height:30px;" required (ngModelChange)="changeCategory();">
+                <option [ngValue]="undefined" selected >Select Category</option>
+                <option *ngFor="let rnsCatgMaster of rnsCatgMasters;" [ngValue]="rnsCatgMaster">{{rnsCatgMaster.catgCode}} - {{rnsCatgMaster.catgCodeDesc}} </option>
+            </select>
+            <input type="text" *ngIf="auctionTermsMaster.id" class="form-control form-control-sm" id="field_categoryIdText" name="categoryId" [value]="auctionTermsMaster.quoteType.typeCodeDesc" required disabled="disabled"/>
+            <div [hidden]="!(editForm.controls.categoryId?.dirty && editForm.controls.categoryId?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.categoryId?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.categoryId?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_quoteType">Project Region</label>
+            <select *ngIf="!auctionTermsMaster.id" class="custom-select custom-select-sm form-control form-control-sm" id="field_quoteType" name="quote_type" [(ngModel)]="auctionTermsMaster.quoteType" style="height: 30px;" title="First select Category to use filter by Project Region" required>
+                <option [ngValue]="undefined" selected>Select Project Region</option>
+                <option  *ngFor="let rnsTypeMaster of rnsTypeMasters ;" [ngValue]="rnsTypeMaster" >{{rnsTypeMaster.typeCode}} - {{rnsTypeMaster.typeCodeDesc}}
+                </option>
+            </select>
+            <input type="text" *ngIf="auctionTermsMaster.id" class="form-control form-control-sm" id="field_quoteTypeText" name="quote_type" [value]="auctionTermsMaster.quoteType.typeCodeDesc" required disabled="disabled"/>
+            <div [hidden]="!(editForm.controls.quoteType?.dirty && editForm.controls.quoteType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.quoteType?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_sourceTeamId">Sourcing Team</label>
+            <select *ngIf="!auctionTermsMaster.id" class="custom-select custom-select-sm form-control form-control-sm" id="field_sourceTeamId" name="sourceTeamId" [(ngModel)]="auctionTermsMaster.sourceTeamId" style="height: 30px;" required>
+                <option [ngValue]="undefined" hidden selected>Select Source Team</option>
+                <option *ngFor="let  rnsSourceTeamMaster of rnsSourceTeamMasters ;" [ngValue]="rnsSourceTeamMaster">{{rnsSourceTeamMaster.description}}
+                </option>
+            </select>
+            <input type="text" *ngIf="auctionTermsMaster.id" class="form-control form-control-sm" id="field_sourceTeamIdText" name="sourceTeamId" [value]="auctionTermsMaster.sourceTeamId.description" required disabled="disabled"/>
+            <div [hidden]="!(editForm.controls.sourceTeamId?.dirty && editForm.controls.sourceTeamId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.sourceTeamId?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.sourceTeamId?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div-->
+        <div class="form-group">
+            <label class="form-control-label" for="field_termsBody">Terms Body</label>
+            <textarea type="text" class="form-control form-control-sm" name="termsBody" id="field_termsBody" [(ngModel)]="auctionTermsMaster.termsBody" style="height:100px;" required></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

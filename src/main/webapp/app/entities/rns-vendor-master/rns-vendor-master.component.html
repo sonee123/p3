@@ -1,0 +1,75 @@
+<div>
+    <h5 style="font-size:16px; font-weight:bold;">
+        <span>Vendor Masters</span>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsVendorMasters">
+                        <table class="display table table-sm no-wrap" id="exampleFixed">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Vendor Code</span></th>
+                                    <th><span>Vendor Name</span></th>
+                                    <th><span>Email</span></th>
+                                    <th><span>Mobile Number</span></th>
+                                    <!--th><span>Vendor Master Code</span></th>
+                                    <th><span>Vendor User Id</span></th>
+                                    <th><span>User Name</span></th>
+                                    <th><span>User Name</span></th-->
+                                    <th class="no-sort"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsVendorMaster of rnsVendorMasters ;trackBy: trackId">
+                                    <td><a [routerLink]="['../rns-vendor-master', rnsVendorMaster.id ]">{{rnsVendorMaster.id}}</a>
+                                    </td>
+                                    <td>{{rnsVendorMaster.vendorCode}}</td>
+                                    <td>{{rnsVendorMaster.vendorName}}</td>
+                                    <td>{{rnsVendorMaster.email}}</td>
+                                    <td>{{rnsVendorMaster.mobileNumber}}</td>
+                                    <!--td>{{rnsVendorMaster.vendorMasterCode}}</td>
+                                    <td>{{rnsVendorMaster.vendorUserId}}</td>
+                                    <td>{{rnsVendorMaster.userName}}</td>
+                                    <td>
+                                        {{rnsVendorMaster.user?.login}}
+                                    </td-->
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-vendor-master', rnsVendorMaster.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <!--button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-vendor-master/'+ rnsVendorMaster.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-vendor-master/'+ rnsVendorMaster.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button-->
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

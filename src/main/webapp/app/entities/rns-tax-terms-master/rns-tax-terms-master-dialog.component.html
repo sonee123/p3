@@ -1,0 +1,61 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsTaxTermsMasterLabel">Create or edit a Tax Terms Master</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsTaxTermsMaster.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsTaxTermsMaster.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_taxTermsCode">Tax Terms Code</label>
+            <input type="text" class="form-control form-control-sm" name="taxTermsCode" maxlength="20" id="field_taxTermsCode"
+                [(ngModel)]="rnsTaxTermsMaster.taxTermsCode" required maxlength="20" [disabled]="rnsTaxTermsMaster.id?'true':'false'"/>
+            <div [hidden]="!(editForm.controls.taxTermsCode?.dirty && editForm.controls.taxTermsCode?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.taxTermsCode?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.taxTermsCode?.errors?.maxlength">
+                   This field cannot be longer than 20 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_taxTermsDesc">Tax Terms Desc</label>
+            <input type="text" class="form-control form-control-sm" name="taxTermsDesc" maxlength="255" id="field_taxTermsDesc"
+                [(ngModel)]="rnsTaxTermsMaster.taxTermsDesc" required maxlength="255"/>
+            <div [hidden]="!(editForm.controls.taxTermsDesc?.dirty && editForm.controls.taxTermsDesc?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.taxTermsDesc?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.taxTermsDesc?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <!--div class="form-group">
+            <label class="form-control-label" for="field_rnsCatgCode">Category Code</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_rnsCatgCode" name="rnsCatgCode" [(ngModel)]="rnsTaxTermsMaster.rnsCatgCode" >
+                <option [ngValue]="rnsCatgMasterOption.id === rnsTaxTermsMaster.rnsCatgCode?.id ? rnsTaxTermsMaster.rnsCatgCode : rnsCatgMasterOption" *ngFor="let rnsCatgMasterOption of rnscatgmasters; trackBy: trackRnsCatgMasterById">{{rnsCatgMasterOption.catgCode}}&nbsp;&nbsp;-&nbsp;{{rnsCatgMasterOption.catgCodeDesc}}</option>
+            </select>
+        </div-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

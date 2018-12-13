@@ -1,0 +1,92 @@
+<div>
+    <h5 style="font-size:16px; font-weight:bold;">
+        <span>Employee Masters</span>
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                class="btn btn-primary float-right btn-sm jh-create-entity create-rns-emp-master"
+                [routerLink]="['/', { outlets: { popup: ['rns-emp-master-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsEmpMasters">
+                        <table class="display table table-sm no-wrap" id="exampleFixed">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Employee Code</span></th>
+                                    <th><span>Employee Name</span></th>
+                                    <th><span>Created&nbsp;BY</span></th>
+                                    <th><span>Created&nbsp;Date</span></th>
+                                    <th><span>Modified&nbsp;By</span></th>
+                                    <th><span>Modified&nbsp;Date</span></th>
+                                    <th class="no-sort"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsEmpMaster of rnsEmpMasters ;">
+                                    <td><a [routerLink]="['../rns-emp-master', rnsEmpMaster.id ]">{{rnsEmpMaster.id}}</a>
+                                    </td>
+                                    <td>{{rnsEmpMaster.empCode}}</td>
+                                    <td>{{rnsEmpMaster.empName}}</td>
+                                    <td>
+                                        <div *ngIf="rnsEmpMaster.user">
+                                            {{rnsEmpMaster.user?.firstName}} {{rnsEmpMaster.user?.lastName}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsEmpMaster.createdDate">{{rnsEmpMaster.createdDate |date:'dd-MMM-yy h:mm a'}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsEmpMaster.updatedUser">{{rnsEmpMaster.updatedUser?.firstName}}
+                                            {{rnsEmpMaster.updatedUser?.lastName}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="rnsEmpMaster.lastUpdatedDate">{{rnsEmpMaster.lastUpdatedDate
+                                            |date:'dd-MMM-yy h:mm a'}}
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-emp-master', rnsEmpMaster.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-emp-master/'+ rnsEmpMaster.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-emp-master/'+ rnsEmpMaster.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

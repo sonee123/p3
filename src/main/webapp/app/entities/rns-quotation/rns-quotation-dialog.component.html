@@ -1,0 +1,36 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsQuotationLabel">RFQ Publish Rules</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <!-- <jhi-alert-error></jhi-alert-error> -->
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_validity">Validity</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="rnsQuotation.id" readonly />
+                <input id="field_validity" type="text"   [owlDateTime]="validity" placeholder="DD-MM-YYYY HH:MI PM" class="form-control form-control-sm" name="validity" [(ngModel)]="rnsQuotation.validity" required/>
+                <div class="input-group-append">
+                    <span class="btn btn-secondary btn-sm" [owlDateTimeTrigger]="validity"><fa-icon [icon]="'calendar'"></fa-icon></span>
+                    <owl-date-time #validity></owl-date-time>
+                </div>
+                <!-- <input [value]="momentValue | date: 'short'" [(ngModel)]="momentValue" dateTimePicker (onChange)="setMoment($event)" /> -->
+
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()" style="font-size: 1rem !important;">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <span *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER']">
+            <button type="submit" [disabled]="editForm.form.invalid || isSaving || rnsQuotation.auction==true || rnsQuotation.workflowStatus!=null" class="btn btn-primary btn-sm"  style="font-size: 1rem !important;">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+            </button>
+        </span>
+    </div>
+</form>

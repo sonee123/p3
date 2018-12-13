@@ -1,0 +1,56 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "lotStartTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lotEndTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "overtimeMinutes",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "variantId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "quotationId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "updatedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "updatedDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20180817090621",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "auction_var_details",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

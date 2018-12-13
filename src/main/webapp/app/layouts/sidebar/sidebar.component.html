@@ -1,0 +1,47 @@
+<div *ngIf="isAuthenticated()" class="sidebar"  [class.sidebar-mini-sidebar]="commonService.sidebarMiniToggleValue" [class.hide]="commonService.sidebarToggleValue">
+  <div class="sidebar-header align-middle">
+    <img src="../../../content/images/p3.png" style="width:55px;"/>
+  </div>
+  <hr class="underline" style="margin: 0 0 0 0 !important;">
+  <div class="sidebar-body">
+    <ul>
+        <li class="sidebar-item" *ngIf="isAuthenticated()">
+            <a data-toggle="collapse" href="javascript:void(0);" style="color: #0085c4;">
+                <table>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <fa-icon [icon]="'user-circle'" size="lg"></fa-icon>
+                        </td>
+                        <td><span class="text-capitalize mini-hide"><jhi-user-name-details></jhi-user-name-details></span></td>
+                    </tr>
+                </table>
+            </a>
+        </li>
+        <ng-container *ngFor="let item of sidebarItems;">
+          <li class="sidebar-item" [class.active]="temp.isActive" #temp="routerLinkActive" routerLinkActive  [routerLinkActiveOptions]="{exact: true}" *jhiHasAnyAuthority="item.type">
+            <a *ngIf="!item.subItem" [routerLink]="item.link" ><fa-icon [icon]="item.icon" size="lg"></fa-icon><span class="mini-hide text-capitalize  bar-label">{{item.label}}</span><span class="arrow mini-hide" ></span></a>
+            <!-- if sub menu  -->
+            <a *ngIf="!!item.subItem" data-toggle="collapse" href="javascript:void(0);" [class.collapsed]="!item.isCollapsed" (click)="collapseMenu(item);"><fa-icon [icon]="item.icon" size="lg"></fa-icon><span class="text-capitalize mini-hide bar-label">{{item.label}}</span><span class="toggle-icon "><fa-icon class="toggle-icon" [icon]="'chevron-down'"></fa-icon></span></a>
+            <div *ngIf="!!item.subItem" class="collapse" [class.show]="item.isCollapsed" [id]="item.label.split(' ').join('')">
+              <li *ngFor="let subIteml1 of item.subItem" class="sidebar-sub-item" routerLinkActive="active">
+                <a *ngIf="!subIteml1.subItem" [routerLink]=subIteml1.link><span class="txt-icon text-uppercase">{{subIteml1.icon}}</span><span class="text-capitalize mini-hide bar-label"> {{subIteml1.label}} </span><span class="arrow mini-hide"></span></a>
+                <!-- if sub menu level 2 -->
+                <a *ngIf="!!subIteml1.subItem" data-toggle="collapse" [href]="'#'+subIteml1.label.split(' ').join('')" [class.collapsed]="!temp.isActive"  ><span class="txt-icon text-uppercase">{{subIteml1.icon}}</span><span class="text-capitalize mini-hide bar-label">{{subIteml1.label}}</span><i class="toggle-icon material-icons">expand_less</i></a>
+                <div *ngIf="!!subIteml1.subItem" class="collapse" [class.show]="temp.isActive" [id]="subIteml1.label.split(' ').join('')">
+                  <li *ngFor="let subIteml2 of subIteml1.subItem" class="sidebar-sub-item-2" routerLinkActive="active"><a [routerLink]=subIteml2.link><span class="txt-icon text-uppercase">{{subIteml2.icon}}</span><span class="text-capitalize mini-hide bar-label"> {{subIteml2.label}} </span><span class="arrow mini-hide"></span></a></li>
+                </div>
+              </li>
+            </div>
+          </li>
+        </ng-container>
+        <li class="sidebar-item" *ngIf="isAuthenticated()" style="position: absolute;width:100%;bottom: 0px;background-color: #fff;">
+            <hr class="underline" style="margin: 0 0 0 0 !important;">
+            <a class="dropdown-item" style="margin: 0 !important;" id="logout"(click)="logout()" >
+                <fa-icon [icon]="'sign-out-alt'" size="lg"></fa-icon>
+                <span class="mini-hide text-capitalize  bar-label">Sign out</span><span class="arrow mini-hide" ></span>
+            </a>
+        </li>
+    </ul>
+  </div>
+</div>
+<div *ngIf="!commonService.sidebarToggleValue" class="sidebarOutside" (click)="commonService.sidebarToggle()" ></div>

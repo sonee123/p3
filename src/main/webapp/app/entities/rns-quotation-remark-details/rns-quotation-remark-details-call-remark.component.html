@@ -1,0 +1,89 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <input type="hidden" class="form-control form-control-sm" name="quoteId" id="field_quoteId" [(ngModel)]="rnsQuotationRemarkDetails.quoteId" required/>
+    <input type="hidden" class="form-control form-control-sm" name="empCode" id="field_empCode" [(ngModel)]="rnsQuotationRemarkDetails.empCode" />
+    <input type="hidden" class="form-control form-control-sm" name="id" id="field_id" [(ngModel)]="rnsQuotationRemarkDetails.id" />
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsVendorMasterLabel"><ng-container *ngIf="flowType=='A'">Approval Flow</ng-container><ng-container *ngIf="flowType=='W'">Award Work Flows</ng-container> <small>Project# {{ rnsQuotationRemarkDetails.quoteId }}</small></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body" *ngIf="rnsQuotation && rnsQuotation.user && account">
+        <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;">
+            <div class="alert alert-danger" *ngIf="!rnsForwardTypeMasters">
+                <strong>Workflow approval level is not define.</strong>
+            </div>
+            <ng-container *ngIf="flowType=='A' && (rnsQuotationRemarkDetails.allowWorkFlow=='C' || rnsQuotationRemarkDetails.allowWorkFlow=='R') && rnsQuotationRemarkDetails.id==0">
+                <div class="alert alert-secondary" *ngIf="rnsQuotation.user.login==account.login">
+                    <p style="padding-bottom: 10px;">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="reOpenProcess();">Re-open for approval again</button>
+                    </p>
+                </div>
+            </ng-container>
+            <div *ngIf="flowType=='W' && (rnsQuotationRemarkDetails.allowWorkFlow=='C' || rnsQuotationRemarkDetails.allowWorkFlow=='R')" [ngClass]="(rnsQuotationRemarkDetails.allowWorkFlow=='C')? 'alert alert-success' : 'alert alert-danger'" >
+                <span>
+                    <strong>
+                        <ng-container *ngIf="rnsQuotationRemarkDetails.allowWorkFlow=='C'">Project Award Workflow Closed</ng-container>
+                        <ng-container *ngIf="rnsQuotationRemarkDetails.allowWorkFlow=='R'">Project Award Workflow rejected</ng-container>
+                    </strong>
+                </span>
+            </div>
+            <div *ngIf="rnsQuotationRemarkDetails.errorMessage" class="alert alert-danger" style="height: 70px;">
+                <strong>{{rnsQuotationRemarkDetails.errorMessage}}</strong>
+            </div>
+            <div *ngIf="(rnsQuotationRemarkDetails.empCode && isValidForm() && this.isValidWorkflow==false) || (rnsQuotationRemarkDetails.id>0  && isValidForm())" class="alert alert-danger" style="height: 70px;">
+                <strong>Pending with</strong>
+                <span *ngIf="rnsQuotationRemarkDetails.empCode">
+                    {{rnsQuotationRemarkDetails.empCode.firstName}} {{rnsQuotationRemarkDetails.empCode.lastName}} ({{rnsQuotationRemarkDetails.empCode.login}})
+                </span><br/>
+                <span *ngIf="rnsQuotationRemarkDetails.id>1"><span class="time-right"><button type="button" class="btn btn-sm btn-primary" (click)="onClickRecall(rnsQuotationRemarkDetails.id);">Recall</button></span></span>
+            </div>
+            <div *ngFor="let rnsRemarks of rnsQuotationRemarkDetails.rnsQuotationRemarkDetailsList; index as i; even as isEven; odd as isOdd" [class]="(rnsRemarks.rnsForwardTypeMaster && rnsRemarks.rnsForwardTypeMaster.code=='C') ? 'alert alert-success' : (rnsRemarks.rnsForwardTypeMaster && rnsRemarks.rnsForwardTypeMaster.code=='R') ? 'alert alert-danger' : isEven ? 'alert alert-dark': 'alert alert-secondary'">
+                <ng-container *ngIf="rnsRemarks.empCode"><strong>{{rnsRemarks.empCode.firstName}} {{rnsRemarks.empCode.lastName}}({{rnsRemarks.empCode.login}}):</strong></ng-container>
+                <span class="time-right" *ngIf="rnsRemarks.approvalType">
+                    <ng-container *ngIf="rnsRemarks.approvalType=='R'">Request for RFQ</ng-container>
+                    <ng-container *ngIf="rnsRemarks.approvalType=='B'">Request for Bidding</ng-container>
+                    <ng-container *ngIf="rnsRemarks.approvalType=='A'">Request for RFQ and Bidding</ng-container>
+                </span>
+                <p>{{rnsRemarks.remarks}}</p>
+                <span style="padding: 10px;"><span class="time-left font-weight-light font-italic" *ngIf="rnsRemarks.rnsForwardTypeMaster">{{rnsRemarks.rnsForwardTypeMaster.description}}</span><span class="time-right">{{rnsRemarks.authDate | date:'dd-MMM-yy hh:mm a'}}</span></span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer modal-footer-padding">
+        <div class="form-group" *ngIf="flowType=='A' && rnsQuotation && rnsQuotation.user && account">
+            <label class="form-control-label">Approval Request For</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_ApprovalType" name="field_ApprovalType" [(ngModel)]="rnsQuotationRemarkDetails.approvalType" required [disabled]="rnsQuotation.user.login!=account.login || isValidForm()">
+                <option [ngValue]="null">Select</option>
+                <option value="A">Both RFQ & Bidding</option>
+                <option value="R">RFQ Only</option>
+                <option value="B">Bidding Only</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Action</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_authType" name="authType" [(ngModel)]="rnsQuotationRemarkDetails.authType" required maxlength="1" #authType  (ngModelChange)="onChangeAuthType(authType.value)" [disabled]="isValidForm()">
+                <option [ngValue]="null">Select</option>
+                <option *ngFor="let rnsForwardTypeMaster of rnsForwardTypeMasters;" value="{{rnsForwardTypeMaster?.code}}">{{rnsForwardTypeMaster?.description}}</option>
+            </select>
+        </div>
+        <div class="form-group" [hidden]="rnsQuotationRemarkDetails.authType=='C' || rnsQuotationRemarkDetails.authType=='R'">
+            <label>Forward To</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_forwardCode" name="forwardCode" [(ngModel)]="rnsQuotationRemarkDetails.forwardCode" required [disabled]="isValidForm()">
+                <option [ngValue]="null">Select</option>
+                <option *ngFor="let rnsEmpLinkMaster of rnsEmpLinkMasters;" [ngValue]="rnsEmpLinkMaster.forwardEmpCode">{{rnsEmpLinkMaster.forwardEmpCode.login}}-{{rnsEmpLinkMaster.forwardEmpCode.firstName +' '+rnsEmpLinkMaster.forwardEmpCode.lastName}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer modal-footer-padding-border">
+        <div class="input-group">
+            <input itype="text" class="form-control form-control-sm" placeholder="Write your message here..." name="remarks" id="field_remarks" [(ngModel)]="rnsQuotationRemarkDetails.remarks" required #field_remarks="ngModel" [disabled]="isValidForm()">
+            <span class="input-group-btn">
+                <button type="submit" [disabled]="editForm.form.invalid || isSaving || isValidForm()" class="btn btn-primary btn-sm">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Send</span>
+                </button>
+            </span>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Close</span>
+        </button>
+    </div>
+</form>

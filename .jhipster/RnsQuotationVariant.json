@@ -1,0 +1,189 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "quotation",
+            "otherEntityName": "rnsQuotationVendors",
+            "otherEntityRelationshipName": "variant"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "quotation",
+            "otherEntityName": "rnsQuotation",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec1Value",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec2Value",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec3",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec3Value",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec4",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec4Value",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec5",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec5Value",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec6",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec6Value",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec7",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec7Value",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec8",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec8Value",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec9",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec9Value",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec10",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "varDescSpec10Value",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "eventDefType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "eventDefCategory",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "eventDefTechnology",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "eventDefDefectCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "eventDefText1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dealtermCompletionBy",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "dealtermValidUntil",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "dealtermPaymentTerms",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dealtermDeliveryTerms",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dealtermDeliverAt",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dealtermText2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "orderQuantity",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "orderUom",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "remarks",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "historicalPrice",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "currency",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "natureOfPrice",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "openCosting",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uploadFlag",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bidStartPrice",
+            "fieldType": "Float"
+        }
+    ],
+    "changelogDate": "20180310101146",
+    "entityTableName": "rns_quotation_variant",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

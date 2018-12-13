@@ -1,0 +1,122 @@
+<div>
+    <h5>
+        <span>Quotation Variants</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-rns-quotation-variant"
+                [routerLink]="['/', { outlets: { popup: ['rns-quotation-variant-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsQuotationVariants">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Title</span></th>
+                                    <th><span>Var Desc Spec 1</span></th>
+                                    <th><span>Var Desc Spec 1 Value</span></th>
+                                    <th><span>Var Desc Spec 2</span></th>
+                                    <th><span>Var Desc Spec 2 Value</span></th>
+                                    <th><span>Var Desc Spec 3</span></th>
+                                    <th><span>Var Desc Spec 3 Value</span></th>
+                                    <th><span>Var Desc Spec 4</span></th>
+                                    <th><span>Var Desc Spec 4 Value</span></th>
+                                    <th><span>Var Desc Spec 5</span></th>
+                                    <th><span>Var Desc Spec 5 Value</span></th>
+                                    <th><span>Event Def Type</span></th>
+                                    <th><span>Event Def Category</span></th>
+                                    <th><span>Event Def Technology</span></th>
+                                    <th><span>Event Def Defect Code</span></th>
+                                    <th><span>Event Def Text 1</span></th>
+                                    <th><span>Dealterm Completion By</span></th>
+                                    <th><span>Dealterm Valid Until</span></th>
+                                    <th><span>Dealterm Payment Terms</span></th>
+                                    <th><span>Dealterm Delivery Terms</span></th>
+                                    <th><span>Tax Terms</span></th>
+                                    <th><span>Dealterm Deliver At</span></th>
+                                    <th><span>Dealterm Text 2</span></th>
+                                    <th><span>Order Quantity</span></th>
+                                    <th><span>Order Uom</span></th>
+                                    <th><span>Remarks</span></th>
+                                    <th><span>Quotation</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsQuotationVariant of rnsQuotationVariants ;">
+                                    <td><a [routerLink]="['../rns-quotation-variant', rnsQuotationVariant.id ]">{{rnsQuotationVariant.id}}</a>
+                                    </td>
+                                    <td>{{rnsQuotationVariant.title}}</td>
+                                    <td>{{rnsQuotationVariant.varDescSpec1}}</td>
+                                    <td>{{rnsQuotationVariant.varDescSpec1Value}}</td>
+                                    <td>{{rnsQuotationVariant.varDescSpec2}}</td>
+                                    <td>{{rnsQuotationVariant.varDescSpec2Value}}</td>
+                                    <td>{{rnsQuotationVariant.varDescSpec3}}</td>
+                                    <td>{{rnsQuotationVariant.varDescSpec3Value}}</td>
+                                    <td>{{rnsQuotationVariant.varDescSpec4}}</td>
+                                    <td>{{rnsQuotationVariant.varDescSpec4Value}}</td>
+                                    <td>{{rnsQuotationVariant.varDescSpec5}}</td>
+                                    <td>{{rnsQuotationVariant.varDescSpec5Value}}</td>
+                                    <td>{{rnsQuotationVariant.eventDefType}}</td>
+                                    <td>{{rnsQuotationVariant.eventDefCategory}}</td>
+                                    <td>{{rnsQuotationVariant.eventDefTechnology}}</td>
+                                    <td>{{rnsQuotationVariant.eventDefDefectCode}}</td>
+                                    <td>{{rnsQuotationVariant.eventDefText1}}</td>
+                                    <td>{{rnsQuotationVariant.dealtermCompletionBy | date:'mediumDate'}}</td>
+                                    <td>{{rnsQuotationVariant.dealtermValidUntil}}</td>
+                                    <td>{{rnsQuotationVariant.dealtermPaymentTerms}}</td>
+                                    <td>{{rnsQuotationVariant.dealtermDeliveryTerms}}</td>
+                                    <td>{{rnsQuotationVariant.taxTerms}}</td>
+                                    <td>{{rnsQuotationVariant.dealtermDeliverAt}}</td>
+                                    <td>{{rnsQuotationVariant.dealtermText2}}</td>
+                                    <td>{{rnsQuotationVariant.orderQuantity}}</td>
+                                    <td>{{rnsQuotationVariant.orderUom}}</td>
+                                    <td>{{rnsQuotationVariant.remarks}}</td>
+                                    <td>
+                                        <div *ngIf="rnsQuotationVariant.quotation">
+                                            <a [routerLink]="['../rns-quotation', rnsQuotationVariant.quotation?.id ]">{{rnsQuotationVariant.quotation?.id}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-quotation-variant', rnsQuotationVariant.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-variant/'+ rnsQuotationVariant.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation-variant/'+ rnsQuotationVariant.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

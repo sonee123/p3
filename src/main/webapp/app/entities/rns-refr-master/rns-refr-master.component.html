@@ -1,0 +1,82 @@
+<div>
+    <h5>
+        <span>Refr Masters</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-rns-refr-master"
+                [routerLink]="['/', { outlets: { popup: ['rns-refr-master-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsRefrMasters">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Subcode</span></th>
+                                    <th><span>Sub Code Desc</span></th>
+                                    <th><span>Status</span></th>
+                                    <th><span>Created By</span></th>
+                                    <th><span>Created Date</span></th>
+                                    <th><span>Last Modified By</span></th>
+                                    <th><span>Refr Details</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsRefrMaster of rnsRefrMasters ;">
+                                    <td><a [routerLink]="['../rns-refr-master', rnsRefrMaster.id ]">{{rnsRefrMaster.id}}</a>
+                                    </td>
+                                    <td>{{rnsRefrMaster.subcode}}</td>
+                                    <td>{{rnsRefrMaster.subCodeDesc}}</td>
+                                    <td>{{rnsRefrMaster.status}}</td>
+                                    <td>{{rnsRefrMaster.createdBy}}</td>
+                                    <td>{{rnsRefrMaster.createdDate | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td>{{rnsRefrMaster.lastModifiedBy}}</td>
+                                    <td>
+                                        <div *ngIf="rnsRefrMaster.rnsRefrDetails">
+                                            <a [routerLink]="['../rns-refr-details', rnsRefrMaster.rnsRefrDetails?.id ]">{{rnsRefrMaster.rnsRefrDetails?.subCode}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-refr-master', rnsRefrMaster.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-refr-master/'+ rnsRefrMaster.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-refr-master/'+ rnsRefrMaster.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

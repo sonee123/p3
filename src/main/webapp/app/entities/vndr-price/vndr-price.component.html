@@ -1,0 +1,103 @@
+<div>
+    <h5>
+        <span>Vendor Prices</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-vndr-price"
+                [routerLink]="['/', { outlets: { popup: ['vndr-price-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="vndrPrices">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Price One</span></th>
+                                    <th><span>Price Two</span></th>
+                                    <th><span>Price Three</span></th>
+                                    <th><span>Price Four</span></th>
+                                    <th><span>Price Five</span></th>
+                                    <th><span>Price Six</span></th>
+                                    <th><span>Price Seven</span></th>
+                                    <th><span>Price Eight</span></th>
+                                    <th><span>Price Nine</span></th>
+                                    <th><span>Price Ten</span></th>
+                                    <th><span>Vendor Code</span></th>
+                                    <th><span>Variant</span></th>
+                                    <th><span>Vendor Quotation</span></th>
+                                    <th><span>Currency</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let vndrPrice of vndrPrices ;trackBy: trackId">
+                                    <td><a [routerLink]="['../vndr-price', vndrPrice.id ]">{{vndrPrice.id}}</a></td>
+                                    <td>{{vndrPrice.priceOne}}</td>
+                                    <td>{{vndrPrice.priceTwo}}</td>
+                                    <td>{{vndrPrice.priceThree}}</td>
+                                    <td>{{vndrPrice.priceFour}}</td>
+                                    <td>{{vndrPrice.priceFive}}</td>
+                                    <td>{{vndrPrice.priceSix}}</td>
+                                    <td>{{vndrPrice.priceSeven}}</td>
+                                    <td>{{vndrPrice.priceEight}}</td>
+                                    <td>{{vndrPrice.priceNine}}</td>
+                                    <td>{{vndrPrice.priceTen}}</td>
+                                    <td>{{vndrPrice.vendorCode}}</td>
+                                    <td>
+                                        <div *ngIf="vndrPrice.variant">
+                                            <a [routerLink]="['../rns-quotation-variant', vndrPrice.variant?.id ]">{{vndrPrice.variant?.title}}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="vndrPrice.vndrQuotation">
+                                            <a [routerLink]="['../rns-quotation-vendors', vndrPrice.vndrQuotation?.id ]">{{vndrPrice.vndrQuotation?.id}}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="vndrPrice.currency">
+                                            <a [routerLink]="['../currency', vndrPrice.currency?.id ]">{{vndrPrice.currency?.currency}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../vndr-price', vndrPrice.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'vndr-price/'+ vndrPrice.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'vndr-price/'+ vndrPrice.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,167 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsQuotationVariantLabel">Create or edit a Rns Quotation Variant</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsQuotationVariant.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsQuotationVariant.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_title">Title</label>
+            <input type="text" class="form-control form-control-sm" name="title" id="field_title"
+                [(ngModel)]="rnsQuotationVariant.title" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_varDescSpec1">Var Desc Spec 1</label>
+            <input type="text" class="form-control form-control-sm" name="varDescSpec1" id="field_varDescSpec1"
+                [(ngModel)]="rnsQuotationVariant.varDescSpec1" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_varDescSpec1Value">Var Desc Spec 1 Value</label>
+            <input type="text" class="form-control form-control-sm" name="varDescSpec1Value" id="field_varDescSpec1Value"
+                [(ngModel)]="rnsQuotationVariant.varDescSpec1Value" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_varDescSpec2">Var Desc Spec 2</label>
+            <input type="text" class="form-control form-control-sm" name="varDescSpec2" id="field_varDescSpec2"
+                [(ngModel)]="rnsQuotationVariant.varDescSpec2" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_varDescSpec2Value">Var Desc Spec 2 Value</label>
+            <input type="text" class="form-control form-control-sm" name="varDescSpec2Value" id="field_varDescSpec2Value"
+                [(ngModel)]="rnsQuotationVariant.varDescSpec2Value" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_varDescSpec3">Var Desc Spec 3</label>
+            <input type="text" class="form-control form-control-sm" name="varDescSpec3" id="field_varDescSpec3"
+                [(ngModel)]="rnsQuotationVariant.varDescSpec3" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_varDescSpec3Value">Var Desc Spec 3 Value</label>
+            <input type="text" class="form-control form-control-sm" name="varDescSpec3Value" id="field_varDescSpec3Value"
+                [(ngModel)]="rnsQuotationVariant.varDescSpec3Value" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_varDescSpec4">Var Desc Spec 4</label>
+            <input type="text" class="form-control form-control-sm" name="varDescSpec4" id="field_varDescSpec4"
+                [(ngModel)]="rnsQuotationVariant.varDescSpec4" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_varDescSpec4Value">Var Desc Spec 4 Value</label>
+            <input type="text" class="form-control form-control-sm" name="varDescSpec4Value" id="field_varDescSpec4Value"
+                [(ngModel)]="rnsQuotationVariant.varDescSpec4Value" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_varDescSpec5">Var Desc Spec 5</label>
+            <input type="text" class="form-control form-control-sm" name="varDescSpec5" id="field_varDescSpec5"
+                [(ngModel)]="rnsQuotationVariant.varDescSpec5" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_varDescSpec5Value">Var Desc Spec 5 Value</label>
+            <input type="text" class="form-control form-control-sm" name="varDescSpec5Value" id="field_varDescSpec5Value"
+                [(ngModel)]="rnsQuotationVariant.varDescSpec5Value" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_eventDefType">Event Def Type</label>
+            <input type="text" class="form-control form-control-sm" name="eventDefType" id="field_eventDefType"
+                [(ngModel)]="rnsQuotationVariant.eventDefType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_eventDefCategory">Event Def Category</label>
+            <input type="text" class="form-control form-control-sm" name="eventDefCategory" id="field_eventDefCategory"
+                [(ngModel)]="rnsQuotationVariant.eventDefCategory" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_eventDefTechnology">Event Def Technology</label>
+            <input type="text" class="form-control form-control-sm" name="eventDefTechnology" id="field_eventDefTechnology"
+                [(ngModel)]="rnsQuotationVariant.eventDefTechnology" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_eventDefDefectCode">Event Def Defect Code</label>
+            <input type="text" class="form-control form-control-sm" name="eventDefDefectCode" id="field_eventDefDefectCode"
+                [(ngModel)]="rnsQuotationVariant.eventDefDefectCode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_eventDefText1">Event Def Text 1</label>
+            <input type="text" class="form-control form-control-sm" name="eventDefText1" id="field_eventDefText1"
+                [(ngModel)]="rnsQuotationVariant.eventDefText1" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_dealtermCompletionBy">Dealterm Completion By</label>
+            <div class="input-group">
+                <input id="field_dealtermCompletionBy" type="text" class="form-control form-control-sm" name="dealtermCompletionBy" ngbDatepicker  #dealtermCompletionByDp="ngbDatepicker" [(ngModel)]="rnsQuotationVariant.dealtermCompletionBy"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="dealtermCompletionByDp.toggle()"><fa-icon [icon]="'calendar'"></fa-icon></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_dealtermValidUntil">Dealterm Valid Until</label>
+            <input type="number" class="form-control form-control-sm" name="dealtermValidUntil" id="field_dealtermValidUntil"
+                [(ngModel)]="rnsQuotationVariant.dealtermValidUntil" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_dealtermPaymentTerms">Dealterm Payment Terms</label>
+            <input type="text" class="form-control form-control-sm" name="dealtermPaymentTerms" id="field_dealtermPaymentTerms"
+                [(ngModel)]="rnsQuotationVariant.dealtermPaymentTerms" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_dealtermDeliveryTerms">Dealterm Delivery Terms</label>
+            <input type="text" class="form-control form-control-sm" name="dealtermDeliveryTerms" id="field_dealtermDeliveryTerms"
+                [(ngModel)]="rnsQuotationVariant.dealtermDeliveryTerms" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_taxTerms">Tax Terms</label>
+            <input type="text" class="form-control form-control-sm" name="taxTerms" id="field_taxTerms"
+                [(ngModel)]="rnsQuotationVariant.taxTerms" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_dealtermDeliverAt">Dealterm Deliver At</label>
+            <input type="text" class="form-control form-control-sm" name="dealtermDeliverAt" id="field_dealtermDeliverAt"
+                [(ngModel)]="rnsQuotationVariant.dealtermDeliverAt" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_dealtermText2">Dealterm Text 2</label>
+            <input type="text" class="form-control form-control-sm" name="dealtermText2" id="field_dealtermText2"
+                [(ngModel)]="rnsQuotationVariant.dealtermText2" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_orderQuantity">Order Quantity</label>
+            <input type="text" class="form-control form-control-sm" name="orderQuantity" id="field_orderQuantity"
+                [(ngModel)]="rnsQuotationVariant.orderQuantity" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_orderUom">Order Uom</label>
+            <input type="text" class="form-control form-control-sm" name="orderUom" id="field_orderUom"
+                [(ngModel)]="rnsQuotationVariant.orderUom" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_remarks">Remarks</label>
+            <input type="text" class="form-control form-control-sm" name="remarks" id="field_remarks"
+                [(ngModel)]="rnsQuotationVariant.remarks" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_quotation">Quotation</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_quotation" name="quotation" [(ngModel)]="rnsQuotationVariant.quotation" >
+               <!--  <option [ngValue]="null"></option> -->
+                <option [ngValue]="rnsQuotationOption.id === rnsQuotationVariant.quotation?.id ? rnsQuotationVariant.quotation : rnsQuotationOption" *ngFor="let rnsQuotationOption of rnsquotations; trackBy: trackRnsQuotationById">{{rnsQuotationOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

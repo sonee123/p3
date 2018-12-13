@@ -1,0 +1,377 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myTemplateLabel">Create or edit a Template</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div style="float: right;" class="row" [hidden]="!template.id">
+            <div class="col-md-12">
+                <b>Created :</b>
+                <div *ngIf="template.user" style="display: inline;">{{template.user?.firstName}} ({{template.createdDate |date:'dd-MMM-yy h:mm a'}})</div> &nbsp;&nbsp;
+                <b>Last Modified:</b>
+                <div *ngIf="template.updatedUser" style="display: inline;"> {{template.updatedUser?.firstName}}({{template.lastUpdatedDate |date:'dd-MMM-yy h:mm a'}})</div>
+            </div>
+        </div>
+        <div style="width: 100%;" class="row">
+            <div class="col-md-12">
+                <div class="form-group" [hidden]="!template.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 1" id="id" name="id" [(ngModel)]="template.id" readonly/>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;" class="row">
+            <div class="col-md-6 pull-left">
+                <label class="form-control-label" for="field_templateName">Template Name</label>
+                <input type="text" class="form-control form-control-sm" placeholder="Template Name" name="templateName" id="field_templateName"
+                    [(ngModel)]="template.templateName" [disabled]="template.id?'true':'false'" required/>
+            </div>
+            <div class="col-md-4 pull-left" >
+                <label class="form-control-label" for="field_rnsCatgCode">Category Code</label>
+                <select class="custom-select custom-select-sm form-control form-control-sm" id="field_rnsCatgCode" style="height: 28px; float: left;" name="rnsCatgCode" [(ngModel)]="template.rnsCatgCode" required>
+                    <option [ngValue]="undefined" hidden selected>Select Category Code</option>
+                    <option [ngValue]="rnsCatgMasterOption.id === template.rnsCatgCode?.id ? template.rnsCatgCode : rnsCatgMasterOption" *ngFor="let rnsCatgMasterOption of rnscatgmasters; trackBy: trackRnsCatgMasterById">{{rnsCatgMasterOption.catgCode}}&nbsp;&nbsp;-&nbsp;{{rnsCatgMasterOption.catgCodeDesc}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="clearfix"></div><p></p>
+
+        <table class="table table-striped ">
+            <!-- <tr>
+                 <th>
+                    <label>Show In RFQ</label>&nbsp;&nbsp;
+                    <input type="checkbox"  name="showInRfq" id="field_showInRfq"
+                    [(ngModel)]="template.showInRfq"/>
+                </th>
+                <th>
+                    <label>Show In Auction</label>&nbsp;&nbsp;
+                    <input type="checkbox" name="showInAuction" id="field_showInAuction"
+                    [(ngModel)]="template.showInAuction"/>
+                </th>
+
+            </tr> -->
+            <tr>
+                <th style="text-align: center;">
+                    Specification<span style="
+    font-style: italic;
+    font-size: 9px;"> (Max length 20 characters)</span>
+                </th>
+                <th style="text-align: center;">
+                    Required
+                </th>
+                <th style="text-align: center;">
+                    Show In RFQ
+                </th>
+                <th style="text-align: center;">
+                    Show In Bidding
+                </th>
+                <th style="text-align: center;">
+                   Field Type
+                </th>
+                <th style="text-align: center;">
+                    Values <span style="
+    font-style: italic;
+    font-size: 9px;">(Seperate by comma)</span>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 1" name="specificationOne" id="field_specificationOne" [(ngModel)]="template.specificationOne" maxlength="20"/>
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm" name="specificationOneRequired" id="field_specificationOneRequired" [(ngModel)]="template.specificationOneRequired" />
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm"  name="showInRfqOneRequired" id="field_showInRfqOneRequired"
+                    [(ngModel)]="template.showInRfqOneRequired"/>
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm" name="showInAuctionOneRequired" id="field_showInAuctionOneRequired" [(ngModel)]="template.showInAuctionOneRequired"/>
+                </th>
+                <th width="20%">
+                    <select class="custom-select custom-select-sm form-control form-control-sm" style="height: 28px; float: left;" name="specificationOneShowAs" [(ngModel)]="template.specificationOneShowAs" id="field_specificationOneShowAs" (ngModelChange)="compareDropdown(template.specificationOneShowAs, 'DROPDOWN',template.specificationOneValue, 1)" [required]="(template.specificationOne? 'true' : 'false')">
+                        <option [ngValue]="undefined" hidden selected>Select Field Type 1</option>
+                        <option [ngValue]="null">Select</option>
+                        <option value="TEXTFIELD">TEXTFIELD</option>
+                        <option value="DROPDOWN">DROPDOWN</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder=" Specification 1 values" name="specificationOneValue" id="field_specificationOneValue" [(ngModel)]="template.specificationOneValue" [hidden]="!hideOne" [required]="hideOne"/>
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 2" name="specificationTwo" id="field_specificationTwo"
+                    [(ngModel)]="template.specificationTwo" maxlength="20"/>
+                </th>
+                <th>
+                    <input type="checkbox" class="form-control form-control-sm" style="margin-top: 1em; float: left;" name="specificationTwoRequired" id="field_specificationTwoRequired"
+                    [(ngModel)]="template.specificationTwoRequired" />
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm"  name="showInRfqTwoRequired" id="field_showInRfqTwoRequired"
+                    [(ngModel)]="template.showInRfqTwoRequired"/>
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm" name="showInAuctionTwoRequired" id="field_showInAuctionTwoRequired" [(ngModel)]="template.showInAuctionTwoRequired" />
+                </th>
+                <th>
+                     <select class="custom-select custom-select-sm form-control form-control-sm" style="height: 28px; float: left;" name="specificationTwoShowAs" [(ngModel)]="template.specificationTwoShowAs" id="field_specificationTwoShowAs" (ngModelChange)="compareDropdown(template.specificationTwoShowAs,'DROPDOWN',template.specificationOneValue, 2)"  [required]="(template.specificationTwo? 'true' : 'false')">
+                        <option [ngValue]="undefined" hidden selected>Select Field Type 2</option>
+                        <option [ngValue]="null">Select</option>
+                        <option value="TEXTFIELD">TEXTFIELD</option>
+                        <option value="DROPDOWN">DROPDOWN</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 2 values" name="specificationTwoValue" id="field_specificationTwoValue" [(ngModel)]="template.specificationTwoValue" [hidden]="!hideTwo" [required]="hideTwo"/>
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 3" name="specificationThree" id="field_specificationThree"
+                    [(ngModel)]="template.specificationThree" maxlength="20"/>
+                </th>
+                <th>
+                    <input type="checkbox" class="form-control form-control-sm" style="margin-top: 1em; float: left;" name="specificationThreeRequired" id="field_specificationThreeRequired" [(ngModel)]="template.specificationThreeRequired" />
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm"  name="showInRfqThreeRequired" id="field_showInRfqThreeRequired"
+                    [(ngModel)]="template.showInRfqThreeRequired"/>
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm" name="showInAuctionThreeRequired" id="field_showInAuctionThreeRequired" [(ngModel)]="template.showInAuctionThreeRequired"/>
+                </th>
+                <th>
+                    <select class="custom-select custom-select-sm form-control form-control-sm" style="height: 28px;" name="specificationThreeShowAs" [(ngModel)]="template.specificationThreeShowAs" id="field_specificationThreeShowAs" (ngModelChange)="compareDropdown(template.specificationThreeShowAs, 'DROPDOWN',template.specificationOneValue, 3)" [required]="(template.specificationThree? 'true' : 'false')">
+                        <option [ngValue]="undefined" hidden selected>Select Field Type 3</option>
+                        <option [ngValue]="null">Select</option>
+                        <option value="TEXTFIELD">TEXTFIELD</option>
+                        <option value="DROPDOWN">DROPDOWN</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 3 values" name="specificationThreeValue" id="field_specificationThreeValue" [(ngModel)]="template.specificationThreeValue" [hidden]="!hideThree" [required]="hideThree"/>
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 4" name="specificationFour" id="field_specificationFour" [(ngModel)]="template.specificationFour" maxlength="20"/>
+                </th>
+                <th>
+                    <input type="checkbox" class="form-control form-control-sm" style="margin-top: 1em; float: left;" name="specificationFourRequired" id="field_specificationFourRequired" [(ngModel)]="template.specificationFourRequired" />
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm"  name="showInRfqFourRequired" id="field_showInRfqFourRequired"
+                    [(ngModel)]="template.showInRfqFourRequired"/>
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm" name="showInAuctionFourRequired" id="field_showInAuctionFourRequired" [(ngModel)]="template.showInAuctionFourRequired"/>
+                </th>
+                <th>
+                    <select class="custom-select custom-select-sm form-control form-control-sm" style="height: 28px;" name="specificationFourShowAs" [(ngModel)]="template.specificationFourShowAs" id="field_specificationFourShowAs" (ngModelChange)="compareDropdown(template.specificationFourShowAs, 'DROPDOWN',template.specificationOneValue, 4)" [required]="(template.specificationFour? 'true' : 'false')">
+                        <option [ngValue]="undefined" hidden selected>Select Field Type 4</option>
+                        <option [ngValue]="null">Select</option>
+                        <option value="TEXTFIELD">TEXTFIELD</option>
+                        <option value="DROPDOWN">DROPDOWN</option>
+                    </select>
+                </th>
+                <th >
+                     <input type="text" class="form-control form-control-sm" placeholder="Specification 4 values" name="specificationFourValue" id="field_specificationFourValue" [(ngModel)]="template.specificationFourValue" [hidden]="!hideFour" [required]="hideFour"/>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 5" name="specificationFive" id="field_specificationFive" [(ngModel)]="template.specificationFive" maxlength="20"/>
+                </th>
+                <th>
+                    <input type="checkbox" class="form-control form-control-sm" style="margin-top: 1em; float: left;" name="specificationFiveRequired" id="field_specificationFiveRequired" [(ngModel)]="template.specificationFiveRequired" />
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm"  name="showInRfqFiveRequired" id="field_showInRfqFiveRequired"
+                    [(ngModel)]="template.showInRfqFiveRequired"/>
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm" name="showInAuctionFiveRequired" id="field_showInAuctionFiveRequired"
+                    [(ngModel)]="template.showInAuctionFiveRequired"/>
+                </th>
+                <th>
+                    <select class="custom-select custom-select-sm form-control form-control-sm" style="height: 28px;" name="specificationFiveShowAs" [(ngModel)]="template.specificationFiveShowAs" id="field_specificationFiveShowAs" (ngModelChange)="compareDropdown(template.specificationFiveShowAs, 'DROPDOWN',template.specificationOneValue, 5)"  [required]="(template.specificationFive? 'true' : 'false')">
+                        <option [ngValue]="undefined" hidden selected>Select Field Type 5</option>
+                        <option [ngValue]="null">Select</option>
+                        <option value="TEXTFIELD">TEXTFIELD</option>
+                        <option value="DROPDOWN">DROPDOWN</option>
+                    </select>
+                </th>
+                <th>
+                     <input type="text" class="form-control form-control-sm" placeholder="Specification 5 values" name="specificationFiveValue" id="field_specificationFiveValue" [(ngModel)]="template.specificationFiveValue" [hidden]="!hideFive" [required]="hideFive"/>
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 6" name="specificationSix" id="field_specificationSix" [(ngModel)]="template.specificationSix" maxlength="20"/>
+                </th>
+                <th>
+                    <input type="checkbox" class="form-control form-control-sm" style="margin-top: 1em; float: left;" name="specificationSixRequired" id="field_specificationSixRequired" [(ngModel)]="template.specificationSixRequired" />
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm"  name="showInRfqSixRequired" id="field_showInRfqSixRequired"
+                    [(ngModel)]="template.showInRfqSixRequired"/>
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm" name="showInAuctionSixRequired" id="field_showInAuctionSixRequired"
+                    [(ngModel)]="template.showInAuctionSixRequired"/>
+                </th>
+                <th>
+                    <select class="custom-select custom-select-sm form-control form-control-sm" style="height: 28px;" name="specificationSixShowAs" [(ngModel)]="template.specificationSixShowAs" id="field_specificationSixShowAs" (ngModelChange)="compareDropdown(template.specificationSixShowAs,'DROPDOWN',template.specificationOneValue, 6)" [required]="(template.specificationSix? 'true' : 'false')">
+                        <option [ngValue]="undefined" hidden selected>Select Field Type 6</option>
+                        <option [ngValue]="null">Select</option>
+                        <option value="TEXTFIELD">TEXTFIELD</option>
+                        <option value="DROPDOWN">DROPDOWN</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 6 values" name="specificationSixValue" id="field_specificationSixValue" [(ngModel)]="template.specificationSixValue" [hidden]="!hideSix" [required]="hideSix"/>
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 7" name="specificationSeven" id="field_specificationSeven"
+                    [(ngModel)]="template.specificationSeven" maxlength="20"/>
+                </th>
+                <th>
+                     <input type="checkbox" class="form-control form-control-sm" style="margin-top: 1em; float: left;" name="specificationSevenRequired" id="field_specificationSevenRequired"
+                    [(ngModel)]="template.specificationSevenRequired" />
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm"  name="showInRfqSevenRequired" id="field_showInRfqSevenRequired"
+                    [(ngModel)]="template.showInRfqSevenRequired"/>
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm" name="showInAuctionSevenRequired" id="field_showInAuctionSevenRequired"
+                    [(ngModel)]="template.showInAuctionSevenRequired"/>
+                </th>
+                <th>
+                    <select class="custom-select custom-select-sm form-control form-control-sm" style="height: 28px;" name="specificationSevenShowAs" [(ngModel)]="template.specificationSevenShowAs" id="field_specificationSevenShowAs" (ngModelChange)="compareDropdown(template.specificationSevenShowAs,'DROPDOWN',template.specificationOneValue, 7)" [required]="(template.specificationSeven? 'true' : 'false')">
+                        <option [ngValue]="undefined" hidden selected>Select Field Type 7</option>
+                        <option [ngValue]="null">Select</option>
+                        <option value="TEXTFIELD">TEXTFIELD</option>
+                        <option value="DROPDOWN">DROPDOWN</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 7 values" name="specificationSevenValue" id="field_specificationSevenValue" [(ngModel)]="template.specificationSevenValue" [hidden]="!hideSeven" [required]="hideSeven"/>
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 8" name="specificationEight" id="field_specificationEight"
+                    [(ngModel)]="template.specificationEight" maxlength="20"/>
+                </th>
+                <th>
+                    <input type="checkbox" class="form-control form-control-sm" style="margin-top: 1em; float: left;" name="specificationEightRequired" id="field_specificationEightRequired"
+                    [(ngModel)]="template.specificationEightRequired" />
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm"  name="showInRfqEightRequired" id="field_showInRfqEightRequired"
+                    [(ngModel)]="template.showInRfqEightRequired"/>
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm" name="showInAuctionEightRequired" id="field_showInAuctionEightRequired"
+                    [(ngModel)]="template.showInAuctionEightRequired"/>
+                </th>
+                <th>
+                    <select class="custom-select custom-select-sm form-control form-control-sm" style="height: 28px;" name="specificationEightShowAs" [(ngModel)]="template.specificationEightShowAs" id="field_specificationEightShowAs" (ngModelChange)="compareDropdown(template.specificationEightShowAs,'DROPDOWN',template.specificationOneValue, 8)" [required]="(template.specificationEight? 'true' : 'false')">
+                        <option [ngValue]="undefined" hidden selected>Select Field Type 8</option>
+                        <option [ngValue]="null">Select</option>
+                        <option value="TEXTFIELD">TEXTFIELD</option>
+                        <option value="DROPDOWN">DROPDOWN</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 8 values" name="specificationEightValue" id="field_specificationEightValue" [(ngModel)]="template.specificationEightValue" [hidden]="!hideEight" [required]="hideEight"/>
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 9" name="specificationNine" id="field_specificationNine"
+                    [(ngModel)]="template.specificationNine" maxlength="20"/>
+                </th>
+                <th>
+                    <input type="checkbox" class="form-control form-control-sm" style="margin-top: 1em; float: left;" name="specificationNineRequired" id="field_specificationNineRequired"
+                    [(ngModel)]="template.specificationNineRequired" />
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm"  name="showInRfqNineRequired" id="field_showInRfqNineRequired"
+                    [(ngModel)]="template.showInRfqNineRequired"/>
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm" name="showInAuctionNineRequired" id="field_showInAuctionNineRequired"
+                    [(ngModel)]="template.showInAuctionNineRequired"/>
+                </th>
+                <th>
+                    <select class="custom-select custom-select-sm form-control form-control-sm" style="height: 28px;" name="specificationNineShowAs" [(ngModel)]="template.specificationNineShowAs" id="field_specificationNineShowAs" (ngModelChange)="compareDropdown(template.specificationNineShowAs,'DROPDOWN',template.specificationOneValue, 9)" [required]="(template.specificationNine? 'true' : 'false')">
+                        <option [ngValue]="undefined" hidden selected>Select Field Type 9</option>
+                        <option [ngValue]="null">Select</option>
+                        <option value="TEXTFIELD">TEXTFIELD</option>
+                        <option value="DROPDOWN">DROPDOWN</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 9 values" name="specificationNineValue" id="field_specificationNineValue" [(ngModel)]="template.specificationNineValue" [hidden]="!hideNine" [required]="hideNine"/>
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                     <input type="text" class="form-control form-control-sm" placeholder="Specification 10" name="specificationTen" id="field_specificationTen" [(ngModel)]="template.specificationTen" maxlength="20"/>
+                </th>
+                <th>
+                    <input type="checkbox" class="form-control form-control-sm" style="margin-top: 1em; float: left;" name="specificationTenRequired" id="field_specificationTenRequired" [(ngModel)]="template.specificationTenRequired" />
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm"  name="showInRfqTenRequired" id="field_showInRfqTenRequired"
+                    [(ngModel)]="template.showInRfqTenRequired"/>
+                </th>
+                <th>
+                    <input type="checkbox" style="margin-top: 1em; float: left;" class="form-control form-control-sm" name="showInAuctionTenRequired" id="field_showInAuctionTenRequired"
+                    [(ngModel)]="template.showInAuctionTenRequired"/>
+                </th>
+                <th>
+                    <select class="custom-select custom-select-sm form-control form-control-sm" style="height: 28px; " name="specificationTenShowAs" [(ngModel)]="template.specificationTenShowAs" id="field_specificationTenShowAs" (ngModelChange)="compareDropdown(template.specificationTenShowAs, 'DROPDOWN',template.specificationOneValue, 10)" [required]="(template.specificationTen? 'true' : 'false')">
+                        <option [ngValue]="undefined" hidden selected>Select Field Type 10</option>
+                        <option [ngValue]="null">Select</option>
+                        <option value="TEXTFIELD">TEXTFIELD</option>
+                        <option value="DROPDOWN">DROPDOWN</option>
+                    </select>
+                </th>
+                <th >
+                    <input type="text" class="form-control form-control-sm" placeholder="Specification 10 values" name="specificationTenValue" id="field_specificationTenValue" [(ngModel)]="template.specificationTenValue"  [hidden]="!hideTen" [required]="hideTen"/>
+                </th>
+            </tr>
+
+
+
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="template.exist || editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

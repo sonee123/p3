@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property dbms="mysql,h2,postgresql" value="true" name="autoIncrement"/>
+    <property dbms="oracle" value="false" name="autoIncrement"/>
+
+    <!--
+        Added the entity Template.
+    -->
+    <changeSet id="20180210062210-1" author="jhipster">
+        <createTable tableName="template">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="template_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_one" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_one_show_as" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_one_value" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_one_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_rfq_one_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_auction_one_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_two" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_two_show_as" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_two_value" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_two_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_rfq_two_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_auction_two_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_three" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_three_show_as" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_three_value" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_three_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_rfq_three_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_auction_three_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_four" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_four_show_as" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_four_value" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_four_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_rfq_four_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_auction_four_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_five" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_five_show_as" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_five_value" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_five_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_rfq_five_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_auction_five_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_six" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_six_show_as" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_six_value" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_six_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_rfq_six_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_auction_six_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_seven" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_seven_show_as" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_seven_value" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_seven_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_rfq_seven_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_auction_seven_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_eight" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_eight_show_as" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_eight_value" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_eight_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_rfq_eight_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_auction_eight_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_nine" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_nine_show_as" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_nine_value" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_nine_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_rfq_nine_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_auction_nine_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_ten" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_ten_show_as" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_ten_value" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="specification_ten_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_rfq_ten_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="show_in_auction_ten_required" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+
+            <column name="rns_catg_code_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+               <column name="created_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+             <column name="updated_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_updated_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="flag" type="bit">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <createSequence startValue="1" sequenceName="template_seq" ordered="true" incrementBy="1" cycle="false"/>
+        <createProcedure dbms="oracle" relativeToChangelogFile="true" procedureName="template_procedure" encoding="utf8" catalogName="template_catalog"> CREATE TRIGGER template_trigger BEFORE INSERT ON template FOR EACH ROW BEGIN IF( :NEW.id IS NULL ) THEN :NEW.id:=template_seq.NEXTVAL; END IF; END; </createProcedure>
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

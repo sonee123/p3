@@ -1,0 +1,33 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsBuyerMasterLabel">Create or edit a End User Master</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsBuyerMaster.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsBuyerMaster.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_buyerCode">End User Code</label>
+            <input type="text" class="form-control form-control-sm" name="buyerCode" id="field_buyerCode" [(ngModel)]="rnsBuyerMaster.buyerCode" required [disabled]="rnsBuyerMaster.id?'true':'false'"/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_buyerName">End User Name</label>
+            <input type="text" class="form-control form-control-sm" name="buyerName" id="field_buyerName" [(ngModel)]="rnsBuyerMaster.buyerName" required />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,102 @@
+<div>
+    <h5>
+        <span>Quotations</span>
+        <button class="btn btn-primary float-right btn-sm jh-create-entity create-rns-quotation"
+                [routerLink]="['/', { outlets: { popup: ['rns-quotation-new'] } }]">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="rnsQuotations">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>ID</span></th>
+                                    <th><span>Category Name</span></th>
+                                    <th><span>Quote Number</span></th>
+                                    <th><span>Quote Type</span></th>
+                                    <th><span>Validity</span></th>
+                                    <th><span>Internal Remarks</span></th>
+                                    <th><span>Created On</span></th>
+                                    <th><span>CRM Request Number</span></th>
+                                    <th><span>Requested By</span></th>
+                                    <th><span>PCH Code</span></th>
+                                    <th><span>Target PCD</span></th>
+                                    <th><span>Buyer Code</span></th>
+                                    <th><span>Buyer Name</span></th>
+                                    <th><span>Merchant Remarks</span></th>
+                                    <th><span>Date</span></th>
+                                    <th><span>Article Code</span></th>
+                                    <th><span>Article Description</span></th>
+                                    <th><span>Category Code</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rnsQuotation of rnsQuotations ;trackBy: trackId">
+                                    <td><a [routerLink]="['../rns-quotation', rnsQuotation.id ]">{{rnsQuotation.id}}</a>
+                                    </td>
+                                    <td>{{rnsQuotation.catgName}}</td>
+                                    <td>{{rnsQuotation.quoteNumber}}</td>
+                                    <td>{{rnsQuotation.quoteType}}</td>
+                                    <td>{{rnsQuotation.validity | date:'dd/MM/yyyy HH:mm'}}</td>
+                                    <td>{{rnsQuotation.internalRemarks}}</td>
+                                    <td>{{rnsQuotation.createdOn | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td>{{rnsQuotation.crmRequestNumber}}</td>
+                                    <td>{{rnsQuotation.requestedBy}}</td>
+                                    <td>{{rnsQuotation.pchCode}}</td>
+                                    <td>{{rnsQuotation.targetPcd | date:'mediumDate'}}</td>
+                                    <td>{{rnsQuotation.buyerCode}}</td>
+                                    <td>{{rnsQuotation.buyerName}}</td>
+                                    <td>{{rnsQuotation.merchantRemarks}}</td>
+                                    <td>{{rnsQuotation.date | date:'dd-MMM-yy h:mm a'}}</td>
+                                    <td>{{rnsQuotation.articleCode}}</td>
+                                    <td>{{rnsQuotation.articleDesc}}</td>
+                                    <td>
+                                        <div *ngIf="rnsQuotation.rnsCatgCode">
+                                            <a [routerLink]="['../rns-catg-master', rnsQuotation.rnsCatgCode?.id ]">{{rnsQuotation.rnsCatgCode?.catgCode}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit"
+                                                    [routerLink]="['../rns-quotation', rnsQuotation.id ]"
+                                                    class="btn btn-info btn-sm">
+                                                <fa-icon [icon]="'eye'"></fa-icon>
+                                                <span class="d-none d-md-inline">View</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation/'+ rnsQuotation.id + '/edit'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-primary btn-sm">
+                                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                <span class="d-none d-md-inline">Edit</span>
+                                            </button>
+                                            <button type="submit"
+                                                    [routerLink]="['/', { outlets: { popup: 'rns-quotation/'+ rnsQuotation.id + '/delete'} }]"
+                                                    replaceUrl="true"
+                                                    class="btn btn-danger btn-sm">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

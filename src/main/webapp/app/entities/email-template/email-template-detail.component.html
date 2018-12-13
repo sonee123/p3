@@ -1,0 +1,65 @@
+
+<div *ngIf="emailTemplate">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Email Template</span> {{emailTemplate.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Template Code</span></dt>
+                        <dd>
+                            <span>{{emailTemplate.templateCode}}</span>
+                        </dd>
+                        <dt><span>Mail Subject</span></dt>
+                        <dd>
+                            <span>{{emailTemplate.mailSubject}}</span>
+                        </dd>
+                        <dt><span>Mail Body</span></dt>
+                        <dd>
+                            <span [innerHTML]="emailTemplate.mailBody"></span>
+                        </dd>
+                        <dt><span>Notification</span></dt>
+                        <dd>
+                            <span>{{emailTemplate.notification}}</span>
+                        </dd>
+                        <dt><span>Email</span></dt>
+                        <dd>
+                            <span>{{emailTemplate.email}}</span>
+                        </dd>
+                        <!--dt><span>Created By</span></dt>
+                        <dd>
+                            <span>{{emailTemplate.createdBy}}</span>
+                        </dd>
+                        <dt><span>Created Date</span></dt>
+                        <dd>
+                            <span>{{emailTemplate.createdDate | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt><span>Last Updated By</span></dt>
+                        <dd>
+                            <span>{{emailTemplate.lastUpdatedBy}}</span>
+                        </dd>
+                        <dt><span>Last Updated Date</span></dt>
+                        <dd>
+                            <span>{{emailTemplate.lastUpdatedDate | date:'mediumDate'}}</span>
+                        </dd-->
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                            [routerLink]="['/', { outlets: { popup: 'email-template/'+ emailTemplate.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

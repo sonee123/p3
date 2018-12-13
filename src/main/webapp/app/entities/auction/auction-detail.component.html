@@ -1,0 +1,71 @@
+
+<div *ngIf="auction">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Auction</span> {{auction.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Publish Time</span></dt>
+                        <dd>
+                            <span>{{auction.publishTime | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Bidding Start Time</span></dt>
+                        <dd>
+                            <span>{{auction.biddingStartTime | date:'dd-MMM-yy h:mm a'}}</span>
+                        </dd>
+                        <dt><span>Lot Running Time</span></dt>
+                        <dd>
+                            <span>{{auction.lotRunningTime}}</span>
+                        </dd>
+                        <dt><span>Bid Rank Over Time</span></dt>
+                        <dd>
+                            <span>{{auction.bidRankOverTime}}</span>
+                        </dd>
+                        <dt><span>Bid Time For Overtime Start</span></dt>
+                        <dd>
+                            <span>{{auction.bidTimeForOvertimeStart}}</span>
+                        </dd>
+                        <dt><span>Overtime Period</span></dt>
+                        <dd>
+                            <span>{{auction.overtimePeriod}}</span>
+                        </dd>
+                        <dt><span>Show Lead Bid To All</span></dt>
+                        <dd>
+                            <span>{{auction.showLeadBidToAll}}</span>
+                        </dd>
+                        <dt><span>Event</span></dt>
+                        <dd>
+                            <span>{{auction.event}}</span>
+                        </dd>
+                        <dt><span>Time Between Lots</span></dt>
+                        <dd>
+                            <span>{{auction.timeBetweenLots}}</span>
+                        </dd>
+                        <dt><span>Quotation</span></dt>
+                        <dd>
+                            <div *ngIf="auction.quotation">
+                                <a [routerLink]="['/rns-quotation', auction?.quotation?.id]">{{auction?.quotation?.id}}</a>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'auction/'+ auction.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

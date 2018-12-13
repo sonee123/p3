@@ -1,0 +1,123 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="myRnsQuotationLabel">Create or edit a  Quotation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!rnsQuotation.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control form-control-sm" id="id" name="id"
+                   [(ngModel)]="rnsQuotation.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_catgName">Category Name</label>
+            <input type="text" class="form-control form-control-sm" name="catgName" id="field_catgName"
+                [(ngModel)]="rnsQuotation.catgName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_quoteNumber">Quote Number</label>
+            <input type="text" class="form-control form-control-sm" name="quoteNumber" id="field_quoteNumber"
+                [(ngModel)]="rnsQuotation.quoteNumber" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_quoteType">Quote Type</label>
+            <input type="text" class="form-control form-control-sm" name="quoteType" id="field_quoteType"
+                [(ngModel)]="rnsQuotation.quoteType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_validity">Validity</label>
+            <div class="d-flex">
+                <input id="field_validity" type="datetime-local" class="form-control form-control-sm" name="validity" [(ngModel)]="rnsQuotation.validity"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_internalRemarks">Internal Remarks</label>
+            <input type="text" class="form-control form-control-sm" name="internalRemarks" id="field_internalRemarks"
+                [(ngModel)]="rnsQuotation.internalRemarks" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createdOn">Created On</label>
+            <div class="d-flex">
+                <input id="field_createdOn" type="datetime-local" class="form-control form-control-sm" name="createdOn" [(ngModel)]="rnsQuotation.createdOn"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_crmRequestNumber">CRM Request Number</label>
+            <input type="text" class="form-control form-control-sm" name="crmRequestNumber" id="field_crmRequestNumber"
+                [(ngModel)]="rnsQuotation.crmRequestNumber" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_requestedBy">Requested By</label>
+            <input type="text" class="form-control form-control-sm" name="requestedBy" id="field_requestedBy"
+                [(ngModel)]="rnsQuotation.requestedBy" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_pchCode">PCH Code</label>
+            <input type="text" class="form-control form-control-sm" name="pchCode" id="field_pchCode"
+                [(ngModel)]="rnsQuotation.pchCode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_targetPcd">Target PCD</label>
+            <div class="input-group">
+                <input id="field_targetPcd" type="text" class="form-control form-control-sm" name="targetPcd" ngbDatepicker  #targetPcdDp="ngbDatepicker" [(ngModel)]="rnsQuotation.targetPcd"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="targetPcdDp.toggle()"><fa-icon [icon]="'calendar'"></fa-icon></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_buyerCode">Buyer Code</label>
+            <input type="text" class="form-control form-control-sm" name="buyerCode" id="field_buyerCode"
+                [(ngModel)]="rnsQuotation.buyerCode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_buyerName">Buyer Name</label>
+            <input type="text" class="form-control form-control-sm" name="buyerName" id="field_buyerName"
+                [(ngModel)]="rnsQuotation.buyerName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_merchantRemarks">Merchant Remarks</label>
+            <input type="text" class="form-control form-control-sm" name="merchantRemarks" id="field_merchantRemarks"
+                [(ngModel)]="rnsQuotation.merchantRemarks" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_date">Date</label>
+            <div class="d-flex">
+                <input id="field_date" type="datetime-local" class="form-control form-control-sm" name="date" [(ngModel)]="rnsQuotation.date"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_articleCode">Article Code</label>
+            <input type="text" class="form-control form-control-sm" name="articleCode" id="field_articleCode"
+                [(ngModel)]="rnsQuotation.articleCode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_articleDesc">Article Desc</label>
+            <input type="text" class="form-control form-control-sm" name="articleDesc" id="field_articleDesc"
+                [(ngModel)]="rnsQuotation.articleDesc" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_rnsCatgCode">Category Code</label>
+            <select class="custom-select custom-select-sm form-control form-control-sm" id="field_rnsCatgCode" name="rnsCatgCode" [(ngModel)]="rnsQuotation.rnsCatgCode" >
+              <!--   <option [ngValue]="null"></option> -->
+                <option [ngValue]="rnsCatgMasterOption.id === rnsQuotation.rnsCatgCode?.id ? rnsQuotation.rnsCatgCode : rnsCatgMasterOption" *ngFor="let rnsCatgMasterOption of rnscatgmasters; trackBy: trackRnsCatgMasterById">{{rnsCatgMasterOption.catgCode}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary btn-sm">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

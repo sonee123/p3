@@ -1,0 +1,59 @@
+
+<div *ngIf="rnsVendorRemark">
+    <h5 style="font-size:16px; font-weight:bold;"><span>Vendor Remark</span> {{rnsVendorRemark.id}}</h5>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt><span>Remark Text</span></dt>
+                        <dd>
+                            <span>{{rnsVendorRemark.remarkText}}</span>
+                        </dd>
+                        <dt><span>Vendor Email</span></dt>
+                        <dd>
+                            <span>{{rnsVendorRemark.vendorEmail}}</span>
+                        </dd>
+                        <dt><span>Staff Email</span></dt>
+                        <dd>
+                            <span>{{rnsVendorRemark.staffEmail}}</span>
+                        </dd>
+                        <dt><span>From Email</span></dt>
+                        <dd>
+                            <span>{{rnsVendorRemark.fromEmail}}</span>
+                        </dd>
+                        <dt><span>To Email</span></dt>
+                        <dd>
+                            <span>{{rnsVendorRemark.toEmail}}</span>
+                        </dd>
+                        <dt><span>Read</span></dt>
+                        <dd>
+                            <span>{{rnsVendorRemark.read}}</span>
+                        </dd>
+                        <dt><span>Quotation</span></dt>
+                        <dd>
+                            <div *ngIf="rnsVendorRemark.quotation">
+                                <a [routerLink]="['/rns-quotation', rnsVendorRemark.quotation?.id]">{{rnsVendorRemark.quotation?.id}}</a>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info btn-sm">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'rns-vendor-remark/'+ rnsVendorRemark.id + '/edit'} }]"
+                            replaceUrl="true"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

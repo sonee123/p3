@@ -1,0 +1,109 @@
+<div>
+    <h5 style="font-size:16px; font-weight:bold;">
+        <span>Templates</span>
+        <button *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']"
+                class="btn btn-primary float-right btn-sm jh-create-entity create-template"
+                [routerLink]="['/', { outlets: { popup: ['template-new'] } }]" style="margin-bottom: 10px;">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span>
+            Create
+            </span>
+        </button>
+    </h5>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <jhi-alert></jhi-alert>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary btn-sm" type="button" (click)="download('CSV');"><fa-icon [icon]="'file-excel'"></fa-icon><span>&nbsp;CSV</span></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive" *ngIf="templates">
+                                <table class="display table table-sm no-wrap" id="exampleFixed">
+                                    <thead>
+                                    <tr>
+                                        <th class="no-sort"><span></span></th>
+                                        <th><span>ID</span></th>
+                                        <th><span>Template&nbsp;Name</span></th>
+                                        <th><span>Category&nbsp;Code</span></th>
+                                        <th><span>Created&nbsp;BY</span></th>
+                                        <th><span>Created&nbsp;Date</span></th>
+                                        <th class="no-sort">&nbsp;</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="templatePlus" *ngFor="let template of templates ;trackBy: trackId">
+                                            <td id="{{template.id}}"></td>
+                                            <td>{{template.id}}</td>
+                                            <td>{{template.templateName}}</td>
+                                            <td>
+                                                <ng-container *ngIf="template.rnsCatgCode">
+                                                    {{template.rnsCatgCode?.catgCode}} -{{template.rnsCatgCode?.catgCodeDesc}}
+                                                </ng-container>
+                                            </td>
+                                            <td>
+                                                <div *ngIf="template.user">{{template.user?.firstName}} {{template.user?.lastName}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div *ngIf="template.createdDate">{{template.createdDate |date:'dd-MMM-yy h:mm a'}}
+                                                </div>
+                                            </td>
+                                            <td style="background-color: #fff;">
+                                                <div class="btn-group flex-btn-group-container">
+                                                    <button title="Deactivated {{template.id}}" class="btn btn-danger btn-sm"
+                                                            (click)="setActive(template, true)" *ngIf="!template.flag">Deactivated
+                                                    </button>
+                                                    <button title="Activated {{template.id}}" class="btn btn-success btn-sm"
+                                                            (click)="setActive(template, false)" *ngIf="template.flag">Activated
+                                                    </button>
+                                                    <button title="View {{template.id}}" type="submit"
+                                                            [routerLink]="['../template', template.id ]"
+                                                            class="btn btn-info btn-sm">
+                                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                                        <span class="d-none d-md-inline">View</span>
+                                                    </button>
+                                                    <button title="Edit {{template.id}}"
+                                                            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']" type="submit"
+                                                            [routerLink]="['/', { outlets: { popup: 'template/'+ template.id + '/edit'} }]"
+                                                            replaceUrl="true"
+                                                            class="btn btn-primary btn-sm">
+                                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                                        <span class="d-none d-md-inline">Edit</span>
+                                                    </button>
+                                                    <button title="Copy {{template.id}}"
+                                                            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']" type="submit"
+                                                            [routerLink]="['/', { outlets: { popup: 'template/'+ template.id + '/copy'} }]"
+                                                            replaceUrl="true"
+                                                            class="btn btn-secondary btn-sm">
+                                                        <span class="fa fa-copy"></span>
+                                                        <span class="d-none d-md-inline">Copy</span>
+                                                    </button>
+                                                    <button title="Delete {{template.id}}"
+                                                            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MANAGER']" type="submit"
+                                                            [routerLink]="['/', { outlets: { popup: 'template/'+ template.id + '/delete'} }]"
+                                                            replaceUrl="true" [disabled]="template.exist"
+                                                            class="btn btn-danger btn-sm">
+                                                        <fa-icon [icon]="'times'"></fa-icon>
+                                                        <span class="d-none d-md-inline">Delete</span>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

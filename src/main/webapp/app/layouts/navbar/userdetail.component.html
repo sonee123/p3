@@ -1,0 +1,3 @@
+<ng-container *ngIf="user">
+    <span [title]="authorityDisplay(user.authorities[0])">{{user.firstName}} <br/><ng-container *ngIf="user.lastName">{{user.lastName}}</ng-container></span>
+</ng-container>

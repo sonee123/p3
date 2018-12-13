@@ -1,0 +1,192 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "variants",
+            "otherEntityName": "rnsQuotationVariant",
+            "otherEntityRelationshipName": "quotation"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "quotationVendors",
+            "otherEntityName": "rnsQuotationVendors",
+            "otherEntityRelationshipName": "vendorQuotation"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "rnsCatgCode",
+            "otherEntityName": "rnsCatgMaster",
+            "otherEntityField": "catgCode"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "rnsPchMaster",
+            "otherEntityName": "rnsPchMaster",
+            "otherEntityField": "pchCode"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "catgName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "quoteNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "quoteType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "validity",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "auctionValidity",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "internalRemarks",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdOn",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "crmRequestNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "requestedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "pchCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "targetPcd",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "buyerCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "buyerName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "merchantRemarks",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "articleCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "articleDesc",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "published",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "template",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "workflowStatus",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "rfq",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "auction",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "projectTitle",
+            "fieldType": "String"
+        },
+
+        {
+            "fieldName": "eventType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sourceTeam",
+            "fieldType": "String"
+        },
+
+        {
+            "fieldName": "rfqPublishDate",
+            "fieldType": "Instant"
+        },
+
+        {
+            "fieldName": "auctionPublishDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "auctionClose",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "approvedFlag",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "approvedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "approvedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "updatedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "updatedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "isRfq",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "isAuction",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "closedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "closedDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20180310101145",
+    "entityTableName": "rns_quotation",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

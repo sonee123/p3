@@ -1,0 +1,289 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "rnsCatgCode",
+            "otherEntityName": "rnsCatgMaster",
+            "otherEntityField": "catgCode"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "templateName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationOne",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationOneShowAs",
+            "fieldType": "ShowAsTemplate",
+            "fieldValues": "TEXTFIELD,DROPDOWN"
+        },
+        {
+            "fieldName": "specificationOneValue",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationOneRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInRfqOneRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInAuctionOneRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "specificationTwo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationTwoShowAs",
+            "fieldType": "ShowAsTemplate",
+            "fieldValues": "TEXTFIELD,DROPDOWN"
+        },
+        {
+            "fieldName": "specificationTwoValue",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationTwoRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInRfqTwoRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInAuctionTwoRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "specificationThree",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationThreeShowAs",
+            "fieldType": "ShowAsTemplate",
+            "fieldValues": "TEXTFIELD,DROPDOWN"
+        },
+        {
+            "fieldName": "specificationThreeValue",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationThreeRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInRfqThreeRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInAuctionThreeRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "specificationFour",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationFourShowAs",
+            "fieldType": "ShowAsTemplate",
+            "fieldValues": "TEXTFIELD,DROPDOWN"
+        },
+        {
+            "fieldName": "specificationFourValue",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationFourRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInRfqFourRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInAuctionFourRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "specificationFive",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationFiveShowAs",
+            "fieldType": "ShowAsTemplate",
+            "fieldValues": "TEXTFIELD,DROPDOWN"
+        },
+        {
+            "fieldName": "specificationFiveValue",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationFiveRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInRfqFiveRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInAuctionFivetRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "specificationSix",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationSixShowAs",
+            "fieldType": "ShowAsTemplate",
+            "fieldValues": "TEXTFIELD,DROPDOWN"
+        },
+        {
+            "fieldName": "specificationSixValue",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationSixRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInRfqSixRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInAuctionSixRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "specificationSeven",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationSevenShowAs",
+            "fieldType": "ShowAsTemplate",
+            "fieldValues": "TEXTFIELD,DROPDOWN"
+        },
+        {
+            "fieldName": "specificationSevenValue",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationSevenRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInRfqSevenRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInAuctionSevenRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "specificationEight",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationEightShowAs",
+            "fieldType": "ShowAsTemplate",
+            "fieldValues": "TEXTFIELD,DROPDOWN"
+        },
+        {
+            "fieldName": "specificationEightValue",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationEightRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInRfqEightRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInAuctionEightRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "specificationNine",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationNineShowAs",
+            "fieldType": "ShowAsTemplate",
+            "fieldValues": "TEXTFIELD,DROPDOWN"
+        },
+        {
+            "fieldName": "specificationNineValue",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationNineRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInRfqNineRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInAuctionNineRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "specificationTen",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationTenShowAs",
+            "fieldType": "ShowAsTemplate",
+            "fieldValues": "TEXTFIELD,DROPDOWN"
+        },
+        {
+            "fieldName": "specificationTenValue",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specificationTenRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "showInRfqTenRequired",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "updatedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastUpdatedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "flag",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20180310101207",
+    "entityTableName": "template",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}
